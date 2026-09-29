@@ -3,25 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CN Tax Tools - Phần mềm tra cứu & tải hóa đơn điện tử tự động</title>
-    <meta name="description" content="CN Tax Tools - Ứng dụng Windows tra cứu và tải hóa đơn điện tử từ cổng thuế, tự động giải CAPTCHA, hỗ trợ nhiều MST, xuất Excel theo mẫu MISA.">
+    <title>CN Tax Tools - Phần mềm quản lý hóa đơn điện tử cho doanh nghiệp</title>
+    <meta name="description" content="CN Tax Tools - Giải pháp toàn diện cho doanh nghiệp nhỏ, hộ kinh doanh, kế toán dịch vụ. Tra cứu hóa đơn, đối chiếu, quản lý hàng hóa, tính thuế tạm tính.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧾</text></svg>">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23087f70'/><text x='50' y='68' font-size='50' text-anchor='middle' fill='white'>C</text></svg>">
 </head>
 <body>
     <!-- Navigation -->
     <nav class="navbar" id="navbar">
         <div class="container">
             <div class="nav-brand">
-                <span class="brand-icon">🧾</span>
+                <div class="brand-logo">
+                    <span class="brand-icon">C</span>
+                </div>
                 <span class="brand-text">CN <strong>Tax Tools</strong></span>
             </div>
             <div class="nav-links">
                 <a href="#features" class="nav-link">Tính năng</a>
-                <a href="#how-it-works" class="nav-link">Cách hoạt động</a>
+                <a href="#dashboard" class="nav-link">Bảng điều khiển</a>
                 <a href="#pricing" class="nav-link">Bảng giá</a>
                 <a href="#faq" class="nav-link">FAQ</a>
                 <a href="#download" class="nav-link nav-cta">Tải về</a>
@@ -38,102 +40,164 @@
     <section class="hero">
         <div class="hero-bg">
             <div class="hero-gradient"></div>
-            <div class="hero-pattern"></div>
         </div>
         <div class="container">
             <div class="hero-content">
                 <div class="hero-badge">
                     <span class="badge-dot"></span>
-                    Phiên bản mới nhất v1.0.8
+                    Cho doanh nghiệp nhỏ & hộ kinh doanh
                 </div>
                 <h1 class="hero-title">
-                    Tra cứu & tải hóa đơn điện tử
-                    <span class="gradient-text">tự động</span>
+                    Quản lý hóa đơn điện tử
+                    <span class="gradient-text">thông minh hơn</span>
                 </h1>
                 <p class="hero-subtitle">
-                    Ứng dụng Windows giúp doanh nghiệp tra cứu, tải và quản lý hóa đơn điện tử 
-                    từ cổng thuế một cách nhanh chóng, tự động giải CAPTCHA bằng AI, 
-                    hỗ trợ nhiều MST cùng lúc.
+                    Tra cứu hóa đơn, đối chiếu, quản lý hàng hóa, tính thuế tạm tính — 
+                    tất cả trong một ứng dụng. Tiết kiệm thời gian, giảm sai sót, 
+                    tối ưu chi phí cho doanh nghiệp của bạn.
                 </p>
                 <div class="hero-actions">
                     <a href="#download" class="btn btn-primary btn-lg">
                         <span>Tải về miễn phí</span>
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
                     </a>
-                    <a href="#features" class="btn btn-outline btn-lg">
-                        <span>Tìm hiểu thêm</span>
+                    <a href="#dashboard" class="btn btn-outline btn-lg">
+                        <span>Xem demo</span>
                     </a>
                 </div>
-                <div class="hero-stats">
-                    <div class="stat">
-                        <span class="stat-value">1000+</span>
-                        <span class="stat-label">Doanh nghiệp tin dùng</span>
+                <div class="hero-trust">
+                    <div class="trust-avatars">
+                        <span class="avatar">N</span>
+                        <span class="avatar">T</span>
+                        <span class="avatar">L</span>
+                        <span class="avatar">+</span>
                     </div>
-                    <div class="stat">
-                        <span class="stat-value">50.000+</span>
-                        <span class="stat-label">Hóa đơn đã xử lý</span>
-                    </div>
-                    <div class="stat">
-                        <span class="stat-value">99.9%</span>
-                        <span class="stat-label">Tỷ lệ thành công</span>
+                    <div class="trust-text">
+                        <strong>500+ doanh nghiệp</strong>
+                        <span>đang sử dụng CN Tax Tools</span>
                     </div>
                 </div>
             </div>
             <div class="hero-visual">
-                <div class="app-preview">
-                    <div class="app-window">
-                        <div class="app-header">
-                            <div class="app-dots">
-                                <span class="dot red"></span>
-                                <span class="dot yellow"></span>
-                                <span class="dot green"></span>
-                            </div>
-                            <div class="app-title">CN Tax Tools</div>
+                <!-- App Preview Mockup -->
+                <div class="app-mockup">
+                    <div class="app-header">
+                        <div class="app-dots">
+                            <span class="dot red"></span>
+                            <span class="dot yellow"></span>
+                            <span class="dot green"></span>
                         </div>
-                        <div class="app-body">
-                            <div class="app-sidebar">
-                                <div class="sidebar-header">Danh sách MST</div>
+                        <div class="app-title">CN Tax Tools</div>
+                    </div>
+                    <div class="app-body">
+                        <!-- Sidebar -->
+                        <div class="app-sidebar">
+                            <div class="sidebar-brand">
+                                <span class="sidebar-logo">C</span>
+                                <span>CN Tax Tools</span>
+                            </div>
+                            <div class="sidebar-search">
+                                <input type="text" placeholder="Tìm MST..." readonly>
+                            </div>
+                            <div class="sidebar-list">
                                 <div class="mst-item active">
-                                    <span class="mst-dot green"></span>
-                                    <span>Công ty TNHH ABC</span>
+                                    <span class="mst-dot live"></span>
+                                    <div class="mst-info">
+                                        <strong>Công ty TNHH ABC</strong>
+                                        <small>4500677693</small>
+                                    </div>
                                 </div>
                                 <div class="mst-item">
-                                    <span class="mst-dot yellow"></span>
-                                    <span>Công ty XYZ</span>
+                                    <span class="mst-dot saved"></span>
+                                    <div class="mst-info">
+                                        <strong>Công ty XYZ</strong>
+                                        <small>0101234567</small>
+                                    </div>
                                 </div>
                                 <div class="mst-item">
-                                    <span class="mst-dot gray"></span>
-                                    <span>Công ty DEF</span>
+                                    <span class="mst-dot"></span>
+                                    <div class="mst-info">
+                                        <strong>Hộ kinh doanh DEF</strong>
+                                        <small>0309876543</small>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="app-main">
-                                <div class="main-header">
-                                    <h3>Tra cứu hóa đơn</h3>
+                        </div>
+                        <!-- Main Content -->
+                        <div class="app-main">
+                            <div class="main-tabs">
+                                <button class="tab active">Tổng quan</button>
+                                <button class="tab">Tra cứu</button>
+                                <button class="tab">Kho dữ liệu</button>
+                                <button class="tab">Ngân hàng</button>
+                            </div>
+                            <div class="main-content">
+                                <!-- KPI Cards -->
+                                <div class="kpi-grid">
+                                    <div class="kpi-card">
+                                        <span class="kpi-label">Hóa đơn hôm nay</span>
+                                        <span class="kpi-value">24</span>
+                                        <span class="kpi-change up">+12%</span>
+                                    </div>
+                                    <div class="kpi-card">
+                                        <span class="kpi-label">Cần đối chiếu</span>
+                                        <span class="kpi-value">8</span>
+                                        <span class="kpi-change warning">Chú ý</span>
+                                    </div>
+                                    <div class="kpi-card">
+                                        <span class="kpi-label">Tổng thuế tháng</span>
+                                        <span class="kpi-value">45.2M</span>
+                                        <span class="kpi-change up">+8%</span>
+                                    </div>
                                 </div>
-                                <div class="main-content">
-                                    <div class="form-row">
-                                        <label>Từ ngày</label>
-                                        <input type="text" value="01/01/2024" readonly>
+                                <!-- Chart Area -->
+                                <div class="chart-area">
+                                    <div class="chart-bars">
+                                        <div class="bar" style="height: 40%"></div>
+                                        <div class="bar" style="height: 65%"></div>
+                                        <div class="bar" style="height: 45%"></div>
+                                        <div class="bar" style="height: 80%"></div>
+                                        <div class="bar" style="height: 55%"></div>
+                                        <div class="bar" style="height: 70%"></div>
+                                        <div class="bar" style="height: 90%"></div>
                                     </div>
-                                    <div class="form-row">
-                                        <label>Đến ngày</label>
-                                        <input type="text" value="31/12/2024" readonly>
-                                    </div>
-                                    <div class="form-row">
-                                        <label>Loại hóa đơn</label>
-                                        <select>
-                                            <option>Cả hai nhóm</option>
-                                        </select>
-                                    </div>
-                                    <button class="btn btn-primary btn-block">Tra cứu</button>
-                                    <div class="progress-bar">
-                                        <div class="progress-fill" style="width: 75%"></div>
-                                    </div>
-                                    <div class="progress-text">Đang tải... 75%</div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Target Audience Section -->
+    <section class="audience">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Dành cho ai?</span>
+                <h2 class="section-title">Giải pháp phù hợp với mọi quy mô</h2>
+            </div>
+            <div class="audience-grid">
+                <div class="audience-card">
+                    <div class="audience-icon">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                    </div>
+                    <h3>Doanh nghiệp nhỏ</h3>
+                    <p>Quản lý hóa đơn, thuế, hàng hóa một cách chuyên nghiệp mà không cần đội ngũ IT.</p>
+                </div>
+                <div class="audience-card">
+                    <div class="audience-icon">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                    </div>
+                    <h3>Hộ kinh doanh</h3>
+                    <p>Đơn giản hoá việc kê khai thuế, lưu trữ hóa đơn, đối chiếu ngân hàng.</p>
+                </div>
+                <div class="audience-card">
+                    <div class="audience-icon">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    </div>
+                    <h3>Kế toán dịch vụ</h3>
+                    <p>Quản lý nhiều khách hàng cùng lúc, tự động hoá quy trình làm việc.</p>
                 </div>
             </div>
         </div>
@@ -143,118 +207,372 @@
     <section class="features" id="features">
         <div class="container">
             <div class="section-header">
-                <span class="section-badge">Tính năng nổi bật</span>
-                <h2 class="section-title">Mọi thứ bạn cần để quản lý hóa đơn</h2>
+                <span class="section-badge">Tính năng cốt lõi</span>
+                <h2 class="section-title">Mọi công cụ bạn cần</h2>
                 <p class="section-subtitle">
-                    CN Tax Tools tích hợp đầy đủ công cụ giúp doanh nghiệp tiết kiệm thời gian 
-                    và tối ưu hóa quy trình quản lý hóa đơn điện tử.
+                    Từ tra cứu hóa đơn đến tính thuế tạm tính — CN Tax Tools cung cấp giải pháp toàn diện.
                 </p>
             </div>
             <div class="features-grid">
+                <!-- Feature 1: Thống kê -->
                 <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+                    <div class="feature-image">
+                        <div class="mini-chart">
+                            <div class="chart-line"></div>
+                            <div class="chart-bars">
+                                <div class="bar" style="height: 30%"></div>
+                                <div class="bar" style="height: 50%"></div>
+                                <div class="bar" style="height: 40%"></div>
+                                <div class="bar" style="height: 70%"></div>
+                                <div class="bar" style="height: 60%"></div>
+                            </div>
+                        </div>
                     </div>
-                    <h3 class="feature-title">Tra cứu thông minh</h3>
-                    <p class="feature-desc">
-                        Tra cứu hóa đơn theo khoảng thời gian, loại hóa đơn, trạng thái xử lý. 
-                        Hỗ trợ tìm kiếm nhanh theo tên hoặc MST.
-                    </p>
+                    <div class="feature-content">
+                        <h3>Thống kê & báo cáo</h3>
+                        <p>Dashboard trực quan với biểu đồ xu hướng, KPI theo tháng/quý/năm. Báo cáo doanh thu, thuế, công nợ chi tiết.</p>
+                    </div>
                 </div>
+                <!-- Feature 2: Đối chiếu -->
                 <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    <div class="feature-image">
+                        <div class="mini-reconcile">
+                            <div class="reconcile-row">
+                                <span class="reconcile-icon invoice">HĐ</span>
+                                <span class="reconcile-amount">10.000.000</span>
+                                <span class="reconcile-status match">✓</span>
+                            </div>
+                            <div class="reconcile-row">
+                                <span class="reconcile-icon bank">NH</span>
+                                <span class="reconcile-amount">10.000.000</span>
+                                <span class="reconcile-status match">✓</span>
+                            </div>
+                            <div class="reconcile-row">
+                                <span class="reconcile-icon invoice">HĐ</span>
+                                <span class="reconcile-amount">5.000.000</span>
+                                <span class="reconcile-status pending">!</span>
+                            </div>
+                        </div>
                     </div>
-                    <h3 class="feature-title">Tải tự động</h3>
-                    <p class="feature-desc">
-                        Tải hàng loạt hóa đơn với nhiều định dạng: XML, PDF, HTML, ZIP. 
-                        Tự động phát hiện và bỏ qua hóa đơn đã tải.
-                    </p>
+                    <div class="feature-content">
+                        <h3>Đối chiếu tự động</h3>
+                        <p>Đối chiếu hóa đơn với sao kê ngân hàng, phát hiện giao dịch chưa khớp. Tiết kiệm 90% thời gian soát xét.</p>
+                    </div>
                 </div>
+                <!-- Feature 3: Quản lý hàng hóa -->
                 <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                    <div class="feature-image">
+                        <div class="mini-products">
+                            <div class="product-row">
+                                <span class="product-code">HH001</span>
+                                <span class="product-name">Sản phẩm A</span>
+                                <span class="product-qty">100</span>
+                            </div>
+                            <div class="product-row">
+                                <span class="product-code">HH002</span>
+                                <span class="product-name">Sản phẩm B</span>
+                                <span class="product-qty">50</span>
+                            </div>
+                            <div class="product-row">
+                                <span class="product-code">HH003</span>
+                                <span class="product-name">Sản phẩm C</span>
+                                <span class="product-qty">200</span>
+                            </div>
+                        </div>
                     </div>
-                    <h3 class="feature-title">Giải CAPTCHA tự động</h3>
-                    <p class="feature-desc">
-                        Sử dụng AI ONNX nhúng sẵn trong ứng dụng để tự động giải CAPTCHA. 
-                        Không cần nhập tay, tiết kiệm thời gian.
-                    </p>
+                    <div class="feature-content">
+                        <h3>Quản lý hàng hóa</h3>
+                        <p>Theo dõi tồn kho, giá vốn, thuế suất từng mặt hàng. Tự động cập nhật từ hóa đơn mua vào/bán ra.</p>
+                    </div>
                 </div>
+                <!-- Feature 4: Thông tin thuế -->
                 <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    <div class="feature-image">
+                        <div class="mini-tax">
+                            <div class="tax-item">
+                                <span class="tax-label">Thuế GTGT</span>
+                                <span class="tax-value">10%</span>
+                            </div>
+                            <div class="tax-item">
+                                <span class="tax-label">Thuế TNCN</span>
+                                <span class="tax-value">20%</span>
+                            </div>
+                            <div class="tax-item">
+                                <span class="tax-label">Thuế TTDB</span>
+                                <span class="tax-value">2%</span>
+                            </div>
+                        </div>
                     </div>
-                    <h3 class="feature-title">Đa MST</h3>
-                    <p class="feature-desc">
-                        Quản lý nhiều mã số thuế cùng lúc, mỗi MST có phiên đăng nhập riêng. 
-                        Tự động hoá toàn bộ quy trình.
-                    </p>
+                    <div class="feature-content">
+                        <h3>Thông tin thuế</h3>
+                        <p>Cập nhật thuế suất mới nhất, thông báo thay đổi chính sách thuế. Hỗ trợ tính thuế tạm tính nhanh chóng.</p>
+                    </div>
                 </div>
+                <!-- Feature 5: Ngưỡng xuất hóa đơn -->
                 <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                    <div class="feature-image">
+                        <div class="mini-threshold">
+                            <div class="threshold-bar">
+                                <div class="threshold-fill" style="width: 75%"></div>
+                            </div>
+                            <div class="threshold-labels">
+                                <span>0</span>
+                                <span>Ngưỡng: 20.000.000đ</span>
+                            </div>
+                        </div>
                     </div>
-                    <h3 class="feature-title">Xuất Excel MISA</h3>
-                    <p class="feature-desc">
-                        Xuất bảng tổng hợp và danh sách hóa đơn theo đúng mẫu MISA. 
-                        19 cột đầy đủ, định dạng chuẩn.
-                    </p>
+                    <div class="feature-content">
+                        <h3>Ngưỡng xuất hóa đơn</h3>
+                        <p>Cảnh báo khi đạt ngưỡng xuất hóa đơn bắt buộc. Tự động tính toán và nhắc nhở đúng thời điểm.</p>
+                    </div>
                 </div>
+                <!-- Feature 6: Tính thuế tạm tính -->
                 <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    <div class="feature-image">
+                        <div class="mini-calc">
+                            <div class="calc-display">1.100.000đ</div>
+                            <div class="calc-buttons">
+                                <button>7</button>
+                                <button>8</button>
+                                <button>9</button>
+                                <button>+</button>
+                                <button>4</button>
+                                <button>5</button>
+                                <button>6</button>
+                                <button>-</button>
+                                <button>1</button>
+                                <button>2</button>
+                                <button>3</button>
+                                <button>=</button>
+                            </div>
+                        </div>
                     </div>
-                    <h3 class="feature-title">Bảo mật cao</h3>
-                    <p class="feature-desc">
-                        Mã hoá mật khẩu theo tài khoản Windows (DPAPI). 
-                        Dữ liệu phiên đăng nhập được lưu riêng theo từng MST.
-                    </p>
+                    <div class="feature-content">
+                        <h3>Tính thuế tạm tính</h3>
+                        <p>Máy tính thuế tích hợp, hỗ trợ nhiều loại thuế. Tính nhanh thuế GTGT, TNCN, TTDB với kết quả chính xác.</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- How It Works Section -->
-    <section class="how-it-works" id="how-it-works">
+    <!-- Dashboard Preview Section -->
+    <section class="dashboard-preview" id="dashboard">
         <div class="container">
             <div class="section-header">
-                <span class="section-badge">Cách hoạt động</span>
-                <h2 class="section-title">Bắt đầu chỉ trong 3 bước</h2>
+                <span class="section-badge">Giao diện thực tế</span>
+                <h2 class="section-title">Bảng điều khiển trực quan</h2>
                 <p class="section-subtitle">
-                    Quy trình đơn giản, dễ sử dụng. Chỉ cần vài phút để thiết lập và bắt đầu tra cứu hóa đơn.
+                    Xem toàn bộ hoạt động kinh doanh trên một màn hình. Dễ dàng theo dõi, phân tích và đưa ra quyết định.
                 </p>
             </div>
-            <div class="steps">
-                <div class="step">
-                    <div class="step-number">01</div>
-                    <div class="step-content">
-                        <h3 class="step-title">Cài đặt ứng dụng</h3>
-                        <p class="step-desc">
-                            Tải về và cài đặt CN Tax Tools. Ứng dụng chạy trực tiếp trên Windows, 
-                            không cần cài đặt thêm Node.js hay Chromium.
-                        </p>
+            <div class="dashboard-mockup">
+                <div class="dashboard-header">
+                    <div class="dashboard-title">
+                        <h3>Tổng quan</h3>
+                        <span class="dashboard-date">Hôm nay, 29/09/2026</span>
+                    </div>
+                    <div class="dashboard-actions">
+                        <button class="btn btn-sm">Xuất báo cáo</button>
                     </div>
                 </div>
-                <div class="step">
-                    <div class="step-number">02</div>
-                    <div class="step-content">
-                        <h3 class="step-title">Thêm MST & đăng nhập</h3>
-                        <p class="step-desc">
-                            Thêm mã số thuế của doanh nghiệp. Ứng dụng tự động giải CAPTCHA 
-                            và đăng nhập vào cổng thuế.
-                        </p>
+                <div class="dashboard-grid">
+                    <!-- KPI Cards -->
+                    <div class="dashboard-kpis">
+                        <div class="dash-kpi">
+                            <span class="dash-kpi-label">Doanh thu tháng</span>
+                            <span class="dash-kpi-value">245.8M</span>
+                            <span class="dash-kpi-change up">+15.3%</span>
+                        </div>
+                        <div class="dash-kpi">
+                            <span class="dash-kpi-label">Hóa đơn chờ xử lý</span>
+                            <span class="dash-kpi-value">12</span>
+                            <span class="dash-kpi-change warning">Cần chú ý</span>
+                        </div>
+                        <div class="dash-kpi">
+                            <span class="dash-kpi-label">Thuế phải nộp</span>
+                            <span class="dash-kpi-value">24.6M</span>
+                            <span class="dash-kpi-change">Quý này</span>
+                        </div>
+                        <div class="dash-kpi">
+                            <span class="dash-kpi-label">Công nợ</span>
+                            <span class="dash-kpi-value">85.2M</span>
+                            <span class="dash-kpi-change down">-5.2%</span>
+                        </div>
+                    </div>
+                    <!-- Chart -->
+                    <div class="dashboard-chart">
+                        <h4>Xu hướng 6 tháng</h4>
+                        <div class="chart-container">
+                            <div class="chart-y">
+                                <span>300M</span>
+                                <span>200M</span>
+                                <span>100M</span>
+                                <span>0</span>
+                            </div>
+                            <div class="chart-area">
+                                <div class="chart-grid"></div>
+                                <div class="chart-bars">
+                                    <div class="chart-bar-group">
+                                        <div class="chart-bar buy" style="height: 45%"></div>
+                                        <div class="chart-bar sell" style="height: 60%"></div>
+                                    </div>
+                                    <div class="chart-bar-group">
+                                        <div class="chart-bar buy" style="height: 55%"></div>
+                                        <div class="chart-bar sell" style="height: 50%"></div>
+                                    </div>
+                                    <div class="chart-bar-group">
+                                        <div class="chart-bar buy" style="height: 40%"></div>
+                                        <div class="chart-bar sell" style="height: 70%"></div>
+                                    </div>
+                                    <div class="chart-bar-group">
+                                        <div class="chart-bar buy" style="height: 65%"></div>
+                                        <div class="chart-bar sell" style="height: 55%"></div>
+                                    </div>
+                                    <div class="chart-bar-group">
+                                        <div class="chart-bar buy" style="height: 50%"></div>
+                                        <div class="chart-bar sell" style="height: 80%"></div>
+                                    </div>
+                                    <div class="chart-bar-group">
+                                        <div class="chart-bar buy" style="height: 60%"></div>
+                                        <div class="chart-bar sell" style="height: 75%"></div>
+                                    </div>
+                                </div>
+                                <div class="chart-x">
+                                    <span>Th4</span>
+                                    <span>Th5</span>
+                                    <span>Th6</span>
+                                    <span>Th7</span>
+                                    <span>Th8</span>
+                                    <span>Th9</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chart-legend">
+                            <span><i class="legend-buy"></i> Mua vào</span>
+                            <span><i class="legend-sell"></i> Bán ra</span>
+                        </div>
+                    </div>
+                    <!-- Alerts -->
+                    <div class="dashboard-alerts">
+                        <h4>Cần kiểm tra</h4>
+                        <div class="alert-item warning">
+                            <span class="alert-icon">!</span>
+                            <div class="alert-content">
+                                <strong>3 hóa đơn chưa đối chiếu</strong>
+                                <span>Tổng tiền: 45.000.000đ</span>
+                            </div>
+                        </div>
+                        <div class="alert-item info">
+                            <span class="alert-icon">i</span>
+                            <div class="alert-content">
+                                <strong>Thuế GTGT sắp đến hạn</strong>
+                                <span>Hạn cuối: 20/10/2026</span>
+                            </div>
+                        </div>
+                        <div class="alert-item success">
+                            <span class="alert-icon">✓</span>
+                            <div class="alert-content">
+                                <strong>Đối chiếu thành công</strong>
+                                <span>15 giao dịch đã khớp</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="step">
-                    <div class="step-number">03</div>
-                    <div class="step-content">
-                        <h3 class="step-title">Tra cứu & tải hóa đơn</h3>
-                        <p class="step-desc">
-                            Chọn khoảng thời gian, bấm tra cứu. Ứng dụng tự động tải toàn bộ 
-                            hóa đơn và lưu vào thư mục bạn chọn.
-                        </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="benefits">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Lợi ích</span>
+                <h2 class="section-title">Tại sao chọn CN Tax Tools?</h2>
+            </div>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-number">01</div>
+                    <h3>Tiết kiệm thời gian</h3>
+                    <p>Tự động tra cứu, tải và đối chiếu hóa đơn. Giảm 80% thời gian soát xét thủ công.</p>
+                    <div class="benefit-stat">
+                        <span class="benefit-value">80%</span>
+                        <span class="benefit-label">thời gian được tiết kiệm</span>
                     </div>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-number">02</div>
+                    <h3>Giảm chi phí</h3>
+                    <p>Không cần thuê thêm nhân viên kế toán. Tối ưu hoá quy trình với chi phí thấp nhất.</p>
+                    <div class="benefit-stat">
+                        <span class="benefit-value">50%</span>
+                        <span class="benefit-label">chi phí vận hành giảm</span>
+                    </div>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-number">03</div>
+                    <h3>Chính xác 100%</h3>
+                    <p>Tự động đối chiếu, phát hiệt sai sót ngay lập tức. Đảm bảo dữ liệu luôn chính xác.</p>
+                    <div class="benefit-stat">
+                        <span class="benefit-value">100%</span>
+                        <span class="benefit-label">độ chính xác dữ liệu</span>
+                    </div>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-number">04</div>
+                    <h3>Bảo mật tuyệt đối</h3>
+                    <p>Mã hoá dữ liệu theo tài khoản Windows. Không lưu trữ đám mây, đảm bảo an toàn tuyệt đối.</p>
+                    <div class="benefit-stat">
+                        <span class="benefit-value">256-bit</span>
+                        <span class="benefit-label">mã hoá dữ liệu</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparison Section -->
+    <section class="comparison">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">So sánh</span>
+                <h2 class="section-title">CN Tax Tools vs Phương pháp truyền thống</h2>
+            </div>
+            <div class="comparison-table">
+                <div class="comparison-header">
+                    <div class="comparison-col">Tính năng</div>
+                    <div class="comparison-col">CN Tax Tools</div>
+                    <div class="comparison-col">Thủ công</div>
+                </div>
+                <div class="comparison-row">
+                    <div class="comparison-col">Tra cứu hóa đơn</div>
+                    <div class="comparison-col success">Tự động</div>
+                    <div class="comparison-col error">Thủ công từng hóa đơn</div>
+                </div>
+                <div class="comparison-row">
+                    <div class="comparison-col">Đối chiếu ngân hàng</div>
+                    <div class="comparison-col success">Tự động</div>
+                    <div class="comparison-col error">Excel thủ công</div>
+                </div>
+                <div class="comparison-row">
+                    <div class="comparison-col">Quản lý hàng hóa</div>
+                    <div class="comparison-col success">Tự động cập nhật</div>
+                    <div class="comparison-col error">Nhập tay</div>
+                </div>
+                <div class="comparison-row">
+                    <div class="comparison-col">Tính thuế</div>
+                    <div class="comparison-col success">Tích hợp sẵn</div>
+                    <div class="comparison-col error">Máy tính riêng</div>
+                </div>
+                <div class="comparison-row">
+                    <div class="comparison-col">Thời gian xử lý</div>
+                    <div class="comparison-col success">Vài phút</div>
+                    <div class="comparison-col error">Vài giờ</div>
+                </div>
+                <div class="comparison-row">
+                    <div class="comparison-col">Sai sót</div>
+                    <div class="comparison-col success">Không</div>
+                    <div class="comparison-col error">Dễ mắc lỗi</div>
                 </div>
             </div>
         </div>
@@ -265,179 +583,66 @@
         <div class="container">
             <div class="section-header">
                 <span class="section-badge">Bảng giá</span>
-                <h2 class="section-title">Chọn gói phù hợp với doanh nghiệp</h2>
-                <p class="section-subtitle">
-                    Một lần thanh toán, sử dụng vĩnh viễn. Hỗ trợ trọn đời sản phẩm.
-                </p>
+                <h2 class="section-title">Chọn gói phù hợp</h2>
+                <p class="section-subtitle">Một lần thanh toán, sử dụng vĩnh viễn. Hỗ trợ trọn đời.</p>
             </div>
             <div class="pricing-grid">
                 <div class="pricing-card">
                     <div class="pricing-header">
-                        <h3 class="pricing-name">Plus</h3>
-                        <p class="pricing-desc">Cho nhu cầu tải hóa đơn cơ bản</p>
+                        <h3>Cơ bản</h3>
+                        <p>Cho hộ kinh doanh</p>
                     </div>
                     <div class="pricing-price">
                         <span class="price">299.000đ</span>
                         <span class="price-period">/ vĩnh viễn</span>
                     </div>
                     <ul class="pricing-features">
-                        <li>
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                            1 MST
-                        </li>
-                        <li>
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                            Tải hóa đơn XML, PDF, HTML
-                        </li>
-                        <li>
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                            Xuất Excel theo mẫu MISA
-                        </li>
-                        <li>
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                            Tự động giải CAPTCHA
-                        </li>
-                        <li>
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                            Cập nhật miễn phí
-                        </li>
+                        <li>1 MST</li>
+                        <li>Tra cứu & tải hóa đơn</li>
+                        <li>Đối chiếu cơ bản</li>
+                        <li>Xuất Excel</li>
+                        <li>Cập nhật miễn phí</li>
                     </ul>
-                    <a href="#download" class="btn btn-outline btn-block">Chọn gói Plus</a>
+                    <a href="#download" class="btn btn-outline btn-block">Chọn gói</a>
                 </div>
                 <div class="pricing-card popular">
-                    <div class="popular-badge">Phổ biến nhất</div>
+                    <div class="popular-badge">Phổ biến</div>
                     <div class="pricing-header">
-                        <h3 class="pricing-name">Pro</h3>
-                        <p class="pricing-desc">Nhiều khách hàng hơn</p>
+                        <h3>Chuyên nghiệp</h3>
+                        <p>Cho doanh nghiệp nhỏ</p>
                     </div>
                     <div class="pricing-price">
                         <span class="price">599.000đ</span>
                         <span class="price-period">/ vĩnh viễn</span>
                     </div>
                     <ul class="pricing-features">
-                        <li>
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                            5 MST
-                        </li>
-                        <li>
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                            Tải hóa đơn XML, PDF, HTML
-                        </li>
-                        <li>
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                            Xuất Excel theo mẫu MISA
-                        </li>
-                        <li>
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                            Tự động giải CAPTCHA
-                        </li>
-                        <li>
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                            Đồng bộ tất cả MST
-                        </li>
-                        <li>
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                            Hỗ trợ ưu tiên
-                        </li>
+                        <li>5 MST</li>
+                        <li>Tất cả tính năng Cơ bản</li>
+                        <li>Quản lý hàng hóa</li>
+                        <li>Tính thuế tạm tính</li>
+                        <li>Đối chiếu nâng cao</li>
+                        <li>Hỗ trợ ưu tiên</li>
                     </ul>
-                    <a href="#download" class="btn btn-primary btn-block">Chọn gói Pro</a>
+                    <a href="#download" class="btn btn-primary btn-block">Chọn gói</a>
                 </div>
                 <div class="pricing-card">
                     <div class="pricing-header">
-                        <h3 class="pricing-name">Doanh nghiệp</h3>
-                        <p class="pricing-desc">Cho đội vận hành doanh nghiệp</p>
+                        <h3>Doanh nghiệp</h3>
+                        <p>Cho kế toán dịch vụ</p>
                     </div>
                     <div class="pricing-price">
                         <span class="price">1.499.000đ</span>
                         <span class="price-period">/ vĩnh viễn</span>
                     </div>
                     <ul class="pricing-features">
-                        <li>
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                            Không giới hạn MST
-                        </li>
-                        <li>
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                            Tất cả tính năng Pro
-                        </li>
-                        <li>
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                            Sao kê ngân hàng
-                        </li>
-                        <li>
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                            Kho dữ liệu nâng cao
-                        </li>
-                        <li>
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                            Hỗ trợ 24/7
-                        </li>
-                        <li>
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                            Tùy biến theo yêu cầu
-                        </li>
+                        <li>Không giới hạn MST</li>
+                        <li>Tất cả tính năng Pro</li>
+                        <li>Quản lý nhiều khách hàng</li>
+                        <li>Báo cáo nâng cao</li>
+                        <li>API tích hợp</li>
+                        <li>Hỗ trợ 24/7</li>
                     </ul>
-                    <a href="#download" class="btn btn-outline btn-block">Chọn gói Doanh nghiệp</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Testimonials Section -->
-    <section class="testimonials">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-badge">Đánh giá</span>
-                <h2 class="section-title">Khách hàng nói gì về chúng tôi</h2>
-                <p class="section-subtitle">
-                    Hàng trăm doanh nghiệp đã tin dùng CN Tax Tools để quản lý hóa đơn điện tử.
-                </p>
-            </div>
-            <div class="testimonials-grid">
-                <div class="testimonial-card">
-                    <div class="testimonial-content">
-                        <p class="testimonial-text">
-                            "CN Tax Tools giúp công ty tôi tiết kiệm hàng giờ mỗi ngày trong việc tra cứu 
-                            và tải hóa đơn. Tính năng tự động giải CAPTCHA rất ấn tượng."
-                        </p>
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">N</div>
-                        <div class="author-info">
-                            <span class="author-name">Nguyễn Văn A</span>
-                            <span class="author-role">Giám đốc công ty TNHH ABC</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-content">
-                        <p class="testimonial-text">
-                            "Giao diện dễ sử dụng, hỗ trợ nhiều MST cùng lúc. Đội ngũ hỗ trợ rất nhiệt tình 
-                            và phản hồi nhanh chóng."
-                        </p>
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">T</div>
-                        <div class="author-info">
-                            <span class="author-name">Trần Thị B</span>
-                            <span class="author-role">Kế toán trưởng công ty XYZ</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-content">
-                        <p class="testimonial-text">
-                            "Tính năng xuất Excel theo mẫu MISA rất tiện lợi, giúp công việc kế toán 
-                            trở nên dễ dàng hơn bao giờ hết."
-                        </p>
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">L</div>
-                        <div class="author-info">
-                            <span class="author-name">Lê Văn C</span>
-                            <span class="author-role">Kế toán viên công ty DEF</span>
-                        </div>
-                    </div>
+                    <a href="#download" class="btn btn-outline btn-block">Chọn gói</a>
                 </div>
             </div>
         </div>
@@ -447,11 +652,8 @@
     <section class="faq" id="faq">
         <div class="container">
             <div class="section-header">
-                <span class="section-badge">Câu hỏi thường gặp</span>
-                <h2 class="section-title">Giải đáp thắc mắc</h2>
-                <p class="section-subtitle">
-                    Tìm câu trả lời cho những câu hỏi phổ biến nhất về CN Tax Tools.
-                </p>
+                <span class="section-badge">FAQ</span>
+                <h2 class="section-title">Câu hỏi thường gặp</h2>
             </div>
             <div class="faq-list">
                 <div class="faq-item">
@@ -460,34 +662,7 @@
                         <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
                     </button>
                     <div class="faq-answer">
-                        <p>Không. CN Tax Tools chạy trực tiếp trên Windows, chỉ cần có Google Chrome hoặc Microsoft Edge có sẵn trên máy. Không cần cài đặt Node.js, Chromium hay bất kỳ phần mềm bổ sung nào.</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-question">
-                        <span>Ứng dụng có hỗ trợ nhiều MST cùng lúc không?</span>
-                        <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-                    </button>
-                    <div class="faq-answer">
-                        <p>Có. Bạn có thể thêm nhiều MST vào danh sách và quản lý tất cả cùng lúc. Mỗi MST có phiên đăng nhập riêng biệt, đảm bảo dữ liệu không bị lẫn nhau.</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-question">
-                        <span>Tôi có cần nhập CAPTCHA mỗi lần đăng nhập không?</span>
-                        <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-                    </button>
-                    <div class="faq-answer">
-                        <p>Không. CN Tax Tools tích hợp AI tự động giải CAPTCHA. Bạn chỉ cần nhập mật khẩu một lần (có thể lưu lại), ứng dụng sẽ tự động giải CAPTCHA và đăng nhập.</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-question">
-                        <span>Ứng dụng có thể tải những định dạng file nào?</span>
-                        <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-                    </button>
-                    <div class="faq-answer">
-                        <p>CN Tax Tools hỗ trợ tải hóa đơn ở nhiều định dạng: XML, PDF, HTML, ZIP. Ngoài ra còn có tính năng xuất Excel theo mẫu MISA với 19 cột đầy đủ.</p>
+                        <p>Không. CN Tax Tools chạy trực tiếp trên Windows, chỉ cần có Google Chrome hoặc Microsoft Edge có sẵn trên máy. Không cần cài đặt Node.js hay phần mềm bổ sung.</p>
                     </div>
                 </div>
                 <div class="faq-item">
@@ -497,6 +672,15 @@
                     </button>
                     <div class="faq-answer">
                         <p>Có. Mật khẩu được mã hoá theo tài khoản Windows (DPAPI), dữ liệu phiên đăng nhập được lưu riêng theo từng MST. Ứng dụng không gửi dữ liệu của bạn đi bất kỳ đâu.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Có thể quản lý nhiều khách hàng cùng lúc không?</span>
+                        <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Có. Bạn có thể thêm nhiều MST vào danh sách và quản lý tất cả cùng lúc. Mỗi MST có phiên đăng nhập riêng biệt, đảm bảo dữ liệu không bị lẫn nhau.</p>
                     </div>
                 </div>
                 <div class="faq-item">
@@ -516,7 +700,7 @@
     <section class="cta" id="download">
         <div class="container">
             <div class="cta-content">
-                <h2 class="cta-title">Sẵn sàng tối ưu hóa quy trình hóa đơn?</h2>
+                <h2 class="cta-title">Sẵn sàng bắt đầu?</h2>
                 <p class="cta-subtitle">
                     Tải về CN Tax Tools ngay hôm nay và trải nghiệm sự khác biệt. 
                     Dùng thử miễn phí 3 ngày.
@@ -530,20 +714,6 @@
                         <span>Liên hệ Zalo</span>
                     </a>
                 </div>
-                <div class="cta-info">
-                    <span class="info-item">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                        Windows 10/11
-                    </span>
-                    <span class="info-item">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                        Bảo mật cao
-                    </span>
-                    <span class="info-item">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                        Dùng thử 3 ngày
-                    </span>
-                </div>
             </div>
         </div>
     </section>
@@ -554,11 +724,13 @@
             <div class="footer-content">
                 <div class="footer-brand">
                     <div class="nav-brand">
-                        <span class="brand-icon">🧾</span>
+                        <div class="brand-logo">
+                            <span class="brand-icon">C</span>
+                        </div>
                         <span class="brand-text">CN <strong>Tax Tools</strong></span>
                     </div>
                     <p class="footer-desc">
-                        Giải pháp tra cứu và tải hóa đơn điện tử tự động cho doanh nghiệp Việt Nam.
+                        Giải pháp quản lý hóa đơn điện tử toàn diện cho doanh nghiệp Việt Nam.
                     </p>
                 </div>
                 <div class="footer-links">
@@ -573,11 +745,6 @@
                         <a href="#faq">FAQ</a>
                         <a href="https://zalo.me/0395995035">Liên hệ</a>
                         <a href="https://github.com/Datkep92/CnTaxTools">GitHub</a>
-                    </div>
-                    <div class="footer-column">
-                        <h4>Pháp lý</h4>
-                        <a href="#">Điều khoản sử dụng</a>
-                        <a href="#">Chính sách bảo mật</a>
                     </div>
                 </div>
             </div>

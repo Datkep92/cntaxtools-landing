@@ -207,7 +207,9 @@ p  { text-wrap: pretty; }
   color: var(--btn-fg); background-color: var(--btn-bg); border-color: var(--btn-bd);
 }
 
-.hdr-cta { display: none; flex: none; min-height: 42px; padding: 9px 18px; font-size: .875rem; }
+/* Cao 44px de khop `.burger` ben canh. 42px lech 2px va duoi chuan 44px
+   cua Apple HIG / Material cho vung cham ngon tay. */
+.hdr-cta { display: none; flex: none; min-height: 44px; padding: 9px 18px; font-size: .875rem; }
 .burger {
   margin-left: auto; flex: none; position: relative; z-index: 51;
   width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center;
@@ -259,11 +261,22 @@ p  { text-wrap: pretty; }
   .hdr-cta { display: inline-flex; }
 }
 @media (max-width: 430px) {
-  .hdr-cta { width: 42px; padding: 0; gap: 0; }
+  /* Chi con icon. Bo goc 12px giong `.burger` — trước la 999px nen no tron
+     tron khi burger vuong bo, hai nut khong dong bo. */
+  .hdr-cta { width: 44px; padding: 0; gap: 0; border-radius: 12px; }
   .hdr-cta-t { display: none; }
   .logo { gap: 8px; }
   .logo img { width: 30px; height: 30px; }
   .logo b { font-size: .95rem; }
+}
+/* Tren mobile `.nav` la menu trượt position:fixed — no nam trong dong chay,
+   nen `.hdr-in` chi con logo + 2 nut. Giu `margin-left:auto` o `.hdr-cta` va
+   XOA o `.burger` de hai nut sat nhau (gap 14px cua .hdr-in) thanh mot cum
+   ben phai. Giu ca hai auto se chia deu cho khoang trong, tach chung
+   xa nhau 28-62px. */
+@media (max-width: 1000px) {
+  .hdr-cta { margin-left: auto; }
+  .burger { margin-left: 0; }
 }
 @media (min-width: 1001px) { .burger, .scrim { display: none; } }
 

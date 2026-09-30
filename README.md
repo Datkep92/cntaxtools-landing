@@ -58,6 +58,30 @@ Mở <http://localhost:8000>. Kiểm tra mobile: F12 → Toggle device toolbar (
 
 ---
 
+## 2b. Nút tải — tự dò bản mới nhất
+
+Nút tải **không** ghim cứng đường dẫn. Trong HTML, `href` trỏ sẵn về
+`github.com/Datkep92/HoaDonNhe/releases/latest` — GitHub tự chuyển hướng tới
+bản mới nhất, nên **ngay cả khi JavaScript bị chặn hay mạng lỗi, nút vẫn tải đúng
+bản mới** (chỉ mất tiện lợi là phải bấm thêm một lần ở trang Releases).
+
+Có JS thì `assets/js/main.js` (mục 4) tra `api.github.com` để lấy thẳng link file:
+
+| Việc | Cách làm |
+| --- | --- |
+| Chọn đúng tệp | Khớp `CN-Tax-Tools-Setup-vX.Y.Z.exe` — bỏ qua `.sha256`, bỏ qua bản payload `CN-Tax-Tools-vX.Y.Z.exe` (dùng cho self-update, không phải để cài) |
+| Đổi số phiên bản | Mọi nhãn `data-dl-ver` tự cập nhật: `v1.0.9` → `v1.0.10` |
+| Bấm khi API chưa về | Chặn sự kiện, chờ tối đa 3 giây rồi mới chuyển trang — không mất lượt tải |
+| Cache | `localStorage` 30 phút (GitHub giới hạn 60 lượt/giờ cho request không đăng nhập) |
+| An toàn | Chỉ nhận link `https` của chính repo phát hành; cache hết hạn hoặc trỏ repo khác thì bỏ qua |
+| Không có mạng | Mọi lỗi đều rơi về `href` dự phòng, không hiện lỗi ra màn hình |
+
+> **Khi phát hành bản mới:** không cần sửa gì trên trang. Đổi tag release trong
+> `HoaDonNhe` là nút tải và số phiên bản tự cập nhật trong vòng 30 phút.
+> Riêng `softwareVersion` trong JSON-LD vẫn ghi tay trong `index.html` — sửa nếu muốn khớp.
+
+---
+
 ## 3. Deploy lên GitHub Pages
 
 ### Cách A — dùng workflow có sẵn trong repo này

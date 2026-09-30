@@ -178,37 +178,41 @@ Trang này cũng dùng được cho Bing/Edge — Bing đọc chung nhiều tín
 
 ## Mục 7. Trạng thái hiện tại + làm việc bằng CLI
 
-**Đã xong tự động (18/09/2026):**
+**Đã xong tự động (30/09/2026):**
 
 | Việc | Trạng thái |
 | --- | --- |
 | Property thêm vào Search Console | ✅ `https://datkep92.github.io/cntaxtools-landing/` |
-| Quyền | `siteUnverifiedUser` — **chưa xác minh** |
+| Token xác minh đã deploy | ✅ meta tag + file `google-site-verification.html` |
 | Tài khoản | `linhnhaxac10@gmail.com` |
 | Search Console API | ✅ đã bật trên project `hddt-49af7` |
+| Quyền | đang chờ Google xác nhận → sẽ thành `siteOwner` |
 
-**Còn phải làm (bắt buộc, chỉ làm được trên web):**
+**Token đã dùng:** `knzPa5yuyQUsSKowyqsqbovCyIKj5zEBLRiHS1wmMb8`
 
-Property đã vào danh sách nhưng chưa xác minh. Mọi thao tác khác — gửi sitemap,
-yêu cầu index, xem số liệu — đều bị chặn cho tới khi xác minh. Mã xác minh do
-Google sinh ra trên giao diện web, **API không lấy được** (`sites.get` chỉ trả về
-`siteUrl` + `permissionLevel`).
+Nên deploy **cả hai** cùng lúc:
 
-### Lấy mã xác minh
+| Cách | Vị trí | Ghi chú |
+| --- | --- | --- |
+| HTML tag | `index.html`, thẻ `<head>` | Cách phổ biến nhất |
+| File HTML | `google-site-verification.html` ở thư mục gốc | Chỉ chứa token, không thêm gì; không bị mất khi deploy lại |
 
-1. Mở <https://search.google.com/search-console> → đăng nhập
-2. Chọn property `datkep92.github.io` (URL có dấu `/` ở cuối)
-3. Màn hình mở ra có nút **Xác minh** ngay dưới tên domain
-4. Chọn loại **HTML tag**, copy giá trị trong `content="..."`
+Cả hai cùng trỏ một token nên Google đọc được từ đường dẫn nào cũng xong.
 
-Gửi tôi mã đó, tôi dán và deploy giúp. Hoặc tự dán vào `landing-v4/index.html`:
+### Nếu vẫn chưa xác minh sau 24 giờ
 
-```html
-<!-- Bỏ comment, thay mã -->
-<meta name="google-site-verification" content="MA_CUA_BAN">
-```
+Kiểm tra trực tiếp bằng trình duyệt:
 
-Sau khi xác minh xong, phần còn lại chạy từ terminal — không cần vào web nữa:
+- <https://datkep92.github.io/cntaxtools-landing/google-site-verification.html> — phải hiện đúng 43 ký tự
+- Mở View Source trang chủ, tìm `google-site-verification`
+
+Cả hai đúng mà vẫn chưa xác minh thì vào web bấm **Xác minh** lại để xem Google
+báo lỗi gì. Thường là do property trong Search Console bị gõ sai (thiếu dấu `/`
+cuối cùng) — phải khớp chính xác với `canonical` trong trang.
+
+### Sau khi xác minh xong
+
+Phần còn lại chạy từ terminal — không cần vào web nữa:
 
 ```powershell
 node tools/gsc.cjs submit               # gửi sitemap

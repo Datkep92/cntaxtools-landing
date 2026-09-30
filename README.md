@@ -140,9 +140,30 @@ Rồi **Settings → Pages → Source: Deploy from a branch → main / (root)**.
 
 ## 4. Trước khi lên domain thật
 
-Tìm `cntaxtools.github.io` trong `index.html`, `robots.txt`, `sitemap.xml` → thay bằng domain của bạn.
+Đổi URL gốc bằng script (sửa đồng thời `canonical`, `og:url`, `hreflang`, toàn bộ
+URL trong JSON-LD, `robots.txt`, `sitemap.xml` — không sót chỗ nào):
 
-Sử dụng Notepad **Save as → UTF-8**, không dùng UTF-16.
+```powershell
+node tools/set-domain.cjs cntaxtools.vn
+```
+
+Nếu thích làm tay: tìm `datkep92.github.io` trong `index.html`, `robots.txt`,
+`sitemap.xml` → thay bằng domain của bạn. Dùng Notepad **Save as → UTF-8**,
+không dùng UTF-16.
+
+### ⚠️ Token xác minh sẽ phải lấy lại
+
+Mỗi property trong Search Console có token riêng. Token
+`knzPa5yuyQUsSKowyqsqbovCyIKj5zEBLRiHS1wmMb8` **chỉ dùng cho `github.io`**, sang
+tên miền mới thì vô hiệu.
+
+Cần làm lại: thêm property mới trong Search Console → lấy token → thay ở **hai**
+chỗ:
+
+| Chỗ | File |
+| --- | --- |
+| Thẻ meta | `index.html`, trong `<head>` |
+| File HTML | `google-site-verification.html` (thay cả nội dung file) |
 
 Nội dung cần thay bằng thông tin thật:
 

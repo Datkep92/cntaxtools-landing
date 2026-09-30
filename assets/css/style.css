@@ -498,7 +498,7 @@ p  { text-wrap: pretty; }
 .split__bar { display: flex; height: 26px; border-radius: 8px; overflow: hidden; border: 1px solid var(--line); }
 .split__bar i { display: grid; place-items: center; font-size: .64rem; font-weight: 800; color: #fff; }
 .split__bar i:first-child { background: var(--brand); }
-.split__bar i:last-child  { background: #b5762a; }
+.split__bar i:last-child  { background: #9a6414; }
 .split__k { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: .68rem; color: var(--muted); }
 .split__k b { color: var(--ink); font-weight: 700; }
 

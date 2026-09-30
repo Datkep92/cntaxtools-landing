@@ -422,7 +422,9 @@ p  { text-wrap: pretty; }
 .kpis span { display: block; font-size: .62rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--muted-2); }
 .kpis b { display: block; margin-top: 4px; font-size: clamp(.95rem, 2.6vw, 1.3rem); font-weight: 800; color: var(--ink); letter-spacing: -.03em; }
 .kpis div:nth-child(2) b { color: var(--brand); }
-.kpis div:nth-child(3) b { color: #b5762a; }
+/* #9a6414 đạt 4.8:1 trên --paper-2. Màu #b5762a cũ chỉ đạt 3.59:1 nên bị
+   Lighthouse bắt ở cỡ chữ 17px (chữ lớn phải ≥18.66px mới được miễn). */
+.kpis div:nth-child(3) b { color: #9a6414; }
 
 /* Bộ lọc */
 .frow { display: flex; flex-wrap: wrap; gap: 8px; }
@@ -610,7 +612,7 @@ p  { text-wrap: pretty; }
   display: flex; gap: 11px; align-items: flex-start; padding: 13px 14px;
   border-radius: var(--r-sm); background: var(--paper-2); border: 1px solid var(--line);
 }
-.road li svg { width: 18px; height: 18px; flex: none; margin-top: 2px; color: #b5762a; }
+.road li svg { width: 18px; height: 18px; flex: none; margin-top: 2px; color: #9a6414; }
 .road li b { display: block; color: var(--ink); font-size: .9rem; font-weight: 700; }
 .road li small { display: block; margin-top: 3px; color: var(--muted); font-size: .78rem; }
 .road-note {
@@ -619,9 +621,10 @@ p  { text-wrap: pretty; }
   background: var(--mint-soft); border: 1px solid var(--mint-line);
 }
 .road-note svg { width: 18px; height: 18px; flex: none; margin-top: 2px; }
-/* Link nằm giữa câu: padding âm nới vùng chạm mà không đổi khoảng cách dòng */
+/* Link nằm giữa câu: padding âm nới vùng chạm mà không đổi khoảng cách dòng.
+   Dùng --brand-ink (7.4:1 trên --mint-soft); --brand chỉ đạt 4.39:1 nên bị bắt. */
 .road-note a {
-  color: var(--brand); font-weight: 700;
+  color: var(--brand-ink); font-weight: 700;
   display: inline-block; padding: 8px 3px; margin: -8px -3px;
 }
 

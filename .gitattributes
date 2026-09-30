@@ -1,0 +1,18 @@
+# Ép dùng LF cho mọi file văn bản.
+# Git mặc định đổi sang CRLF trên Windows, làm file .html/.css/.js bị thêm \r
+# khi phục vụ — không gây lỗi hiển thị nhưng nên tránh cho sạch.
+* text=auto eol=lf
+
+# File nhị phân: tuyệt đối không đụng
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.gif   binary
+*.webp  binary
+*.ico   binary
+*.woff  binary
+*.woff2 binary
+
+# Không cần thiết cho deploy, tránh commit nhầm
+*.log       export-ignore
+.gitignore  export-ignore

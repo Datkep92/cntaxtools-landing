@@ -1,61 +1,190 @@
-# CN Tax Tools - Landing Page
+# CN Tax Tools — Landing Page 2026 (bản gọn)
 
-Landing page chuyên nghiệp để quảng cáo và bán ứng dụng CN Tax Tools.
+Trang landing page tĩnh bán ứng dụng **CN Tax Tools** — công cụ hỗ trợ kế toán hộ kinh doanh và công ty.
+Không framework, không build step, không phụ thuộc mạng ngoài.
 
-## Công nghệ
+---
 
-- HTML5
-- CSS3 (Flexbox, Grid, Animations)
-- Vanilla JavaScript
-- Google Fonts (Inter)
-- GitHub Pages
+## 1. Cấu trúc trang (6 khối, ngắn gọn)
 
-## Cấu trúc
+| # | Khối | Nội dung |
+| --- | --- | --- |
+| 1 | **Hero** | Định vị: kéo hóa đơn từ Tổng cục Thuế, đối chiếu sao kê cho kế toán |
+| 2 | **Slide giao diện** | 4 slide: quản lý MST · tải hóa đơn · hàng hóa & tồn kho · sao kê & công nợ |
+| 3 | **Hai nhóm người dùng** | 2 thẻ: Hộ kinh doanh · Kế toán — mỗi thẻ gồm danh sách nhu cầu + dải "ứng dụng cho bạn" |
+| 4 | **Đang phát triển** | 6 tính năng đang xây dựng + kênh gửi yêu cầu |
+| 5 | **CTA cuối** | Tải ứng dụng / nhắn Zalo |
+| 6 | **Footer** | Liên kết + liên hệ |
 
+### Khối 3 — chia theo đúng hai nhóm khách hàng
+
+| | **Hộ kinh doanh**<br><small>Chủ hộ, chủ doanh nghiệp</small> | **Kế toán**<br><small>Phụ trách nhiều MST</small> |
+| --- | --- | --- |
+| Cần | Số lượng hàng hóa còn lại trong kho<br>Dòng tiền vào – ra trong kỳ<br>Đã chạm ngưỡng thuế kê khai chưa *(đang xây dựng)*<br>Còn nợ ai, và ai còn nợ mình | Số liệu đầy đủ để lên báo cáo<br>Kiểm tra thông tin giao dịch giữa hóa đơn và sao kê<br>Tạo và cập nhật sổ công nợ<br>Kéo hóa đơn hàng loạt cho nhiều MST |
+| Ứng dụng cho bạn | Mọi hóa đơn về một kho chung, tự tách thành dòng hàng hóa, cập nhật tồn kho và công nợ theo từng lần tải | Tự giải CAPTCHA, tự khớp từng dòng sao kê với hóa đơn và báo dòng lệch, xuất file Excel đúng mẫu MISA |
+
+Hai thẻ xuống hàng dưới 860px, song song từ 860px. Nhờ `.who-list { flex: 1 }` + `.who-note { margin-top: auto }` nên hai dải "ứng dụng cho bạn" luôn **thẳng hàng nhau** ở đáy dù nội dung dài khác nhau.
+
+**Cố ý không có:** bảng giá, dùng thử 30 ngày, cảm nhận khách hàng, FAQ, so sánh "cách làm thủ công", hướng dẫn 3 bước.
+Ứng dụng đang được phát triển nên không công bố giá.
+
+---
+
+## 2. Chạy thử
+
+```powershell
+cd landing-v4
+python -m http.server 8000     # hoặc:  npx serve .
 ```
-landing-page/
-├── index.html          # Trang chính
-├── styles.css          # Styles chính
-├── script.js           # JavaScript
-├── .nojekyll           # File để GitHub Pages không dùng Jekyll
-├── .github/
-│   └── workflows/
-│       └── deploy.yml  # GitHub Actions workflow
-└── README.md           # File này
+
+Mở <http://localhost:8000>. Kiểm tra mobile: F12 → Toggle device toolbar (Ctrl+Shift+M).
+
+---
+
+## 3. Deploy lên GitHub Pages
+
+### Cách A — dùng workflow có sẵn trong repo này
+
+File `.github/workflows/pages.yml` tự deploy mỗi khi push vào `main` mà có thay đổi trong `landing-v4/`.
+
+```powershell
+git add landing-v4 .github/workflows/pages.yml
+git commit -m "landing: rut gon, them slide demo giao dien"
+git push origin main
 ```
 
-## Deploy lên GitHub Pages
+Sau đó vào **Settings → Pages → Source: GitHub Actions**.
 
-### Cách 1: Deploy thủ công
+### Cách B — tách repo riêng (khuyến nghị cho landing)
 
-1. Tạo repository mới trên GitHub
-2. Push code lên repository:
-   ```bash
-   cd landing-page
-   git init
-   git add .
-   git commit -m "Initial landing page"
-   git branch -M main
-   git remote add origin https://github.com/YOUR_USERNAME/cntaxtools-landing.git
-   git push -u origin main
-   ```
-3. Vào repository > Settings > Pages
-4. Source: Deploy from a branch
-5. Branch: main / Root
-6. Save
+```powershell
+cd ..
+git clone --depth 1 https://github.com/<tai-khoan>/<repo-landing>.git cntaxtools-landing
+robocopy "hoadon_auto_clicker_v2\landing-v4" cntaxtools-landing /MIR
+cd cntaxtools-landing
+git add .
+git commit -m "CN Tax Tools landing"
+git push
+```
 
-### Cách 2: Deploy tự động với GitHub Actions
+Rồi **Settings → Pages → Source: Deploy from a branch → main / (root)**.
 
-1. Tạo repository mới trên GitHub
-2. Push code lên repository (bao gồm cả file `.github/workflows/deploy.yml`)
-3. GitHub sẽ tự động deploy khi có push lên nhánh main
-4. Vào repository > Settings > Pages để xem URL
+### Cách C — Cloudflare Pages / Netlify / Vercel
 
-## Truy cập
+| Nền tảng | Build command | Publish directory |
+| --- | --- | --- |
+| Cloudflare Pages | *(để trống)* | `landing-v4` |
+| Netlify | *(để trống)* | `landing-v4` |
+| Vercel | *(để trống)* | `landing-v4` |
 
-Sau khi deploy, truy cập: `https://YOUR_USERNAME.github.io/cntaxtools-landing/`
+---
 
-## Liên hệ
+## 4. Trước khi lên domain thật
 
-- Zalo: 039.599.5035
-- GitHub: https://github.com/Datkep92/CnTaxTools
+Tìm `cntaxtools.github.io` trong `index.html`, `robots.txt`, `sitemap.xml` → thay bằng domain của bạn.
+
+Sử dụng Notepad **Save as → UTF-8**, không dùng UTF-16.
+
+Nội dung cần thay bằng thông tin thật:
+
+| Chỗ | Hiện tại | Cần làm |
+| --- | --- | --- |
+| Số điện thoại (4 chỗ) | `039.599.5035` | SĐT thật của bạn |
+| Fanpage / kênh YouTube | link trang chủ | Link thật |
+| 4 slide demo | số liệu ví dụ | Nên thay bằng ảnh chụp thật (xem mục 5) |
+| Danh sách "Đang phát triển" | 6 mục | Cập nhật theo tiến độ thật |
+
+---
+
+## 5. Muốn thay slide bằng ảnh chụp thật
+
+Hiện 4 slide được dựng bằng HTML/CSS nên sắc nét ở mọi kích thước và không tốn băng thông.
+Nếu muốn dùng ảnh PNG thật, thay mỗi `<div class="slide__in">…</div>` bằng:
+
+```html
+<img class="slide__img" src="assets/img/shot-mst.png" alt="Giao diện quản lý nhiều MST"
+     width="1120" height="496" loading="lazy" decoding="async">
+```
+
+rồi thêm CSS:
+
+```css
+.slide__img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:top center; }
+```
+
+Giữ nguyên chiều cao `.deco__vp` để 4 slide vẫn chồng tuyệt đối, trang không bị dài ra.
+
+---
+
+## 6. Những gì đã tối ưu
+
+**Ít cuộn**
+- Trang rút từ **12.178px → 4.987px** (giảm 59%) so với bản đầy đủ
+- 4 slide xếp chồng `position: absolute` trong **một khung cao cố định** → chuyển slide không làm trang dài thêm
+- Bỏ 5 khối không còn liên quan (giá, trial, cảm nhận, FAQ, so sánh thủ công)
+
+**Slide**
+- Tự chạy 6,5s · dừng khi rê chuột / tab ẩn / đang focus
+- Vuốt ngang trên cảm ứng · nút ← → · phím mũi tên · 4 nút chấm
+- Caption đổi theo slide
+- `role="tablist"` + `aria-current` + `aria-roledescription="slide"`
+
+**Mobile**
+- H1 61 ký tự được hạ cỡ chữ riêng dưới 480px → **3 dòng trên mobile, 2 dòng trên desktop**
+- Cụm tô màu trong H1 **không dùng `white-space: nowrap`** — khi không vừa sẽ tràn ra ngoài khung rồi bị `overflow-x: hidden` cắt mất chữ. Để xuống dòng tự nhiên an toàn hơn
+- Bố cục 1 cột dưới 1024px, 2 cột (sidebar + nội dung) từ 1024px
+- Khung slide cao bậc thang `436 → 452 → 496px` khớp đúng mốc bố cục
+- Dòng bảng thứ 3 + ghi chú chi tiết ẩn dưới 1024px để **không slide nào bị cắt nội dung**
+- **Hai nút CTA luôn nằm cùng một hàng** (`flex: 1 1 0` + nhãn rút gọn) từ 320px trở lên
+- Menu trượt đáy màn hình, đóng bằng ✕ · burger · bấm ngoài · ESC
+- Thanh tải nhanh cố định đáy (dựa trên `env(safe-area-inset-bottom)`)
+- Không tràn ngang ở bất kỳ bề rộng nào
+
+**Kỹ thuật**
+- 1 CSS + 1 JS + icon SVG nội tuyến (sprite `<symbol>`)
+- Không webfont, không thư viện, không tracking
+- Đường dẫn tương đối → chạy được ở mọi nơi, kể cả subpath GitHub Pages
+
+**A11y & SEO**
+- Lighthouse Accessibility / Best Practices / SEO đều **1.0**
+- Skip link, `aria-*` cho slide / menu, `:focus-visible`
+- Open Graph + Twitter Card + JSON-LD `SoftwareApplication` + `BreadcrumbList`
+- `sitemap.xml`, `robots.txt`, `manifest`, trang 404 riêng
+
+**Dark mode**
+- Tự theo hệ điều hành, có token riêng + `--on-brand` để chữ trên nút luôn đọc được
+- Rule dark-mode cho thành phần nằm ở **cuối file** (xem cảnh báo bên dưới)
+
+---
+
+## 7. ⚠️ Hai chỗ dễ sửa sai
+
+**1. Không đặt `backdrop-filter` / `filter` / `transform` lên `.hdr`.**
+Ba thuộc tính đó khiến `.hdr` thành **containing block** cho phần tử `position: fixed` con.
+Menu trượt sẽ bị neo vào khung header 62px thay vì đáy màn hình, rồi phủ lên nút burger khiến **không đóng được**.
+Hiệu ứng blur đang đặt trên `.hdr::before` — pseudo-element không có phần tử con nên không gây vấn đề này.
+
+**2. Rule dark-mode cho thành phần phải nằm ở cuối `style.css`.**
+Các rule cùng độ ưu tiên sẽ bị rule đứng sau đè. Đặt `.tag--ok { … }` trong dark-mode ở giữa file thì
+rule light phía dưới vẫn thắng và nhãn sẽ sáng khi nền tối.
+
+---
+
+## 8. Kết quả kiểm thử
+
+| Hạng mục | Kết quả |
+| --- | --- |
+| Lighthouse A11y / Best Practices / SEO | **1.0 / 1.0 / 1.0** — 0 lỗi |
+| Slide bị cắt nội dung | 0 (12 bề rộng × 4 slide) |
+| Số dòng H1 | 3 dòng ≤480px · 2 dòng >480px |
+| Tràn ngang 320 → 1440px | 0px |
+| Vùng chạm < 24px | 0 |
+| Tương phản dark mode | đạt AA |
+| Lỗi console | 0 |
+| Còn nhắc "dùng thử 30 ngày" / bảng giá | không có |
+| Icon SVG không dùng | 0 |
+| Rule CSS của lớp đã bỏ | 0 |
+
+Đã kiểm thử: menu trượt (4 cách đóng), slide (tự chạy / nút / vuốt / phím), reveal, thanh cuộn, dock, JSON-LD, anchor.
+
+Trình duyệt: Chrome/Edge 120+, Firefox 121+, Safari 17+ (iOS & macOS).

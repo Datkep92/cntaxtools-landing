@@ -188,7 +188,11 @@ Trang này cũng dùng được cho Bing/Edge — Bing đọc chung nhiều tín
 | Search Console API | ✅ đã bật trên project `hddt-49af7` |
 | Quyền | đang chờ Google xác nhận → sẽ thành `siteOwner` |
 
-**Token đã dùng:** `knzPa5yuyQUsSKowyqsqbovCyIKj5zEBLRiHS1wmMb8`
+**Token đang dùng:** `_ym4zbT-vyDN5vEuqdj5oLXCSZIKvVM84SHVmLxIJL8`
+
+> Token cũ `knzPa5yuyQUsSKowyqsqbovCyIKj5zEBLRiHS1wmMb8` là token dạng DNS của
+> property `sc-domain:datkep92.github.io` — **không xác minh được**. Đã thay bằng
+> token HTML của property `https://`.
 
 Nên deploy **cả hai** cùng lúc:
 

@@ -154,7 +154,7 @@ không dùng UTF-16.
 ### ⚠️ Token xác minh sẽ phải lấy lại
 
 Mỗi property trong Search Console có token riêng. Token
-`knzPa5yuyQUsSKowyqsqbovCyIKj5zEBLRiHS1wmMb8` **chỉ dùng cho `github.io`**, sang
+`_ym4zbT-vyDN5vEuqdj5oLXCSZIKvVM84SHVmLxIJL8` **chỉ dùng cho `github.io`**, sang
 tên miền mới thì vô hiệu.
 
 Cần làm lại: thêm property mới trong Search Console → lấy token → thay ở **hai**

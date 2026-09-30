@@ -53,10 +53,12 @@
 <link rel="apple-touch-icon" href="assets/img/app-icon.png">
 <link rel="manifest" href="site.webmanifest">
 
-<!-- Tải sẵn ảnh logo: đây thường là thứ hiện đầu tiên trên màn hình -->
+<!-- Tải sẵn ảnh logo: đây thường là thứ hiện đầu tiên trên màn hình.
+     Tham số ?v= giúp tải lại ngay sau khi deploy — GitHub Pages cache tài nguyên
+     tĩnh 10 phút, không có tham số này người dùng dễ thấy bản CSS cũ. -->
 <link rel="preload" as="image" href="assets/img/logo.png" type="image/png">
-<link rel="preload" as="style" href="assets/css/style.css">
-<link rel="stylesheet" href="assets/css/style.css">
+<link rel="preload" as="style" href="assets/css/style.css?v=20260930">
+<link rel="stylesheet" href="assets/css/style.css?v=20260930">
 <script>document.documentElement.classList.add('js');</script>
 </head>
 
@@ -571,6 +573,6 @@
 }
 </script>
 
-<script src="assets/js/main.js" defer></script>
+<script src="assets/js/main.js?v=20260930" defer></script>
 </body>
 </html>

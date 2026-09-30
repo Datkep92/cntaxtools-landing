@@ -176,6 +176,54 @@ Trang này cũng dùng được cho Bing/Edge — Bing đọc chung nhiều tín
 
 ---
 
+## Mục 7. Trạng thái hiện tại + làm việc bằng CLI
+
+**Đã xong tự động (18/09/2026):**
+
+| Việc | Trạng thái |
+| --- | --- |
+| Property thêm vào Search Console | ✅ `https://datkep92.github.io/cntaxtools-landing/` |
+| Quyền | `siteUnverifiedUser` — **chưa xác minh** |
+| Tài khoản | `linhnhaxac10@gmail.com` |
+| Search Console API | ✅ đã bật trên project `hddt-49af7` |
+
+**Còn phải làm (bắt buộc, chỉ làm được trên web):**
+
+Property đã vào danh sách nhưng chưa xác minh. Mọi thao tác khác — gửi sitemap,
+yêu cầu index, xem số liệu — đều bị chặn cho tới khi xác minh. Mã xác minh do
+Google sinh ra trên giao diện web, **API không lấy được** (`sites.get` chỉ trả về
+`siteUrl` + `permissionLevel`).
+
+### Lấy mã xác minh
+
+1. Mở <https://search.google.com/search-console> → đăng nhập
+2. Chọn property `datkep92.github.io` (URL có dấu `/` ở cuối)
+3. Màn hình mở ra có nút **Xác minh** ngay dưới tên domain
+4. Chọn loại **HTML tag**, copy giá trị trong `content="..."`
+
+Gửi tôi mã đó, tôi dán và deploy giúp. Hoặc tự dán vào `landing-v4/index.html`:
+
+```html
+<!-- Bỏ comment, thay mã -->
+<meta name="google-site-verification" content="MA_CUA_BAN">
+```
+
+Sau khi xác minh xong, phần còn lại chạy từ terminal — không cần vào web nữa:
+
+```powershell
+node tools/gsc.cjs submit               # gửi sitemap
+node tools/gsc.cjs status /             # xem đã index chưa
+node tools/gsc.cjs perf                 # số liệu 30 ngày
+```
+
+> **Lưu ý về `gcloud`:** CLI này quản lý tài nguyên Google Cloud, **không có** lệnh
+> Search Console. Nhưng Search Console có REST API, và API cho phép thêm property
+> (`sites.add`) — nên toàn bộ thiết lập ở trên đã làm tự động được.
+> Riêng bước xác minh thì Google cố tình giữ ở giao diện web, vì đó là chứng minh
+> bạn sở hữu trang.
+
+---
+
 ## Deploy lại sau này
 
 ```powershell

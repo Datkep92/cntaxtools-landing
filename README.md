@@ -14,10 +14,28 @@ Không framework, không build step, không phụ thuộc mạng ngoài.
 | --- | --- |
 | `node tools/set-domain.cjs <ten-mien> [--slug <repo>] [--sub www]` | Đổi URL gốc trong cả 3 file cùng lúc |
 | `node tools/check-contrast.cjs` | Kiểm 39 cặp màu đạt WCAG AA ở light + dark mode |
+| `node tools/gsc.cjs <lenh>` | Thao tác Google Search Console từ terminal |
 
 ```powershell
 # Ví dụ: đổi sang tên miền riêng
 node tools/set-domain.cjs cntaxtools.vn
+```
+
+### Search Console từ terminal
+
+```powershell
+node tools/gsc.cjs list                # property nào đang có trong tài khoản
+node tools/gsc.cjs submit               # gửi sitemap.xml
+node tools/gsc.cjs status /             # trạng thái index của trang chủ
+node tools/gsc.cjs perf                 # lượt click / hiển thị 30 ng��y qua
+node tools/gsc.cjs perf 7 "kéo hóa đơn" # lọc theo từ khoá
+```
+
+Cài đặt một lần (xem `SEARCH-CONSOLE.md` mục 7 để biết vì sao cần 2 bước này):
+
+```powershell
+gcloud auth application-default login --scopes=openid,https://www.googleapis.com/auth/webmasters
+gcloud services enable searchconsole.googleapis.com --project=hddt-49af7
 ```
 
 ---

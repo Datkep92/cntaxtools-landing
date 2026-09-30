@@ -3,6 +3,23 @@
 Trang landing page tĩnh bán ứng dụng **CN Tax Tools** — công cụ hỗ trợ kế toán hộ kinh doanh và công ty.
 Không framework, không build step, không phụ thuộc mạng ngoài.
 
+> **🌐 Đang chạy:** <https://datkep92.github.io/cntaxtools-landing/>
+> **📋 Đưa lên Google:** xem [SEARCH-CONSOLE.md](SEARCH-CONSOLE.md) — 6 bước, tầm 10 phút
+
+---
+
+## 0. Công cụ trong repo
+
+| Lệnh | Việc |
+| --- | --- |
+| `node tools/set-domain.cjs <ten-mien> [--slug <repo>] [--sub www]` | Đổi URL gốc trong cả 3 file cùng lúc |
+| `node tools/check-contrast.cjs` | Kiểm 39 cặp màu đạt WCAG AA ở light + dark mode |
+
+```powershell
+# Ví dụ: đổi sang tên miền riêng
+node tools/set-domain.cjs cntaxtools.vn
+```
+
 ---
 
 ## 1. Cấu trúc trang (6 khối, ngắn gọn)

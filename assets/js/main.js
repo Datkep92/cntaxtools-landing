@@ -342,6 +342,39 @@
   })();
 
   /* ----------------------------------------------------------------------
+     4b. BÁO TELEGRAM KHI KHÁCH BẤM TẢI
+     ----------------------------------------------------------------------
+     Dùng sendBeacon chứ không phải fetch: beacon được gửi đi dù trang đang
+     rời đi sang GitHub, không phải chờ, và không cần chặn sự kiện click — nên
+     việc báo cáo không bao giờ làm mất một lượt tải. Worker đọc quốc gia và
+     thiết bị từ header của Cloudflare, trang chỉ gửi đường dẫn.
+
+     Blob kiểu text/plain để không vướng preflight CORS (endpoint mở '*' vì
+     landing nằm ở domain khác). Gửi hỏng thì im lặng — đây chỉ là thống báo,
+     không được phép làm hỏng trang. */
+  (function reportDownload() {
+    var GATEWAY = 'https://hoadon-support-gateway.linhnhaxac10.workers.dev/v1/landing/download';
+    var buttons = $$('[data-dl]');
+    if (!buttons.length || !navigator.sendBeacon) return;   // trình duyệt quá cũ thì bỏ qua
+
+    function report() {
+      var payload = JSON.stringify({ page: window.location.pathname + window.location.hash });
+      try {
+        navigator.sendBeacon(GATEWAY, new Blob([payload], { type: 'text/plain' }));
+      } catch (error) {
+        // im lặng
+      }
+    }
+
+    // Bắt ở thẻ gốc (capture) để báo được cả lượt bấm bằng chuột phải / phím
+    // tắt — không chặn mặc định nên không ảnh hưởng tới việc mở tab mới.
+    document.addEventListener('click', function (event) {
+      var target = event.target.closest ? event.target.closest('[data-dl]') : null;
+      if (target) report();
+    }, true);
+  })();
+
+  /* ----------------------------------------------------------------------
      5. Cuộn mượt tới anchor + đưa focus về đích
      ---------------------------------------------------------------------- */
   function headerOffset() { return (hdr ? hdr.offsetHeight : 0) + 14; }

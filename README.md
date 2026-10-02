@@ -100,6 +100,31 @@ Có JS thì `assets/js/main.js` (mục 4) tra `api.github.com` để lấy thẳ
 
 ---
 
+## 2c. Cảnh báo trên điện thoại (chặn tải nhầm)
+
+Ứng dụng chỉ có bản cài **Windows 10/11 64-bit** — tệp `.exe` không chạy được
+trên iOS/Android. Nên trước khi mở trang Releases, `assets/js/main.js` (mục 4a)
+bắt sự kiện click trên mọi nút `[data-dl]` và hiện hộp thoại
+`#oswarn` nói rõ cần mở bằng máy tính.
+
+| Việc | Cách làm |
+| --- | --- |
+| Nhận biết điện thoại | UA (`Android`/`iPhone`/`Mobile`…) + tín hiệu con trỏ `hover: none` / `pointer: coarse` |
+| Không bắt nhầm iPad | iPadOS báo UA là `Macintosh` — có `maxTouchPoints > 1` thì coi như desktop, vẫn cài app Windows được |
+| Không cản vĩnh viễn | Chỉ chặn lần bấm đầu; hiện rồi thì ẩn trong 24 giờ (`localStorage`), lần sau bấm là tải thẳng |
+| Người dùng vẫn muốn tải | Bấm nền / ESC / **Đã hiểu** là đóng hộp thoại, không chặn vĩnh viễn |
+| Tôn trọng chủ ý | Ctrl-click, chuột phải, mở tab mới → bỏ qua cảnh báo, người dùng đã tự chọn cách đó |
+| Trình duyệt cũ / JS tắt | `showModal` không có thì cho tải luôn — cảnh báo không được phép làm mất lượt tải |
+
+Hộp thoại dùng thẻ `<dialog>` native nên có sẵn khoá nền, giữ Tab không lọt
+ra ngoài, và đóng bằng ESC đúng chuẩn. Màu sắc lấy từ biến CSS sẵn có nên
+tự đúng ở cả chế độ sáng lẫn tối.
+
+> Chỉ cần sửa file `index.html` (khối `<dialog class="oswarn">`) và
+> `assets/js/main.js` (IIFE `mobileWarning`) nếu muốn đổi nội dung thông báo.
+
+---
+
 ## 3. Deploy lên GitHub Pages
 
 ### Cách A — dùng workflow có sẵn trong repo này

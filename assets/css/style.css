@@ -730,6 +730,61 @@ p  { text-wrap: pretty; }
 }
 .js [data-rv].is-in { opacity: 1; transform: none; }
 
+/* ---------- 13b. CảNH BÁO MOBILE (dialog) ---------- */
+/* Dùng <dialog> native để có miễn phí khoá nền, giữ tab không lọt ra ngoài hộp,
+   và ESC + bấm nền đóng được đúng như mọi hộp thoại nền khác. */
+.oswarn {
+  width: min(560px, calc(100vw - 32px));
+  max-width: none; max-height: calc(100dvh - 32px);
+  padding: 0; border: 0; border-radius: var(--r-lg);
+  background: transparent; color: var(--ink-2);
+  overflow: visible;
+}
+.oswarn::backdrop {
+  background: rgba(7,14,24,.62);
+  -webkit-backdrop-filter: blur(5px); backdrop-filter: blur(5px);
+}
+.oswarn__box {
+  position: relative;
+  display: grid; justify-items: center; text-align: center;
+  padding: clamp(26px, 5vw, 38px) clamp(20px, 4vw, 34px) clamp(22px, 4vw, 30px);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: var(--paper);
+  box-shadow: var(--sh-4);
+}
+.oswarn__x {
+  position: absolute; top: 12px; right: 12px;
+  display: grid; place-items: center;
+  width: 40px; height: 40px; border-radius: 12px;
+  color: var(--muted); transition: background-color .2s, color .2s;
+}
+.oswarn__x svg { width: 19px; height: 19px; }
+.oswarn__ic {
+  display: grid; place-items: center;
+  width: 60px; height: 60px; margin-bottom: 18px;
+  border-radius: 50%;
+  color: #fff; background: var(--grad-ink);
+  box-shadow: 0 12px 28px -12px rgba(11,26,43,.5);
+}
+.oswarn__ic svg { width: 30px; height: 30px; }
+.oswarn h2 { font-size: clamp(1.16rem, 3.4vw, 1.42rem); max-width: 24ch; }
+.oswarn p { margin-top: 12px; max-width: 42ch; font-size: .96rem; line-height: 1.68; color: var(--muted); }
+.oswarn__list {
+  display: grid; gap: 9px; margin-top: 20px; width: 100%;
+  max-width: 40ch; text-align: left;
+}
+.oswarn__list li {
+  display: flex; align-items: flex-start; gap: 9px;
+  padding: 11px 14px; border-radius: var(--r-sm);
+  font-size: .88rem; line-height: 1.5;
+  color: var(--ink-2); background: var(--paper-2);
+  border: 1px solid var(--line);
+}
+.oswarn__list svg { width: 17px; height: 17px; margin-top: 2px; flex: none; color: var(--brand); }
+.oswarn__act { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 24px; width: 100%; }
+.oswarn__act .btn { flex: 1 1 180px; max-width: 220px; }
+
 /* ---------- 14. Dark mode (ghi đè thành phần — phải ở CUỐI file) ---------- */
 @media (prefers-color-scheme: dark) {
   .tag--ok   { color: #7fe8c4; background: #0d2f26; }

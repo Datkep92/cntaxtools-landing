@@ -342,6 +342,82 @@
   })();
 
   /* ----------------------------------------------------------------------
+     4a. CẢNH BÁO MOBILE — chặn trước khi bấm nút tải
+     ----------------------------------------------------------------------
+     CN Tax Tools chỉ có bản cài Windows. Tệp .exe không chạy được trên
+     điện thoại, nên chặn ở nút tải để khách khỏi tải về xong mới thấy lỗi
+     "không mở được".
+
+     Cố tình không bắt mọi thứ không phải desktop: iPad và iPhone ở chế độ
+     desktop vẫn cài được app Windows, và cảnh báo chỉ hữu ích khi người
+     dùng thật sự không có cách nào khác.
+
+     Hiện một lần rồi ẩn trong 24 giờ (lưu localStorage): khách đã biết rồi
+     thì lần sau bấm là tải thẳng, không phải đóng modal mỗi lần bấm. */
+  (function mobileWarning() {
+    var dlg = document.getElementById('oswarn');
+    if (!dlg) return;
+
+    var closeBtn = dlg.querySelector('#oswarn-x');
+    var okBtn    = dlg.querySelector('#oswarn-ok');
+    var COOLDOWN_MS = 24 * 60 * 60 * 1000;
+    var FLAG_KEY = 'cntax.oswarn.shown';
+
+    /* iPad và iPhone ở chế độ desktop báo UA là "MacIntel", nên phải xét cả
+       maxTouchPoints — iPadOS 13+ cũng tự giả lập UA này. */
+    function isMobile() {
+      if (navigator.maxTouchPoints > 1 && /Macintosh/.test(navigator.userAgent)) return false;
+      if (/Android|iPhone|iPod|IEMobile|Mobile|Silk/i.test(navigator.userAgent)) return true;
+      /* Còn lại dùng tín hiệu con trỏ: cảm ứng và không hover — gần như chắc
+         chắn là điện thoại hoặc tablet. */
+      return window.matchMedia('(hover: none), (pointer: coarse)').matches;
+    }
+
+    function shownRecently() {
+      try {
+        return Date.now() - Number(window.localStorage.getItem(FLAG_KEY) || 0) < COOLDOWN_MS;
+      } catch (error) {
+        return false;   // localStorage bị chặn — coi như chưa báo cảnh báo
+      }
+    }
+    function markShown() {
+      try { window.localStorage.setItem(FLAG_KEY, String(Date.now())); } catch (error) { /* bỏ qua */ }
+    }
+
+    function close() {
+      if (typeof dlg.close === 'function') dlg.close();
+    }
+
+    if (closeBtn) closeBtn.addEventListener('click', close);
+    if (okBtn)    okBtn.addEventListener('click', close);
+    /* Bấm ra ngoài hộp thì đóng, giống bấm nền để tắt menu trượt. */
+    dlg.addEventListener('click', function (event) {
+      if (event.target === dlg) close();
+    });
+
+    /* Bắt ở thẻ gốc (capture) để chặn được lần bấm bằng chuột đơn giản nhất.
+       Còn mở tab mới, chuột phải, Ctrl-click — người dùng đã tự chọn cách đó
+       rồi, không cần hỏi lần nữa. */
+    document.addEventListener('click', function (event) {
+      var target = event.target.closest ? event.target.closest('[data-dl]') : null;
+      if (!target) return;
+      if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return;
+
+      if (!isMobile()) return;
+      if (shownRecently()) return;          // đã cảnh báo trong 24h — cho tải luôn
+
+      event.preventDefault();
+      if (typeof dlg.showModal !== 'function') return;   // trình duyệt quá cũ: để tải luôn
+      try {
+        dlg.showModal();
+        markShown();
+      } catch (error) {
+        return;   // không mở được (đã mở sẵn) — để lượt tải đi tiếp
+      }
+    }, true);
+  })();
+
+  /* ----------------------------------------------------------------------
      4b. BÁO TELEGRAM KHI KHÁCH BẤM TẢI
      ----------------------------------------------------------------------
      Dùng sendBeacon chứ không phải fetch: beacon được gửi đi dù trang đang

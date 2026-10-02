@@ -342,26 +342,33 @@
   })();
 
   /* ----------------------------------------------------------------------
-     4a. CẢNH BÁO MOBILE — chặn trước khi bấm nút tải
+     4a. THÔNG BÁO MOBILE — nhắc nhở, KHÔNG chặn tải
      ----------------------------------------------------------------------
-     CN Tax Tools chỉ có bản cài Windows. Tệp .exe không chạy được trên
-     điện thoại, nên chặn ở nút tải để khách khỏi tải về xong mới thấy lỗi
-     "không mở được".
+     CN Tax Tools chỉ có bản cài Windows, tệp .exe không chạy được trên
+     iOS/Android. Nhưng khách vẫn được tải bình thường: hộp thoại cản trước
+     đây khiến người dùng bấm xong phải bấm thêm lần nữa mới tải, mất lượt.
+
+     Nên nay chỉ hiện một thông báo nhỏ (toast) cạnh nút, tự ẩn sau vài giây.
+     Quan trọng nhất: KHÔNG gọi preventDefault. Sự kiện click đi tiếp như bình
+     thường nên điện thoại vẫn tải được file (để gửi qua Zalo/USB sang máy
+     tính), chỉ là được nhắc trước.
 
      Cố tình không bắt mọi thứ không phải desktop: iPad và iPhone ở chế độ
-     desktop vẫn cài được app Windows, và cảnh báo chỉ hữu ích khi người
-     dùng thật sự không có cách nào khác.
+     desktop vẫn cài được app Windows.
 
      Hiện một lần rồi ẩn trong 24 giờ (lưu localStorage): khách đã biết rồi
-     thì lần sau bấm là tải thẳng, không phải đóng modal mỗi lần bấm. */
-  (function mobileWarning() {
-    var dlg = document.getElementById('oswarn');
-    if (!dlg) return;
+     thì lần sau bấm là tải thẳng, không phải đọc lại thông báo mỗi lần bấm. */
+  (function mobileNotice() {
+    var box = document.getElementById('mnotice');
+    if (!box) return;
 
-    var closeBtn = dlg.querySelector('#oswarn-x');
-    var okBtn    = dlg.querySelector('#oswarn-ok');
+    var closeBtn = document.getElementById('mnotice-x');
+    var HIDE_MS = 9000;
     var COOLDOWN_MS = 24 * 60 * 60 * 1000;
+    /* Giữ nguyên key cũ: khách đã bấm chịu cảnh báo hộp thoại lần trước thì
+       vẫn được ẩn trong 24h, không phải đọc lại thông báo dạng toast. */
     var FLAG_KEY = 'cntax.oswarn.shown';
+    var timer = null;
 
     /* iPad và iPhone ở chế độ desktop báo UA là "MacIntel", nên phải xét cả
        maxTouchPoints — iPadOS 13+ cũng tự giả lập UA này. */
@@ -377,43 +384,39 @@
       try {
         return Date.now() - Number(window.localStorage.getItem(FLAG_KEY) || 0) < COOLDOWN_MS;
       } catch (error) {
-        return false;   // localStorage bị chặn — coi như chưa báo cảnh báo
+        return false;   // localStorage bị chặn — coi như chưa báo
       }
     }
     function markShown() {
       try { window.localStorage.setItem(FLAG_KEY, String(Date.now())); } catch (error) { /* bỏ qua */ }
     }
 
-    function close() {
-      if (typeof dlg.close === 'function') dlg.close();
+    function hide() {
+      if (timer) { window.clearTimeout(timer); timer = null; }
+      box.hidden = true;
+    }
+    function show() {
+      box.hidden = false;
+      if (timer) window.clearTimeout(timer);
+      /* Bấm lần nữa trong lúc đang hiện thì reset đồng hồ, không để người
+         dùng đọc bị cắt ngang. */
+      timer = window.setTimeout(hide, HIDE_MS);
     }
 
-    if (closeBtn) closeBtn.addEventListener('click', close);
-    if (okBtn)    okBtn.addEventListener('click', close);
-    /* Bấm ra ngoài hộp thì đóng, giống bấm nền để tắt menu trượt. */
-    dlg.addEventListener('click', function (event) {
-      if (event.target === dlg) close();
-    });
+    if (closeBtn) closeBtn.addEventListener('click', hide);
 
-    /* Bắt ở thẻ gốc (capture) để chặn được lần bấm bằng chuột đơn giản nhất.
-       Còn mở tab mới, chuột phải, Ctrl-click — người dùng đã tự chọn cách đó
-       rồi, không cần hỏi lần nữa. */
+    /* Bắt ở thẻ gốc (capture) để bắt được cả lượt bấm bằng chuột phải / phím
+       tắt. KHÔNG gọi preventDefault và KHÔNG return sớm theo phím sửa đổi:
+       người dùng mở tab mới / Ctrl-click vẫn nên được thấy nhắc nhở. */
     document.addEventListener('click', function (event) {
       var target = event.target.closest ? event.target.closest('[data-dl]') : null;
       if (!target) return;
-      if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return;
 
       if (!isMobile()) return;
-      if (shownRecently()) return;          // đã cảnh báo trong 24h — cho tải luôn
+      if (shownRecently()) return;          // đã báo trong 24h — im lặng cho tải thẳng
 
-      event.preventDefault();
-      if (typeof dlg.showModal !== 'function') return;   // trình duyệt quá cũ: để tải luôn
-      try {
-        dlg.showModal();
-        markShown();
-      } catch (error) {
-        return;   // không mở được (đã mở sẵn) — để lượt tải đi tiếp
-      }
+      show();
+      markShown();
     }, true);
   })();
 

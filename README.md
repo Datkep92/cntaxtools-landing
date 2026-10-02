@@ -100,28 +100,38 @@ Có JS thì `assets/js/main.js` (mục 4) tra `api.github.com` để lấy thẳ
 
 ---
 
-## 2c. Cảnh báo trên điện thoại (chặn tải nhầm)
+## 2c. Thông báo trên điện thoại (nhắc nhở, không chặn tải)
 
 Ứng dụng chỉ có bản cài **Windows 10/11 64-bit** — tệp `.exe` không chạy được
-trên iOS/Android. Nên trước khi mở trang Releases, `assets/js/main.js` (mục 4a)
-bắt sự kiện click trên mọi nút `[data-dl]` và hiện hộp thoại
-`#oswarn` nói rõ cần mở bằng máy tính.
+trên iOS/Android. Khi khách bấm nút tải trên điện thoại, `assets/js/main.js`
+(mục 4a) hiện một thông báo nhỏ `#mnotice` ở đáy màn hình nhắc họ mở trang bằng
+máy tính — **nhưng vẫn tải bình thường**, không chặn.
+
+> Vì sao không chặn: trước đây dùng `<dialog>` + `showModal()` chặn lần bấm đầu.
+> Khách phải bấm lần hai mới tải được, và nhiều người tưởng trang lỗi nên bỏ luôn.
+> Nhiều khách muốn tải file `.exe` về máy để chuyển qua Zalo/USB sang máy tính,
+> nên cấm tải là cắt mất nhu cầu thật. Nay chỉ nhắc, không cản.
 
 | Việc | Cách làm |
 | --- | --- |
 | Nhận biết điện thoại | UA (`Android`/`iPhone`/`Mobile`…) + tín hiệu con trỏ `hover: none` / `pointer: coarse` |
 | Không bắt nhầm iPad | iPadOS báo UA là `Macintosh` — có `maxTouchPoints > 1` thì coi như desktop, vẫn cài app Windows được |
-| Không cản vĩnh viễn | Chỉ chặn lần bấm đầu; hiện rồi thì ẩn trong 24 giờ (`localStorage`), lần sau bấm là tải thẳng |
-| Người dùng vẫn muốn tải | Bấm nền / ESC / **Đã hiểu** là đóng hộp thoại, không chặn vĩnh viễn |
-| Tôn trọng chủ ý | Ctrl-click, chuột phải, mở tab mới → bỏ qua cảnh báo, người dùng đã tự chọn cách đó |
-| Trình duyệt cũ / JS tắt | `showModal` không có thì cho tải luôn — cảnh báo không được phép làm mất lượt tải |
+| Không mất lượt tải | Handler bắt ở thẻ gốc nhưng **không** gọi `preventDefault()` — click đi tiếp như bình thường |
+| Không lặp lại mỗi lần bấm | Hiện một lần rồi ẩn trong 24 giờ (`localStorage`, key `cntax.oswarn.shown`) |
+| Không mất focus | Toast dùng `role="status" aria-live="polite"`, không khoá nền, không nuốt focus như modal |
+| Tự ẩn | Sau 9 giây, hoặc bấm nút **✕** |
+| Bỏ qua thông báo | Ctrl-click, chuột phải, mở tab mới → vẫn được tải, chỉ không bắt buộc đóng gì |
 
-Hộp thoại dùng thẻ `<dialog>` native nên có sẵn khoá nền, giữ Tab không lọt
-ra ngoài, và đóng bằng ESC đúng chuẩn. Màu sắc lấy từ biến CSS sẵn có nên
-tự đúng ở cả chế độ sáng lẫn tối.
+Vì sao không dùng `<dialog>` nữa: `showModal()` khoá nền và giữ focus trong hộp —
+đúng cái cảm giác "bị chặn" mà yêu cầu cần bỏ. Toast chỉ hiện trên chính nó
+(`pointer-events` mặc định), nên mọi thao tác bên dưới vẫn bấm được bình thường.
 
-> Chỉ cần sửa file `index.html` (khối `<dialog class="oswarn">`) và
-> `assets/js/main.js` (IIFE `mobileWarning`) nếu muốn đổi nội dung thông báo.
+Vị trí toast dính đáy, tự nhích lên khi có dock (dock chỉ hiện ở `<1001px`), và
+`z-index: 70` — cao hơn dock (45) lẫn header (50) nên không bị đè. Màu sắc lấy từ
+biến CSS sẵn có nên tự đúng ở cả chế độ sáng lẫn tối.
+
+> Chỉ cần sửa `index.html` (khối `<div class="mnotice">`) và `assets/js/main.js`
+> (IIFE `mobileNotice`) nếu muốn đổi nội dung thông báo.
 
 ---
 

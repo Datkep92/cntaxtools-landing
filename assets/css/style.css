@@ -730,58 +730,73 @@ p  { text-wrap: pretty; }
 }
 .js [data-rv].is-in { opacity: 1; transform: none; }
 
-/* ---------- 13b. THÔNG BÁO MOBILE (toast, không chặn tải) ---------- */
-/* Cố ý KHÔNG dùng <dialog> + showModal: modal khoá nền và nuốt focus, tạo cảm
-   giác bị chặn — trong khi yêu cầu là vẫn cho tải. Đây là toast không chặn:
-   pointer-events chỉ bật trên chính nó nên mọi thao tác bên dưới vẫn bấm được.
+/* ---------- 13b. HỘP THÔNG BÁO MOBILE (alert, không chặn tải) ---------- */
+/* Dùng <dialog> gọi bằng show() (KHÔNG showModal) để có sẵn khung, bo góc
+   và hành vi ESC — nhưng KHÔNG khoá nền, KHÔNG giữ focus trong hộp, KHÔNG phủ
+   mờ trang. Cảm giác "nhắc nhở", không phải "bị chặn".
 
-   Vị trí: dính đáy, nhích lên trên dock (dock chỉ hiện ở <1001px). Biến z-index
-   cao hơn dock (45) và header (50) để không bị đè. */
-.mnotice {
-  position: fixed; z-index: 70;
-  left: var(--gut); right: var(--gut);
-  bottom: calc(14px + env(safe-area-inset-bottom));
-  margin-inline: auto; max-width: 460px;
-  display: flex; align-items: flex-start; gap: 12px;
-  padding: 13px 13px 13px 15px;
-  border: 1px solid var(--line-2); border-radius: var(--r-md);
-  background: var(--paper); color: var(--ink-2);
-  box-shadow: var(--sh-4);
-  animation: mnotice-in .34s var(--spring) both;
+   Cố ý không khai ::backdrop: hộp mở bằng show() không vào top layer nên trình
+   duyệt không vẽ backdrop — khai ra cũng vô nghĩa. Muốn làm mờ nền thì phải
+   quay lại showModal(), mà đó chính là thứ gây cảm giác bị chặn. */
+.oswarn {
+  /* BẮT BUỘC position:fixed. <dialog> gọi bằng show() (không phải showModal)
+     vẫn là position:absolute theo UA stylesheet và nằm đúng chỗ của nó trong
+     luồng trang — mà thẻ này nằm cuối <body> nên hộp sẽ rơi xuống đáy trang,
+     khách phải cuộn tới mới thấy. fixed + inset:0 + margin:auto mới canh
+     giữa đúng khung nhìn, giống showModal. */
+  position: fixed; inset: 0; z-index: 70;
+  width: min(520px, calc(100vw - 32px));
+  max-width: none; max-height: calc(100dvh - 32px);
+  padding: 0; border: 0; border-radius: var(--r-lg);
+  background: transparent; color: var(--ink-2);
+  overflow: visible;
+  margin: auto;                       /* canh giữa cả hai chiều */
 }
-.mnotice[hidden] { display: none; }
-
-@keyframes mnotice-in {
-  from { opacity: 0; transform: translateY(16px) scale(.97); }
+.oswarn__box {
+  position: relative;
+  display: grid; justify-items: center; text-align: center;
+  padding: clamp(24px, 5vw, 34px) clamp(20px, 4vw, 32px) clamp(20px, 4vw, 28px);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: var(--paper);
+  box-shadow: var(--sh-4);
+  animation: oswarn-in .3s var(--spring) both;
+}
+@keyframes oswarn-in {
+  from { opacity: 0; transform: translateY(14px) scale(.98); }
   to   { opacity: 1; transform: none; }
 }
 
-.mnotice__ic {
-  display: grid; place-items: center; flex: none;
-  width: 34px; height: 34px; border-radius: 50%;
-  color: #8a5a00; background: #fdf1d6;
-}
-.mnotice__ic svg { width: 19px; height: 19px; }
-
-.mnotice__tx { flex: 1 1 auto; min-width: 0; }
-.mnotice__tx b { display: block; font-size: .92rem; font-weight: 750; color: var(--ink); }
-.mnotice__tx p { margin-top: 3px; font-size: .84rem; line-height: 1.5; color: var(--muted); }
-.mnotice__tx strong { color: var(--ink-2); }
-
-.mnotice__x {
-  display: grid; place-items: center; flex: none;
-  width: 30px; height: 30px; border-radius: 9px;
+.oswarn__x {
+  position: absolute; top: 12px; right: 12px;
+  display: grid; place-items: center;
+  width: 40px; height: 40px; border-radius: 12px;
   color: var(--muted); transition: background-color .2s, color .2s;
 }
-.mnotice__x:hover { color: var(--ink); background: var(--paper-2); }
-.mnotice__x svg { width: 15px; height: 15px; }
+.oswarn__x:hover { color: var(--ink); background: var(--paper-2); }
+.oswarn__x svg { width: 19px; height: 19px; }
 
-/* Không chặn click xuống nền dưới thông báo, nhưng nút đóng vẫn bấm được. */
-.mnotice__x { pointer-events: auto; }
+.oswarn__ic {
+  display: grid; place-items: center;
+  width: 56px; height: 56px; margin-bottom: 16px;
+  border-radius: 50%;
+  color: #fff; background: var(--grad-ink);
+  box-shadow: 0 12px 28px -12px rgba(11,26,43,.5);
+}
+.oswarn__ic svg { width: 28px; height: 28px; }
 
-/* Nhích lên cho khỏi đè dock ở màn hình hẹp (dock chỉ hiện dưới 1001px). */
-@media (max-width: 1000px) {
-  .mnotice { bottom: calc(84px + env(safe-area-inset-bottom)); }
+.oswarn h2 { font-size: clamp(1.14rem, 3.4vw, 1.38rem); max-width: 24ch; }
+.oswarn p { margin-top: 12px; max-width: 42ch; font-size: .96rem; line-height: 1.68; color: var(--muted); }
+.oswarn p strong { color: var(--ink-2); }
+
+/* Hai nút: tải (chính) + hỏi Zalo. Xếp cột trên màn hình hẹp để nút tải
+   luôn nằm ở vị trí dễ bấm nhất. */
+.oswarn__act { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 22px; width: 100%; }
+.oswarn__act .btn { flex: 1 1 180px; max-width: 220px; }
+
+@media (max-width: 460px) {
+  .oswarn__act { flex-direction: column; }
+  .oswarn__act .btn { flex: none; width: 100%; max-width: none; }
 }
 
 /* ---------- 14. Dark mode (ghi đè thành phần — phải ở CUỐI file) ---------- */
@@ -797,8 +812,9 @@ p  { text-wrap: pretty; }
   .kpis div:nth-child(3) b { color: #d9a45c; }
   .dock { background: color-mix(in srgb, var(--paper) 88%, transparent); }
   .hdr::before { background: color-mix(in srgb, var(--bg) 80%, transparent); }
-  .mnotice { border-color: #4a3a18; }
-  .mnotice__ic { color: #f0c674; background: #2f2410; }
+  /* viền nằm ở .oswarn__box — <dialog> ngoài chỉ là khung trong suốt */
+  .oswarn__box { border-color: #4a3a18; }
+  .oswarn__ic { color: #f0c674; background: #2f2410; }
   .btn--ghost { --btn-bd: #2a4159; }
   .tbl > .r { border-top-color: var(--line); }
   .slide__side { background: var(--navy-2); }
@@ -816,7 +832,7 @@ p  { text-wrap: pretty; }
   .hero::before, .final::before { animation: none; }
 }
 @media print {
-  .hdr, .dock, .scrim, .progress, .hero::before, .final::before, .mnotice { display: none !important; }
+  .hdr, .dock, .scrim, .progress, .hero::before, .final::before, .oswarn { display: none !important; }
   body { background: #fff; color: #000; }
   .sec { padding-block: 22px; }
   .deco__win { box-shadow: none; }

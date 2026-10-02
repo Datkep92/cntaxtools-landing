@@ -57,8 +57,8 @@
      Tham số ?v= giúp tải lại ngay sau khi deploy — GitHub Pages cache tài nguyên
      tĩnh 10 phút, không có tham số này người dùng dễ thấy bản CSS cũ. -->
 <link rel="preload" as="image" href="assets/img/logo.png" type="image/png">
-<link rel="preload" as="style" href="assets/css/style.css?v=20261002b">
-<link rel="stylesheet" href="assets/css/style.css?v=20261002b">
+<link rel="preload" as="style" href="assets/css/style.css?v=20261002c">
+<link rel="stylesheet" href="assets/css/style.css?v=20261002c">
 <script>document.documentElement.classList.add('js');</script>
 </head>
 
@@ -573,22 +573,38 @@
 }
 </script>
 
-<!-- ============ THÔNG BÁO MOBILE (không chặn tải) ============ -->
-<!-- CN Tax Tools chỉ có bản cài Windows. Trên điện thoại tệp .exe không chạy
-     được, nên bấm nút tải vẫn tải bình thường nhưng kèm một thông báo nhỏ
-     nhắc khách mở bằng máy tính. KHÔNG chặn click — thông báo bao giờ không được
-     làm mất một lượt tải. -->
-<div class="mnotice" id="mnotice" role="status" aria-live="polite" hidden>
-  <span class="mnotice__ic" aria-hidden="true"><svg><use href="#i-warn"/></svg></span>
-  <div class="mnotice__tx">
-    <b>Bạn đang dùng điện thoại</b>
-    <p>File <strong>.exe</strong> chỉ chạy trên máy tính Windows 10/11. Mở trang này bằng máy tính để cài nhé.</p>
-  </div>
-  <button class="mnotice__x" id="mnotice-x" type="button" aria-label="Đóng thông báo">
-    <svg aria-hidden="true"><use href="#i-x"/></svg>
-  </button>
-</div>
+<!-- ============ HỘP THÔNG BÁO MOBILE (không chặn tải) ============ -->
+<!-- CN Tax Tools chỉ có bản cài Windows, tệp .exe không chạy được trên
+     iOS/Android. Nhưng khách vẫn được tải bình thường: hộp thoại này KHÔNG
+     khoá nền, KHÔNG chặn click — bấm nút tải vẫn tải ngay, và trong hộp có
+     sẵn nút "Vẫn tải về" cho ai muốn tải file .exe để chuyển sang máy tính. -->
+<dialog class="oswarn" id="oswarn" aria-labelledby="oswarn-t" aria-describedby="oswarn-d">
+  <div class="oswarn__box">
+    <button class="oswarn__x" id="oswarn-x" type="button" aria-label="Đóng thông báo">
+      <svg aria-hidden="true"><use href="#i-x"/></svg>
+    </button>
 
-<script src="assets/js/main.js?v=20261002b" defer></script>
+    <span class="oswarn__ic" aria-hidden="true"><svg><use href="#i-win"/></svg></span>
+
+    <h2 id="oswarn-t">Ứng dụng dành cho máy tính Windows</h2>
+
+    <p id="oswarn-d">
+      CN Tax Tools là phần mềm cài đặt cho <strong>Windows 10 / 11 (64-bit)</strong>,
+      chưa có bản chạy trên điện thoại. Nếu bạn đang ở máy tính, hãy mở trang này
+      bằng <strong>máy tính</strong> để cài.
+    </p>
+
+    <div class="oswarn__act">
+      <a class="btn btn--primary btn--lg" id="oswarn-dl" href="https://github.com/Datkep92/HoaDonNhe/releases/latest">
+        <svg aria-hidden="true"><use href="#i-dl"/></svg> Vẫn tải về
+      </a>
+      <a class="btn btn--ghost btn--lg" href="https://zalo.me/0395995035" target="_blank" rel="noopener">
+        <svg aria-hidden="true"><use href="#i-msg"/></svg> Hỏi Zalo
+      </a>
+    </div>
+  </div>
+</dialog>
+
+<script src="assets/js/main.js?v=20261002c" defer></script>
 </body>
 </html>

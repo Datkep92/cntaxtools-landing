@@ -342,33 +342,37 @@
   })();
 
   /* ----------------------------------------------------------------------
-     4a. THÔNG BÁO MOBILE — nhắc nhở, KHÔNG chặn tải
+     4a. HỘP THÔNG BÁO MOBILE — nhắc nhở, KHÔNG chặn tải
      ----------------------------------------------------------------------
      CN Tax Tools chỉ có bản cài Windows, tệp .exe không chạy được trên
      iOS/Android. Nhưng khách vẫn được tải bình thường: hộp thoại cản trước
      đây khiến người dùng bấm xong phải bấm thêm lần nữa mới tải, mất lượt.
 
-     Nên nay chỉ hiện một thông báo nhỏ (toast) cạnh nút, tự ẩn sau vài giây.
-     Quan trọng nhất: KHÔNG gọi preventDefault. Sự kiện click đi tiếp như bình
-     thường nên điện thoại vẫn tải được file (để gửi qua Zalo/USB sang máy
-     tính), chỉ là được nhắc trước.
+     Nay hiện một hộp thoại nhỏ giữa màn hình rồi bấm nút tải đi tiếp ngay.
+     Ba điều kiện để hộp này không bao giờ làm mất một lượt tải:
 
-     Cố tình không bắt mọi thứ không phải desktop: iPad và iPhone ở chế độ
+       1. Gọi dlg.show(), KHÔNG dùng showModal() -> không khoá nền, không giữ
+          focus trong hộp, không ăn phím ESC một cách vô lý.
+       2. KHÔNG gọi preventDefault() -> sự kiện click đi tiếp như bình thường,
+          trình duyệt vẫn mở link tải file.
+       3. Trong hộp có sẵn nút "Vẫn tải về" gắn đúng link .exe, cho người đã
+          đọc xong vẫn tải được ngay mà không phải đóng hộp rồi bấm lại.
+
+     Cố ý không bắt mọi thứ không phải desktop: iPad và iPhone ở chế độ
      desktop vẫn cài được app Windows.
 
      Hiện một lần rồi ẩn trong 24 giờ (lưu localStorage): khách đã biết rồi
-     thì lần sau bấm là tải thẳng, không phải đọc lại thông báo mỗi lần bấm. */
-  (function mobileNotice() {
-    var box = document.getElementById('mnotice');
-    if (!box) return;
+     thì lần sau bấm là tải thẳng, không phải đọc lại hộp mỗi lần bấm. */
+  (function mobileAlert() {
+    var dlg = document.getElementById('oswarn');
+    if (!dlg) return;
 
-    var closeBtn = document.getElementById('mnotice-x');
-    var HIDE_MS = 9000;
+    var closeBtn = document.getElementById('oswarn-x');
+    var dlBtn    = document.getElementById('oswarn-dl');
     var COOLDOWN_MS = 24 * 60 * 60 * 1000;
     /* Giữ nguyên key cũ: khách đã bấm chịu cảnh báo hộp thoại lần trước thì
-       vẫn được ẩn trong 24h, không phải đọc lại thông báo dạng toast. */
+       vẫn được ẩn trong 24h, không phải đọc lại hộp nữa. */
     var FLAG_KEY = 'cntax.oswarn.shown';
-    var timer = null;
 
     /* iPad và iPhone ở chế độ desktop báo UA là "MacIntel", nên phải xét cả
        maxTouchPoints — iPadOS 13+ cũng tự giả lập UA này. */
@@ -391,19 +395,27 @@
       try { window.localStorage.setItem(FLAG_KEY, String(Date.now())); } catch (error) { /* bỏ qua */ }
     }
 
-    function hide() {
-      if (timer) { window.clearTimeout(timer); timer = null; }
-      box.hidden = true;
+    function close() {
+      if (typeof dlg.close === 'function') dlg.close();
+      else dlg.removeAttribute('open');   // trình duyệt quá cũ không có <dialog>
     }
-    function show() {
-      box.hidden = false;
-      if (timer) window.clearTimeout(timer);
-      /* Bấm lần nữa trong lúc đang hiện thì reset đồng hồ, không để người
-         dùng đọc bị cắt ngang. */
-      timer = window.setTimeout(hide, HIDE_MS);
-    }
+    if (closeBtn) closeBtn.addEventListener('click', close);
+    if (dlBtn)    dlBtn.addEventListener('click', close);
 
-    if (closeBtn) closeBtn.addEventListener('click', hide);
+    /* Bấm ra ngoài hộp thì đóng, giống bấm nền để tắt menu trượt.
+
+       Cần đo bằng clientX/Y vì show() không sinh lớp backdrop: chỗ bấm có thể
+       rơi vào <dialog> (nền trong suốt quanh hộp), lúc đó event.target vẫn là
+       dlg. Chỉ đóng khi bấm ra ngoài mép hộp — bấm vào trong hộp thì giữ nguyên,
+       và tuyệt đối không preventDefault nên mọi thao tác phía dưới vẫn chạy. */
+    dlg.addEventListener('click', function (event) {
+      var box = dlg.firstElementChild;
+      if (!box) { close(); return; }
+      var r = box.getBoundingClientRect();
+      var outside = event.clientX < r.left || event.clientX > r.right ||
+                    event.clientY < r.top  || event.clientY > r.bottom;
+      if (outside) close();
+    });
 
     /* Bắt ở thẻ gốc (capture) để bắt được cả lượt bấm bằng chuột phải / phím
        tắt. KHÔNG gọi preventDefault và KHÔNG return sớm theo phím sửa đổi:
@@ -415,7 +427,16 @@
       if (!isMobile()) return;
       if (shownRecently()) return;          // đã báo trong 24h — im lặng cho tải thẳng
 
-      show();
+      /* Nút trong hộp mang đúng link của nút vừa bấm: link .exe đã dò được
+         (mục trên) hoặc link dự phòng tới trang release nếu chưa dò xong.
+         Không gắn data-dl để bấm nút này không bật lại chính hộp này. */
+      if (dlBtn) {
+        var href = target.getAttribute('href');
+        if (href) dlBtn.setAttribute('href', href);
+      }
+
+      if (typeof dlg.show === 'function') dlg.show();
+      else dlg.setAttribute('open', '');   // trình duyệt cũ: hiện bằng thuộc tính
       markShown();
     }, true);
   })();

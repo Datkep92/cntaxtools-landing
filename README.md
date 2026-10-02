@@ -111,17 +111,21 @@ Hộp thoại này là *alert*, **không phải modal**: gọi `dlg.show()` ch�
 `showModal()`, nên không khoá nền, không giữ focus trong hộp, không phủ mờ trang,
 và bấm xuống vùng trống bên dưới vẫn ăn click bình thường.
 
-> Vì sao không chặn: trước đây dùng `showModal()` chặn lần bấm đầu. Khách phải
-> bấm lần hai mới tải được, và nhiều người tưởng trang lỗi nên bỏ luôn. Nhiều
+> Vì sao chỉ chặn đúng lần đầu: mọi nút tải đều có `target="_blank"`, mà iOS
+> Safari **mở ngay tab mới rồi chuyển đi**. Nếu không chặn thì hộp có hiện, nhưng
+> ở tab cũ — người dùng không hề thấy. Chặn lần đầu thì họ thấy hộp ngay, bấm
+> **“Vẫn tải về”** là tải. Đánh đổi: mất đúng một lần bấm đệ duy nhất. Nhiều
 > khách muốn tải file `.exe` về máy để chuyển qua Zalo/USB sang máy tính, nên
-> cấm tải là cắt mất nhu cầu thật. Nay chỉ nhắc, không cản.
+> cấm tải hẳn là cắt mất nhu cầu thật.
 
 | Việc | Cách làm |
 | --- | --- |
 | Nhận biết điện thoại | UA (`Android`/`iPhone`/`Mobile`…) + tín hiệu con trỏ `hover: none` / `pointer: coarse` |
 | Không bắt nhầm iPad | iPadOS báo UA là `Macintosh` — có `maxTouchPoints > 1` thì coi như desktop, vẫn cài app Windows được |
-| Không mất lượt tải | Handler bắt ở thẻ gốc nhưng **không** gọi `preventDefault()` — click đi tiếp như bình thường |
-| Vẫn tải được ngay trong hộp | Nút **“Vẫn tải về”** (`#oswarn-dl`) mang đúng link của nút vừa bấm; không có `data-dl` nên không bật lại hộp |
+| Chặn lần bấm đầu | `preventDefault()` + `stopPropagation()` — khách bấm thêm **“Vẫn tải về”** trong hộp là tải |
+| Vẫn tải được ngay trong hộp | Nút **“Vẫn tải về”** (`#oswarn-dl`) đọc `href` của nút vừa bấm lúc chạm, nên luôn đúng bản mới nhất |
+| Không mất lượt báo Telegram | Dùng `stopPropagation()` **không** phải `stopImmediatePropagation()` — handler báo Telegram ở phần 4b vẫn chạy |
+| Lần thứ hai trở đi | Khách đã thấy hộp trong 24h thì bấm là tải thẳng, không hỏi lại — chỉ mất đúng một lần đệ |
 | Đóng hộp | Nút **✕**, bấm ra ngoài mép hộp, phím `Esc`, hoặc bấm luôn nút tải |
 | Không lặp lại mỗi lần bấm | Hiện một lần rồi ẩn trong 24 giờ (`localStorage`, key `cntax.oswarn.shown`) |
 | Không mất focus | `show()` không vào top layer, không khoá focus như `showModal()` |

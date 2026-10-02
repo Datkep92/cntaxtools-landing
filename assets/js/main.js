@@ -348,15 +348,27 @@
      iOS/Android. Nhưng khách vẫn được tải bình thường: hộp thoại cản trước
      đây khiến người dùng bấm xong phải bấm thêm lần nữa mới tải, mất lượt.
 
-     Nay hiện một hộp thoại nhỏ giữa màn hình rồi bấm nút tải đi tiếp ngay.
-     Ba điều kiện để hộp này không bao giờ làm mất một lượt tải:
+     Nay hiện một hộp thoại nhỏ giữa màn hình, kèm nút "Vẫn tải về" để
+     người đã đọc xong vẫn tải được ngay.
 
-       1. Gọi dlg.show(), KHÔNG dùng showModal() -> không khoá nền, không giữ
-          focus trong hộp, không ăn phím ESC một cách vô lý.
-       2. KHÔNG gọi preventDefault() -> sự kiện click đi tiếp như bình thường,
-          trình duyệt vẫn mở link tải file.
-       3. Trong hộp có sẵn nút "Vẫn tải về" gắn đúng link .exe, cho người đã
-          đọc xong vẫn tải được ngay mà không phải đóng hộp rồi bấm lại.
+     CỐ TÌNH chặn lần bấm đầu: khách phải bấm thêm "Vẫn tải về" trong hộp
+     mới tải. Đây là đánh đổi được chấp nhận để không mất lượt tải nào, dù
+     khách phải thấy bấm 2 lần.
+
+     Lý do đổi thuật không để: mọi nút tải đều có target="_blank", mà iOS
+     Safari mở ngay tab MỚI rồi chuyển đi. Nếu không chặn lần đầu thì hộp
+     hiện ở tab cũ, người dùng không hề thấy — đúng lý do họ báo "vẫn không
+     hiện thông báo". Cần thử lại nếu thấy hay.
+
+       1. preventDefault + stopPropagation lần đầu để không mở tab mới
+          (chỉ người dùng mất một tập giữa hộp để quyết định).
+       2. Gọi dlg.show(), KHÔNG dùng showModal() -> không khoá nền, không
+          giữ focus trong hộp, không phủ mờ trang.
+       3. Chỉ dùng stopPropagation(), KHÔNG stopImmediatePropagation(): có
+          handler khác đang bắt ở document (báo Telegram ở phần 4b) vẫn phải
+          chạy để không mất lượt báo cáo.
+       4. Nếu khách đã thấy trong 24 giờ thì lần sau bấm tải thẳng, không
+          hỏi hộp nữa — chỉ mất đúng một lần đệ duy nhất.
 
      Cố ý không bắt mọi thứ không phải desktop: iPad và iPhone ở chế độ
      desktop vẫn cài được app Windows.
@@ -399,8 +411,19 @@
       if (typeof dlg.close === 'function') dlg.close();
       else dlg.removeAttribute('open');   // trình duyệt quá cũ không có <dialog>
     }
+    var lastBtn = null;   // nút tải khách vừa bấm, để đọc href mới nhất
+
     if (closeBtn) closeBtn.addEventListener('click', close);
-    if (dlBtn)    dlBtn.addEventListener('click', close);
+
+    /* Nút tải trong hộp: mở đúng link mà nút vừa bấm trỏ tới, để trang GitHub
+       mở đúng 1 tab, đúng bản mới nhất. Đọc href lúc bấm từ lastBtn chứ không
+       cập nhật sẵn vào hộp: ổ API GitHub dò xong sau đúng đến hơn nửa giây
+       nên href trên nút tải không bền. */
+    if (dlBtn) dlBtn.addEventListener('click', function () {
+      var href = lastBtn ? lastBtn.getAttribute('href') : dlBtn.getAttribute('href');
+      close();
+      if (href) window.open(href, '_blank', 'noopener');
+    });
 
     /* Bấm ra ngoài hộp thì đóng, giống bấm nền để tắt menu trượt.
 
@@ -418,8 +441,8 @@
     });
 
     /* Bắt ở thẻ gốc (capture) để bắt được cả lượt bấm bằng chuột phải / phím
-       tắt. KHÔNG gọi preventDefault và KHÔNG return sớm theo phím sửa đổi:
-       người dùng mở tab mới / Ctrl-click vẫn nên được thấy nhắc nhở. */
+       tắt. Không return sớm theo phím sửa đổi: Ctrl-click, mở tab mới vẫn
+       được thấy nhắc nhở. Hộp hiện trước rồi mới chặn hành động (xem dưới). */
     document.addEventListener('click', function (event) {
       var target = event.target.closest ? event.target.closest('[data-dl]') : null;
       if (!target) return;
@@ -427,13 +450,13 @@
       if (!isMobile()) return;
       if (shownRecently()) return;          // đã báo trong 24h — im lặng cho tải thẳng
 
-      /* Nút trong hộp mang đúng link của nút vừa bấm: link .exe đã dò được
-         (mục trên) hoặc link dự phòng tới trang release nếu chưa dò xong.
-         Không gắn data-dl để bấm nút này không bật lại chính hộp này. */
-      if (dlBtn) {
-        var href = target.getAttribute('href');
-        if (href) dlBtn.setAttribute('href', href);
-      }
+      lastBtn = target;
+
+      /* Chặn lần đầu: không để iOS Safari mở tab mới đúng khi hộp vừa hiện.
+         Dừng đường đi ở đây rồi đẩy phần 4b không tự điều hành link đi nữa, có
+         thể bị đọc sau đúng đến hơn nửa giây khi API dò xong. */
+      event.preventDefault();
+      event.stopPropagation();
 
       if (typeof dlg.show === 'function') dlg.show();
       else dlg.setAttribute('open', '');   // trình duyệt cũ: hiện bằng thuộc tính

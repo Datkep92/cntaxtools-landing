@@ -40,16 +40,17 @@ gcloud services enable searchconsole.googleapis.com --project=hddt-49af7
 
 ---
 
-## 1. Cấu trúc trang (6 khối, ngắn gọn)
+## 1. Cấu trúc trang (7 khối, ngắn gọn)
 
 | # | Khối | Nội dung |
 | --- | --- | --- |
 | 1 | **Hero** | Định vị: kéo hóa đơn từ Tổng cục Thuế, đối chiếu sao kê cho kế toán |
 | 2 | **Slide giao diện** | 4 slide: quản lý MST · tải hóa đơn · hàng hóa & tồn kho · sao kê & công nợ |
 | 3 | **Hai nhóm người dùng** | 2 thẻ: Hộ kinh doanh · Kế toán — mỗi thẻ gồm danh sách nhu cầu + dải "ứng dụng cho bạn" |
-| 4 | **Đang phát triển** | 6 tính năng đang xây dựng + kênh gửi yêu cầu |
-| 5 | **CTA cuối** | Tải ứng dụng / nhắn Zalo |
-| 6 | **Footer** | Liên kết + liên hệ |
+| 4 | **Hướng dẫn cài đặt** | 4 bước cài · cách qua bảng cảnh báo SmartScreen · cách tự kiểm tra tệp `.exe` |
+| 5 | **Đang phát triển** | 6 tính năng đang xây dựng + kênh gửi yêu cầu |
+| 6 | **CTA cuối** | Tải ứng dụng / nhắn Zalo |
+| 7 | **Footer** | Liên kết + liên hệ |
 
 ### Khối 3 — chia theo đúng hai nhóm khách hàng
 
@@ -60,7 +61,21 @@ gcloud services enable searchconsole.googleapis.com --project=hddt-49af7
 
 Hai thẻ xuống hàng dưới 860px, song song từ 860px. Nhờ `.who-list { flex: 1 }` + `.who-note { margin-top: auto }` nên hai dải "ứng dụng cho bạn" luôn **thẳng hàng nhau** ở đáy dù nội dung dài khác nhau.
 
-**Cố ý không có:** bảng giá, dùng thử 30 ngày, cảm nhận khách hàng, FAQ, so sánh "cách làm thủ công", hướng dẫn 3 bước.
+### Khối 4 — hướng dẫn cài đặt (vì sao có khối này)
+
+Ứng dụng chưa ký chứng thư ký số nên **Windows Defender SmartScreen chặn tệp `.exe`** và hiện
+bảng *"Windows đã bảo vệ PC của bạn"*. Đây là lý do chính khiến khách bỏ cuộc hoặc nghĩ
+đây là virus. Khối này trả lời đúng ba câu hỏi của khách:
+
+| Khách hỏi | Trả lời trong khối |
+| --- | --- |
+| *"Tôi không biết cài"* | `.steps` — 4 bước: tải tệp → nhấp đúp → Next/Install → đăng nhập |
+| *"Sợ ứng dụng độc hại / lừa đảo"* | `More info` → `Run anyway`; **không cần tắt antivirus**; `Unblock` nếu vẫn bị chặn; vì sao *Unknown publisher* là bình thường |
+| *"Tin được không?" | Mã nguồn mở · mã băm SHA-256 (`certutil -hashfile`) · dữ liệu nằm trên máy |
+
+Dùng chung khối này ở **hộp thoại** (mục 2c) — không viết hai lần.
+
+**Cố ý không có:** bảng giá, dùng thử 30 ngày, cảm nhận khách hàng, so sánh "cách làm thủ công".
 Ứng dụng đang được phát triển nên không công bố giá.
 
 ---
@@ -88,58 +103,44 @@ Có JS thì `assets/js/main.js` (mục 4) tra `api.github.com` để lấy thẳ
 | Việc | Cách làm |
 | --- | --- |
 | Chọn đúng tệp | Khớp `CN-Tax-Tools-Setup-vX.Y.Z.exe` — bỏ qua `.sha256`, bỏ qua bản payload `CN-Tax-Tools-vX.Y.Z.exe` (dùng cho self-update, không phải để cài) |
-| Đổi số phiên bản | Mọi nhãn `data-dl-ver` tự cập nhật: `v1.0.9` → `v1.0.10` |
-| Bấm khi API chưa về | Chặn sự kiện, chờ tối đa 3 giây rồi mới chuyển trang — không mất lượt tải |
+| Đổi số phiên bản | Mọi nhãn `data-dl-ver` tự cập nhật: `v1.1.0` → `v1.1.1` |
+| Link dùng chung | Link `.exe` và hàm `resolve()` nằm trong biến `dl` — hộp thoại (mục 2c) gọi lại đúng hàm đó, không tra API hai lần |
 | Cache | `localStorage` 30 phút (GitHub giới hạn 60 lượt/giờ cho request không đăng nhập) |
 | An toàn | Chỉ nhận link `https` của chính repo phát hành; cache hết hạn hoặc trỏ repo khác thì bỏ qua |
 | Không có mạng | Mọi lỗi đều rơi về `href` dự phòng, không hiện lỗi ra màn hình |
 
-> **Khi phát hành bản mới:** không cần sửa gì trên trang. Đổi tag release trong
-> `HoaDonNhe` là nút tải và số phiên bản tự cập nhật trong vòng 30 phút.
-> Riêng `softwareVersion` trong JSON-LD vẫn ghi tay trong `index.html` — sửa nếu muốn khớp.
+## 2c. Hộp thoại cảnh báo — mở ở MỌI lần bấm nút tải
 
----
+Không có tùy chọn "bỏ qua". Bấm nút tải (header · hero · CTA cuối · dock) hoặc nút
+**Xem cách cài đặt** ở hero → hộp thoại `#dlm` mở ra, nội dung đổi theo thiết bị:
 
-## 2c. Hộp thông báo trên điện thoại (nhắc nhở, không chặn tải)
+| Thiết bị | Nội dung | Nút chính |
+| --- | --- | --- |
+| **Máy tính Windows** | 4 bước cài + cách qua bảng *"Windows đã bảo vệ PC"* + vì sao *Unknown publisher* là bình thường + mã nguồn / SHA-256 | **Tải và cài đặt** |
+| **Điện thoại / tablet** | "Chỉ chạy trên Windows 10/11 — không có bản Android/iPhone, tệp `.exe` mở không được" + 3 lựa chọn (mở lại bằng máy tính · nhắn Zalo · tải tệp về để chuyển sang máy khác) | **Nhắn Zalo** (nút tải lùi xuống thành nút phụ) |
+| **macOS / Linux** | "Không có bản cài cho máy này" + lựa chọn thay thế (dùng máy Windows khác · Boot Camp / Parallels · nhắn Zalo nếu cần bản macOS) | **Tải tệp .exe về** |
 
-Ứng dụng chỉ có bản cài **Windows 10/11 64-bit** — tệp `.exe` không chạy được
-trên iOS/Android. Khi khách bấm nút tải trên điện thoại, `assets/js/main.js`
-(mục 4a) hiện hộp thoại `<dialog id="oswarn">` ở giữa màn hình, nhắc họ mở
-trang bằng máy tính — **nhưng không chặn tải**.
-
-Hộp thoại này là *alert*, **không phải modal**: gọi `dlg.show()` chứ không phải
-`showModal()`, nên không khoá nền, không giữ focus trong hộp, không phủ mờ trang,
-và bấm xuống vùng trống bên dưới vẫn ăn click bình thường.
-
-> Vì sao chỉ chặn đúng lần đầu: mọi nút tải đều có `target="_blank"`, mà iOS
-> Safari **mở ngay tab mới rồi chuyển đi**. Nếu không chặn thì hộp có hiện, nhưng
-> ở tab cũ — người dùng không hề thấy. Chặn lần đầu thì họ thấy hộp ngay, bấm
-> **“Vẫn tải về”** là tải. Đánh đổi: mất đúng một lần bấm đệ duy nhất. Nhiều
-> khách muốn tải file `.exe` về máy để chuyển qua Zalo/USB sang máy tính, nên
-> cấm tải hẳn là cắt mất nhu cầu thật.
+Chỉnh nội dung: sửa thẳng trong `index.html` — mỗi thiết bị một
+`<section data-dlm-pane="win|mobile|other">`, tiêu đề / nhãn nút nằm trong `COPY`
+(mục 5 của `main.js`). Thêm thiết bị mới = thêm một khối HTML + một nhánh trong
+`COPY` và `detect()`.
 
 | Việc | Cách làm |
 | --- | --- |
-| Nhận biết điện thoại | UA (`Android`/`iPhone`/`Mobile`…) + tín hiệu con trỏ `hover: none` / `pointer: coarse` |
-| Không bắt nhầm iPad | iPadOS báo UA là `Macintosh` — có `maxTouchPoints > 1` thì coi như desktop, vẫn cài app Windows được |
-| Chặn lần bấm đầu | `preventDefault()` + `stopPropagation()` — khách bấm thêm **“Vẫn tải về”** trong hộp là tải |
-| Vẫn tải được ngay trong hộp | Nút **“Vẫn tải về”** (`#oswarn-dl`) đọc `href` của nút vừa bấm lúc chạm, nên luôn đúng bản mới nhất |
-| Không mất lượt báo Telegram | Dùng `stopPropagation()` **không** phải `stopImmediatePropagation()` — handler báo Telegram ở phần 4b vẫn chạy |
-| Lần thứ hai trở đi | Khách đã thấy hộp trong 24h thì bấm là tải thẳng, không hỏi lại — chỉ mất đúng một lần đệ |
-| Đóng hộp | Nút **✕**, bấm ra ngoài mép hộp, phím `Esc`, hoặc bấm luôn nút tải |
-| Không lặp lại mỗi lần bấm | Hiện một lần rồi ẩn trong 24 giờ (`localStorage`, key `cntax.oswarn.shown`) |
-| Không mất focus | `show()` không vào top layer, không khoá focus như `showModal()` |
+| Nhận diện | Di động xét trước bằng UA (UA-CH không có iPhone/iPad); hệ điều hành thì ưu tiên `navigator.userAgentData.platform`; iPadOS tự khai `Macintosh` nên tính là iPad khi `maxTouchPoints > 1`; `pointer: coarse` làm chốt chặn cuối |
+| Đóng hộp thoại | ✕ · bấm ra ngoài · ESC · sau khi bấm nút tải. Focus trả về đúng nút đã bấm |
+| Bàn phím | Tab kẹp bên trong hộp thoại (không lọt ra phần tử sau), khi mở focus nằm trên chính hộp thoại |
+| Cuộn | `.dlm__bd` cuộn riêng, có vệt báo còn nội dung ở trên/dưới (nền `local` + `scroll`) |
+| Mobile | Dưới 560px hộp thoại thành **bottom sheet** bo góc trên, hai nút xếp dọc, Zalo lên trên |
+| Không chặn | Chuột phải · Ctrl+click · mở tab mới — vẫn tải thẳng bằng `href` đã dò sẵn |
+| Báo lượt tải | `sendBeacon` tới Worker (`/v1/landing/download`) **chỉ khi bấm nút tải trong hộp thoại**, không phải mỗi lần mở hộp thoại — nếu không thì số tin Telegram thành số lần bấm chứ không phải số lượt tải |
 
-Một chi tiết dễ sửa nhầm: `<dialog>` mở bằng `show()` vẫn là `position: absolute`
-theo UA stylesheet, mà thẻ này nằm cuối `<body>` — nên phải khai
-`position: fixed; inset: 0; margin: auto` mới canh giữa đúng khung nhìn. Cùng lý do
-đó `::backdrop` không được vẽ, nên CSS cố ý không khai backdrop.
+> **Thêm hướng dẫn mới?** Nhớ viết cả hai bản: khối trong trang (mục 1, khối 4) và
+> khối trong hộp thoại — bản trong hộp thoại viết ngắn hơn vì phải đọc ngay sau khi bấm.
 
-Vị trí canh giữa khung nhìn, `z-index: 70` — cao hơn dock (45) lẫn header (50).
-Màu sắc lấy từ biến CSS sẵn có nên tự đúng ở cả chế độ sáng lẫn tối.
-
-> Chỉ cần sửa `index.html` (khối `<dialog class="oswarn">`) và `assets/js/main.js`
-> (IIFE `mobileAlert`) nếu muốn đổi nội dung thông báo.
+> **Khi phát hành bản mới:** không cần sửa gì trên trang. Đổi tag release trong
+> `HoaDonNhe` là nút tải và số phiên bản tự cập nhật trong vòng 30 phút.
+> Riêng `softwareVersion` trong JSON-LD vẫn ghi tay trong `index.html` — sửa nếu muốn khớp.
 
 ---
 
@@ -245,6 +246,12 @@ Giữ nguyên chiều cao `.deco__vp` để 4 slide vẫn chồng tuyệt đối
 - Trang rút từ **12.178px → 4.987px** (giảm 59%) so với bản đầy đủ
 - 4 slide xếp chồng `position: absolute` trong **một khung cao cố định** → chuyển slide không làm trang dài thêm
 - Bỏ 5 khối không còn liên quan (giá, trial, cảm nhận, FAQ, so sánh thủ công)
+- Khối **Hướng dẫn cài đặt** thêm vào sau (~+390px) — đổi lại có mục cài đặt thật cho Google đọc và cho khách tự tin hơn
+
+**Cảnh báo tải ứng dụng**
+- Mọi lượt bấm nút tải đều mở hộp thoại, nội dung theo thiết bị (Windows · điện thoại · macOS/Linux) — xem mục 2c
+- Không tốn thêm lượt tải: link `.exe` đã dò sẵn từ API, bấm nút trong hộp thoại là đi thẳng
+- Hộp thoại cuộn riêng, có vệt báo còn nội dung; dưới 560px thành bottom sheet
 
 **Slide**
 - Tự chạy 6,5s · dừng khi rê chuột / tab ẩn / đang focus
@@ -280,7 +287,7 @@ Giữ nguyên chiều cao `.deco__vp` để 4 slide vẫn chồng tuyệt đối
 
 ---
 
-## 7. ⚠️ Hai chỗ dễ sửa sai
+## 7. ⚠️ Ba chỗ dễ sửa sai
 
 **1. Không đặt `backdrop-filter` / `filter` / `transform` lên `.hdr`.**
 Ba thuộc tính đó khiến `.hdr` thành **containing block** cho phần tử `position: fixed` con.
@@ -290,6 +297,12 @@ Hiệu ứng blur đang đặt trên `.hdr::before` — pseudo-element không c�
 **2. Rule dark-mode cho thành phần phải nằm ở cuối `style.css`.**
 Các rule cùng độ ưu tiên sẽ bị rule đứng sau đè. Đặt `.tag--ok { … }` trong dark-mode ở giữa file thì
 rule light phía dưới vẫn thắng và nhãn sẽ sáng khi nền tối.
+
+**3. Thêm phần tử thứ ba vào một `<li>` dạng lưới 2 cột là phải chỉ định cột.**
+`.steps li` là `grid-template-columns: 32px 1fr` với 3 phần tử (`::before` + `<b>` + `<span>`).
+Không có `grid-column: 2` thì `<span>` bị đẩy xuống **hàng 2, cột 1** — tức ô 32px của số thứ tự —
+và cả đoạn hướng dẫn bị bóp thành một chữ mỗi dòng. Đã gặp đúng lỗi này: khối cài đặt dựng cao
+3.908px thay vì 1.278px. Cùng kiểu lỗi ở `.inst-ticks li` và `.dlm-safe li` (mục có khối lệnh `certutil`).
 
 ---
 
@@ -302,12 +315,14 @@ rule light phía dưới vẫn thắng và nhãn sẽ sáng khi nền tối.
 | Số dòng H1 | 3 dòng ≤480px · 2 dòng >480px |
 | Tràn ngang 320 → 1440px | 0px |
 | Vùng chạm < 24px | 0 |
-| Tương phản dark mode | đạt AA |
+| Tương phản dark mode | đạt AA — 46 cặp màu, `node tools/check-contrast.cjs` |
 | Lỗi console | 0 |
 | Còn nhắc "dùng thử 30 ngày" / bảng giá | không có |
 | Icon SVG không dùng | 0 |
 | Rule CSS của lớp đã bỏ | 0 |
 
-Đã kiểm thử: menu trượt (4 cách đóng), slide (tự chạy / nút / vuốt / phím), reveal, thanh cuộn, dock, JSON-LD, anchor.
+Đã kiểm thử: menu trượt (4 cách đóng), slide (tự chạy / nút / vuốt / phím), reveal, thanh cuộn, dock, JSON-LD, anchor,
+hộp thoại cảnh báo ở 5 dạng thiết bị (Windows · macOS · iPadOS · iPhone · Android), đóng bằng ✕ · nền ngoài · ESC,
+Tab kẹp trong hộp thoại, bấm nút tải đi tới link `.exe` đúng phiên bản.
 
 Trình duyệt: Chrome/Edge 120+, Firefox 121+, Safari 17+ (iOS & macOS).

@@ -193,11 +193,32 @@
      Cùng lần tra đó, mọi nhãn `data-dl-ver` cũng được đổi theo — để trang không
      còn rơi lại số phiên bản cũ sau khi đã phát hành bản mới.
 
-     Vì sao bấm lúc chưa tra xong vẫn tải đúng: chặn sự kiện click, chờ tối đa
-     3 giây cho lời gọi về rồi mới chuyển trang. Quá hạn thì thả theo href sẵn có.
+     Link đã dò được và hàm `resolve()` được đặt vào `dl` cho hộp thoại ở mục 5
+     dùng lại: bấm nút tải trong hộp thoại phải ra đúng bản mới nhất y hệt bấm
+     nút ngoài trang, không phải chờ tra lại lần nữa.
 
      Cache localStorage 30 phút: GitHub giới hạn 60 lượt/giờ cho request không
      đăng nhập, và bản mới không xuất hiện dày đặc đến vậy. */
+  var dl = { url: null, resolve: null, wait: 3000 };
+
+  /* Đi tới link tải, chờ tối đa `dl.wait` ms cho lời gọi API về rồi mới chuyển
+     trang. Quá hạn thì thả theo `fallback` (href dự phòng trong HTML) — không
+     mất lượt tải vì chậm một chút. */
+  function startDownload(fallback) {
+    var settled = false;
+    var wait = window.setTimeout(function () { go(fallback); }, dl.wait);
+
+    function go(target) {
+      if (settled) return;
+      settled = true;
+      window.clearTimeout(wait);
+      window.location.href = target;
+    }
+
+    if (dl.resolve) dl.resolve().then(function (value) { go(value || fallback); });
+    else go(fallback);
+  }
+
   (function downloadLinks() {
     var buttons = $$('[data-dl]');
     var labels = $$('[data-dl-ver]');
@@ -207,11 +228,20 @@
     var API = 'https://api.github.com/repos/' + REPO + '/releases/latest';
     var CACHE_KEY = 'cntax.dl.v1';
     var TTL_MS = 30 * 60 * 1000;
-    var WAIT_CLICK_MS = 3000;
 
     var url = null;        // link .exe đã dò được
     var version = null;    // số phiên bản đã đổi lên nhãn
     var pending = null;    // promise đang chờ, dùng lại cho mọi lần bấm
+
+    /* Ghi link .exe vào mọi nút tải và nhớ lại cho hộp thoại. Chỉ gán một lần:
+       nếu API đổi ý giữa chừng thì vẫn giữ link đã biết là đúng. */
+    function setUrl(value) {
+      if (!value || url) return false;
+      url = value;
+      dl.url = value;
+      buttons.forEach(function (btn) { btn.setAttribute('href', value); });
+      return true;
+    }
 
     /* Chỉ nhận đúng tệp bộ cài của CN Tax Tools: bỏ qua .sha256, bỏ qua bản
        payload CN-Tax-Tools-vX.Y.Z.exe (dùng cho self-update, không phải để cài). */
@@ -276,10 +306,7 @@
 
     function apply(cached) {
       if (!cached) return;
-      if (cached.url && !url && buttons.length) {
-        url = cached.url;
-        buttons.forEach(function (btn) { btn.setAttribute('href', cached.url); });
-      }
+      if (cached.url) setUrl(cached.url);
       if (cached.version && !version) applyVersion(cached.version);
     }
 
@@ -296,13 +323,10 @@
         })
         .then(function (data) {
           var found = { url: pickAsset(data && data.assets), version: pickVersion(data) };
-          if (found.url && !url) {
-            url = found.url;
-            buttons.forEach(function (btn) { btn.setAttribute('href', found.url); });
-          }
+          if (found.url) setUrl(found.url);
           if (found.version && !version) applyVersion(found.version);
-          if (found.url || found.version) writeCache({ url: url, version: version, at: Date.now() });
-          return found.url;
+          if (url || version) writeCache({ url: url, version: version, at: Date.now() });
+          return url;
         })
         .catch(function () {
           return null;   // mạng lỗi / API lỗi / đổi cấu trúc -> giữ nguyên href dự phòng
@@ -316,189 +340,224 @@
     }
 
     apply(readCache());
+    dl.resolve = resolve;
     if ((buttons.length && !url) || (labels.length && !version)) resolve();
 
-    /* Bấm trước khi tra xong -> chờ một nhịp rồi mới đi, không mất lượt tải */
-    buttons.forEach(function (btn) {
-      btn.addEventListener('click', function (event) {
-        if (url) return;   // đã có link thẳng, để trình duyệt xử lý
-        if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return;
-
-        event.preventDefault();
-        var fallback = btn.getAttribute('href');
-        var settled = false;
-        var wait = window.setTimeout(function () { go(fallback); }, WAIT_CLICK_MS);
-
-        function go(target) {
-          if (settled) return;
-          settled = true;
-          window.clearTimeout(wait);
-          window.location.href = target;
-        }
-
-        resolve().then(function (value) { go(value || fallback); });
-      });
-    });
+    /* KHÔNG bắt sự kiện click ở đây nữa: mọi lượt bấm chuột trái đã bị hộp thoại
+       ở mục 5 chặn lại trước để hiện cảnh báo. Giữ `href` đã dò sẵn ở trên là đủ
+       cho các lượt mở bằng chuột phải / Ctrl+click / mở tab mới. */
   })();
 
   /* ----------------------------------------------------------------------
-     4a. HỘP THÔNG BÁO MOBILE — nhắc nhở, KHÔNG chặn tải
+     5. CẢNH BÁO TRƯỚC KHI TẢI — đổi nội dung theo thiết bị đang dùng
      ----------------------------------------------------------------------
-     CN Tax Tools chỉ có bản cài Windows, tệp .exe không chạy được trên
-     iOS/Android. Nhưng khách vẫn được tải bình thường: hộp thoại cản trước
-     đây khiến người dùng bấm xong phải bấm thêm lần nữa mới tải, mất lượt.
+     Mọi lượt bấm nút `data-dl` đều mở hộp thoại này, không có ngoại lệ:
+     người dùng Windows cần chỉ đường qua bảng cảnh báo SmartScreen và cần
+     tin rằng đây không phải virus; người dùng điện thoại thì phải biết ngay
+     là ứng dụng không chạy được trên máy của họ — nút chính đổi sang Zalo.
 
-     Nay hiện một hộp thoại nhỏ giữa màn hình, kèm nút "Vẫn tải về" để
-     người đã đọc xong vẫn tải được ngay.
+     Nội dung viết sẵn trong HTML, mỗi thiết bị một khối `[data-dlm-pane]`, JS
+     chỉ chọn khối cần hiện. Muốn đổi câu chữ thì sửa thẳng trong index.html.
 
-     CỐ TÌNH chặn lần bấm đầu: khách phải bấm thêm "Vẫn tải về" trong hộp
-     mới tải. Đây là đánh đổi được chấp nhận để không mất lượt tải nào, dù
-     khách phải thấy bấm 2 lần.
+     Click chuột phải, Ctrl+click hay mở tab mới thì KHÔNG chặn: người dùng
+     đang chủ động làm việc khác, chặn cả thì chỉ gây khó chịu chứ không thêm
+     được thông tin nào cho họ. */
+  (function downloadNotice() {
+    var box = $('#dlm');
+    if (!box) return;
 
-     Lý do đổi thuật không để: mọi nút tải đều có target="_blank", mà iOS
-     Safari mở ngay tab MỚI rồi chuyển đi. Nếu không chặn lần đầu thì hộp
-     hiện ở tab cũ, người dùng không hề thấy — đúng lý do họ báo "vẫn không
-     hiện thông báo". Cần thử lại nếu thấy hay.
+    var RELEASE = 'https://github.com/Datkep92/HoaDonNhe/releases/latest';
+    var GATEWAY = 'https://hoadon-support-gateway.linhnhaxac10.workers.dev/v1/landing/download';
 
-       1. preventDefault + stopPropagation lần đầu để không mở tab mới
-          (chỉ người dùng mất một tập giữa hộp để quyết định).
-       2. Gọi dlg.show(), KHÔNG dùng showModal() -> không khoá nền, không
-          giữ focus trong hộp, không phủ mờ trang.
-       3. Chỉ dùng stopPropagation(), KHÔNG stopImmediatePropagation(): có
-          handler khác đang bắt ở document (báo Telegram ở phần 4b) vẫn phải
-          chạy để không mất lượt báo cáo.
-       4. Nếu khách đã thấy trong 24 giờ thì lần sau bấm tải thẳng, không
-          hỏi hộp nữa — chỉ mất đúng một lần đệ duy nhất.
+    // `box` là lớp phủ, `dlg` là hộp thoại có tabindex="-1" — chỉ hộp thoại mới
+    // nhận được focus, đưa focus nhầm vào lớp phủ thì không có tác dụng gì.
+    var dlg = $('.dlm__box', box);
+    var panes = $$('[data-dlm-pane]', box);
+    var badgeEl = $('#dlm-badge'), titleEl = $('#dlm-t'), descEl = $('#dlm-d');
+    var useEl = $('#dlm-ic').querySelector('use');
+    var goBtn = $('#dlm-go'), goTxt = $('#dlm-go-t');
+    var zaloBtn = $('#dlm-zalo'), zaloTxt = $('#dlm-zalo-t');
+    var lastFocus = null, target = RELEASE, isOpen = false;
 
-     Cố ý không bắt mọi thứ không phải desktop: iPad và iPhone ở chế độ
-     desktop vẫn cài được app Windows.
-
-     Hiện một lần rồi ẩn trong 24 giờ (lưu localStorage): khách đã biết rồi
-     thì lần sau bấm là tải thẳng, không phải đọc lại hộp mỗi lần bấm. */
-  (function mobileAlert() {
-    var dlg = document.getElementById('oswarn');
-    if (!dlg) return;
-
-    var closeBtn = document.getElementById('oswarn-x');
-    var dlBtn    = document.getElementById('oswarn-dl');
-    var COOLDOWN_MS = 24 * 60 * 60 * 1000;
-    /* Giữ nguyên key cũ: khách đã bấm chịu cảnh báo hộp thoại lần trước thì
-       vẫn được ẩn trong 24h, không phải đọc lại hộp nữa. */
-    var FLAG_KEY = 'cntax.oswarn.shown';
-
-    /* iPad và iPhone ở chế độ desktop báo UA là "MacIntel", nên phải xét cả
-       maxTouchPoints — iPadOS 13+ cũng tự giả lập UA này. */
-    function isMobile() {
-      if (navigator.maxTouchPoints > 1 && /Macintosh/.test(navigator.userAgent)) return false;
-      if (/Android|iPhone|iPod|IEMobile|Mobile|Silk/i.test(navigator.userAgent)) return true;
-      /* Còn lại dùng tín hiệu con trỏ: cảm ứng và không hover — gần như chắc
-         chắn là điện thoại hoặc tablet. */
-      return window.matchMedia('(hover: none), (pointer: coarse)').matches;
-    }
-
-    function shownRecently() {
-      try {
-        return Date.now() - Number(window.localStorage.getItem(FLAG_KEY) || 0) < COOLDOWN_MS;
-      } catch (error) {
-        return false;   // localStorage bị chặn — coi như chưa báo
+    /* Câu chữ theo từng trường hợp. `zaloFirst: true` nghĩa là trên máy này nút
+       Zalo mới là hành động chính (điện thoại), nút tải lùi xuống nút phụ. */
+    var COPY = {
+      win: {
+        badge: 'Máy tính Windows',
+        icon: '#i-win',
+        title: 'Cài đặt CN Tax Tools trên Windows',
+        desc: 'Chỉ vài thao tác là xong — kể cả khi Windows hiện bảng cảnh báo xanh “Windows đã bảo vệ PC của bạn”.',
+        go: 'Tải và cài đặt',
+        zalo: 'Cài bị lỗi? Nhắn Zalo'
+      },
+      mobile: {
+        badge: '',   // lấy theo hệ điều hành, xem mobileBadge()
+        icon: '#i-info',
+        title: 'Ứng dụng này chỉ chạy trên máy tính Windows',
+        desc: 'Bạn đang xem trên điện thoại hoặc máy tính bảng. Tệp .exe tải về máy này cũng không mở được.',
+        go: 'Tải tệp .exe về',
+        zalo: 'Nhắn Zalo hỗ trợ',
+        zaloFirst: true
+      },
+      other: {
+        badge: 'Không phải máy tính Windows',
+        icon: '#i-info',
+        title: 'Máy này không chạy được ứng dụng Windows',
+        desc: 'CN Tax Tools chỉ có bản cài cho Windows 10 / 11 – 64-bit. Tệp .exe không mở được trên máy này.',
+        go: 'Tải tệp .exe về',
+        zalo: 'Nhắn Zalo hỗ trợ'
       }
+    };
+
+    /* Nhận diện thiết bị → 'win' | 'mobile' | 'other'.
+
+       Thứ tự có chủ đích:
+       · Di động xét trước, và xét bằng UA — UA-CH (`navigator.userAgentData`)
+         không có giá trị cho iPhone/iPad nên chỉ dựa vào nó sẽ bỏ sót.
+       · Hệ điều hành thì ưu tiên UA-CH, thiếu mới đọc UA: Chrome trên Windows
+         báo platform = "Windows" chính xác, còn UA thì dài dòng và hay bị rút gọn.
+       · iPadOS từ 13 tự khai là "Macintosh", nên phải tính là iPad khi có chạm
+         (maxTouchPoints > 1) — nếu không, khách xem bằng iPad sẽ nhận hướng
+         dẫn cài Windows.
+       · `pointer: coarse` làm chốt chặn cuối cho máy cảm ứng mà UA không nói
+         rõ (điện thoại Android rút gọn UA, Windows Tablet...). */
+    function detect() {
+      var ua = (navigator.userAgent || '').toLowerCase();
+      var data = navigator.userAgentData;
+      var plat = String((data && data.platform) || navigator.platform || '').toLowerCase();
+      var both = ua + ' ' + plat;
+      var touch = (navigator.maxTouchPoints || 0) > 1;
+
+      if ((touch && /macintosh/.test(ua)) ||
+          /android|iphone|ipod|ipad|iemobile|blackberry|opera mini|windows phone|webos|kindle/.test(both)) return 'mobile';
+      if (/windows/.test(plat)) return 'win';
+      if (/mac/.test(plat)) return 'other';
+      if (/windows|win32|win64/.test(ua)) return 'win';
+      if (/macintosh|mac os x|macos/.test(ua)) return 'other';
+      if (window.matchMedia('(pointer: coarse)').matches) return 'mobile';
+      return 'other';
     }
-    function markShown() {
-      try { window.localStorage.setItem(FLAG_KEY, String(Date.now())); } catch (error) { /* bỏ qua */ }
+
+    function mobileBadge() {
+      var data = navigator.userAgentData;
+      var s = ((navigator.userAgent || '') + ' ' +
+               ((data && data.platform) || navigator.platform || '')).toLowerCase();
+      if (/android/.test(s)) return 'Điện thoại / máy tính bảng Android';
+      if (/iphone|ipod|ipad/.test(s)) return 'iPhone hoặc iPad';
+      return 'Điện thoại hoặc máy tính bảng';
+    }
+
+    function focusables() {
+      return $$('a[href], button:not([disabled])', box).filter(function (el) {
+        return el.offsetParent !== null;   // khối panel đang ẩn thì nút bên trong không tính
+      });
+    }
+
+    function open(kind, href) {
+      var cfg = COPY[kind] || COPY.other;
+      target = href || RELEASE;
+
+      panes.forEach(function (pane) {
+        pane.hidden = pane.getAttribute('data-dlm-pane') !== kind;
+      });
+
+      badgeEl.textContent = kind === 'mobile' ? mobileBadge() : cfg.badge;
+      useEl.setAttribute('href', cfg.icon);
+      titleEl.textContent = cfg.title;
+      descEl.textContent = cfg.desc;
+      goTxt.textContent = cfg.go;
+      zaloTxt.textContent = cfg.zalo;
+      goBtn.className = 'btn ' + (cfg.zaloFirst ? 'btn--ghost' : 'btn--primary');
+      zaloBtn.className = 'btn ' + (cfg.zaloFirst ? 'btn--primary' : 'btn--ghost');
+
+      lastFocus = document.activeElement;
+      if (menuOpen) setMenu(false);     // không để menu trượt nằm đè lên hộp thoại
+      isOpen = true;
+      box.hidden = false;
+      lockScroll(true);
+      void box.offsetWidth;             // ép vẽ trạng thái mở để có hiệu ứng vào
+      box.classList.add('is-open');
+      // Đưa focus vào hộp thoại. Gọi thẳng, và gọi lại một nhịp sau: có trường
+      // hợp trình duyệt trả focus về nút đã bấm (nút vốn đang có focus, ví dụ bấm
+      // bằng bàn phím) và người dùng đọc hộp thoại bằng mắt trong khi screen
+      // reader im lặng. Dùng setTimeout chứ không rAF — rAF bị treo khi tab ẩn.
+      dlg.focus();
+      window.setTimeout(function () { if (isOpen) dlg.focus(); }, 0);
     }
 
     function close() {
-      if (typeof dlg.close === 'function') dlg.close();
-      else dlg.removeAttribute('open');   // trình duyệt quá cũ không có <dialog>
+      if (!isOpen) return;
+      isOpen = false;
+      box.classList.remove('is-open');
+      lockScroll(false);
+      window.setTimeout(function () { if (!isOpen) box.hidden = true; }, REDUCED ? 0 : 300);
+      if (lastFocus && lastFocus.focus) lastFocus.focus();
+      lastFocus = null;
     }
-    var lastBtn = null;   // nút tải khách vừa bấm, để đọc href mới nhất
 
-    if (closeBtn) closeBtn.addEventListener('click', close);
-
-    /* Nút tải trong hộp: mở đúng link mà nút vừa bấm trỏ tới, để trang GitHub
-       mở đúng 1 tab, đúng bản mới nhất. Đọc href lúc bấm từ lastBtn chứ không
-       cập nhật sẵn vào hộp: ổ API GitHub dò xong sau đúng đến hơn nửa giây
-       nên href trên nút tải không bền. */
-    if (dlBtn) dlBtn.addEventListener('click', function () {
-      var href = lastBtn ? lastBtn.getAttribute('href') : dlBtn.getAttribute('href');
-      close();
-      if (href) window.open(href, '_blank', 'noopener');
-    });
-
-    /* Bấm ra ngoài hộp thì đóng, giống bấm nền để tắt menu trượt.
-
-       Cần đo bằng clientX/Y vì show() không sinh lớp backdrop: chỗ bấm có thể
-       rơi vào <dialog> (nền trong suốt quanh hộp), lúc đó event.target vẫn là
-       dlg. Chỉ đóng khi bấm ra ngoài mép hộp — bấm vào trong hộp thì giữ nguyên,
-       và tuyệt đối không preventDefault nên mọi thao tác phía dưới vẫn chạy. */
-    dlg.addEventListener('click', function (event) {
-      var box = dlg.firstElementChild;
-      if (!box) { close(); return; }
-      var r = box.getBoundingClientRect();
-      var outside = event.clientX < r.left || event.clientX > r.right ||
-                    event.clientY < r.top  || event.clientY > r.bottom;
-      if (outside) close();
-    });
-
-    /* Bắt ở thẻ gốc (capture) để bắt được cả lượt bấm bằng chuột phải / phím
-       tắt. Không return sớm theo phím sửa đổi: Ctrl-click, mở tab mới vẫn
-       được thấy nhắc nhở. Hộp hiện trước rồi mới chặn hành động (xem dưới). */
-    document.addEventListener('click', function (event) {
-      var target = event.target.closest ? event.target.closest('[data-dl]') : null;
-      if (!target) return;
-
-      if (!isMobile()) return;
-      if (shownRecently()) return;          // đã báo trong 24h — im lặng cho tải thẳng
-
-      lastBtn = target;
-
-      /* Chặn lần đầu: không để iOS Safari mở tab mới đúng khi hộp vừa hiện.
-         Dừng đường đi ở đây rồi đẩy phần 4b không tự điều hành link đi nữa, có
-         thể bị đọc sau đúng đến hơn nửa giây khi API dò xong. */
-      event.preventDefault();
-      event.stopPropagation();
-
-      if (typeof dlg.show === 'function') dlg.show();
-      else dlg.setAttribute('open', '');   // trình duyệt cũ: hiện bằng thuộc tính
-      markShown();
-    }, true);
-  })();
-
-  /* ----------------------------------------------------------------------
-     4b. BÁO TELEGRAM KHI KHÁCH BẤM TẢI
-     ----------------------------------------------------------------------
-     Dùng sendBeacon chứ không phải fetch: beacon được gửi đi dù trang đang
-     rời đi sang GitHub, không phải chờ, và không cần chặn sự kiện click — nên
-     việc báo cáo không bao giờ làm mất một lượt tải. Worker đọc quốc gia và
-     thiết bị từ header của Cloudflare, trang chỉ gửi đường dẫn.
-
-     Blob kiểu text/plain để không vướng preflight CORS (endpoint mở '*' vì
-     landing nằm ở domain khác). Gửi hỏng thì im lặng — đây chỉ là thống báo,
-     không được phép làm hỏng trang. */
-  (function reportDownload() {
-    var GATEWAY = 'https://hoadon-support-gateway.linhnhaxac10.workers.dev/v1/landing/download';
-    var buttons = $$('[data-dl]');
-    if (!buttons.length || !navigator.sendBeacon) return;   // trình duyệt quá cũ thì bỏ qua
-
+    /* Báo chủ trang biết có người tải thật. sendBeacon không chặn, không dính
+       CORS preflight nên không làm mất lượt tải; Worker tự đọc quốc gia và thiết
+       bị từ header của Cloudflare. Chỉ báo khi tải, không báo mỗi lần mở hộp
+       thoại — nếu không thì số tin Telegram thành số lần bấm chứ không phải số
+       lượt tải. */
     function report() {
-      var payload = JSON.stringify({ page: window.location.pathname + window.location.hash });
+      if (!navigator.sendBeacon) return;
       try {
-        navigator.sendBeacon(GATEWAY, new Blob([payload], { type: 'text/plain' }));
-      } catch (error) {
-        // im lặng
-      }
+        navigator.sendBeacon(GATEWAY, new Blob(
+          [JSON.stringify({ page: window.location.pathname + window.location.hash })],
+          { type: 'text/plain' }
+        ));
+      } catch (error) { /* im lặng — báo cáo hỏng không được phép làm hỏng lượt tải */ }
     }
 
-    // Bắt ở thẻ gốc (capture) để báo được cả lượt bấm bằng chuột phải / phím
-    // tắt — không chặn mặc định nên không ảnh hưởng tới việc mở tab mới.
+    /* Bất cứ lần bấm nào cũng hiện cảnh báo: bắt ở thẻ gốc nên không phụ thuộc
+       thứ tự đăng ký, và `data-install` (nút "Xem cách cài đặt" ở hero) cũng mở
+       chung một hộp thoại. */
     document.addEventListener('click', function (event) {
-      var target = event.target.closest ? event.target.closest('[data-dl]') : null;
-      if (target) report();
-    }, true);
+      var el = event.target.closest ? event.target.closest('[data-dl], [data-install]') : null;
+      if (!el) return;
+      if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return;
+      event.preventDefault();
+      open(detect(), el.getAttribute('href') || RELEASE);
+    });
+
+    box.addEventListener('click', function (event) {
+      if (event.target.closest('[data-dlm-close]')) close();
+    });
+
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape' && isOpen) { close(); return; }
+      if (event.key !== 'Tab' || !isOpen) return;
+      var list = focusables();
+      if (!list.length) return;
+      var first = list[0], last = list[list.length - 1];
+      // Focus còn ở ngoài hộp thoại (nút đã bấm chưa nhường focus) thì kéo vào
+      // luôn, không cho Tab lọt sang phần tử của trang.
+      if (!box.contains(document.activeElement)) {
+        event.preventDefault();
+        first.focus();
+        return;
+      }
+      // Tab hết vòng về phần tử đầu/cuối thì quay lại đầu/cuối — không bao giờ
+      // đọc tràn ra ngoài hộp thoại.
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    });
+
+    goBtn.addEventListener('click', function () {
+      report();
+      close();
+      startDownload(target);
+    });
   })();
 
   /* ----------------------------------------------------------------------
-     5. Cuộn mượt tới anchor + đưa focus về đích
+     6. Cuộn mượt tới anchor + đưa focus về đích
      ---------------------------------------------------------------------- */
   function headerOffset() { return (hdr ? hdr.offsetHeight : 0) + 14; }
   document.addEventListener('click', function (e) {
@@ -517,7 +576,7 @@
   });
 
   /* ----------------------------------------------------------------------
-     6. Reveal — luôn có lưới an toàn, không bao giờ ẩn vĩnh viễn
+     7. Reveal — luôn có lưới an toàn, không bao giờ ẩn vĩnh viễn
      ---------------------------------------------------------------------- */
   var revealables = $$('[data-rv]');
   function revealAll() { revealables.forEach(function (el) { el.classList.add('is-in'); }); }
@@ -536,7 +595,7 @@
   }
 
   /* ----------------------------------------------------------------------
-     7. Đánh dấu mục đang xem
+     8. Đánh dấu mục đang xem
      ---------------------------------------------------------------------- */
   var sections = $$('main section[id]');
   var navLinks = $$('.nav a[href^="#"]');

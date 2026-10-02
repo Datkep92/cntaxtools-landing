@@ -57,8 +57,8 @@
      Tham số ?v= giúp tải lại ngay sau khi deploy — GitHub Pages cache tài nguyên
      tĩnh 10 phút, không có tham số này người dùng dễ thấy bản CSS cũ. -->
 <link rel="preload" as="image" href="assets/img/logo.png" type="image/png">
-<link rel="preload" as="style" href="assets/css/style.css?v=20261002d">
-<link rel="stylesheet" href="assets/css/style.css?v=20261002d">
+<link rel="preload" as="style" href="assets/css/style.css?v=20261002a">
+<link rel="stylesheet" href="assets/css/style.css?v=20261002a">
 <script>document.documentElement.classList.add('js');</script>
 </head>
 
@@ -86,6 +86,11 @@
 <symbol id="i-fb" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.7-3.9 1.1 0 2.2.2 2.2.2v2.4h-1.2c-1.2 0-1.6.8-1.6 1.6V12h2.7l-.4 2.9h-2.3v7A10 10 0 0 0 22 12z"/></symbol>
 <symbol id="i-win" viewBox="0 0 24 24" fill="currentColor"><path d="M3 5.5 10.5 4.3v7.2H3zM11.8 4.1 21 2.8v8.7h-9.2zM3 12.9h7.5v7.2L3 18.9zM11.8 12.9H21v8.7l-9.2-1.3z"/></symbol>
 <symbol id="i-zap" viewBox="0 0 24 24" fill="currentColor"><path d="M13.2 1 3 13.4c-.4.5 0 1.3.7 1.3h5.5l-1 7.5c-.1.8 1 1.2 1.5.6L20 11.2c.4-.5 0-1.3-.7-1.3h-5.4l1-7.9c.2-.8-1-1.2-1.5-.6z"/></symbol>
+<symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 5 6v5.4c0 4.4 2.9 8.3 7 9.6 4.1-1.3 7-5.2 7-9.6V6z"/><polyline points="9.2 12 11.4 14.2 15.2 10.2"/></symbol>
+<symbol id="i-info" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><line x1="12" y1="11.2" x2="12" y2="16.4"/><line x1="12" y1="7.7" x2="12.01" y2="7.7"/></symbol>
+<symbol id="i-help" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.4 9.4a2.7 2.7 0 1 1 3.9 2.5c-.8.3-1.3 1-1.3 1.8v.4"/><line x1="12" y1="17" x2="12.01" y2="17"/></symbol>
+<symbol id="i-file" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><polyline points="14 3 14 8 19 8"/><line x1="9" y1="13.2" x2="15" y2="13.2"/><line x1="9" y1="16.6" x2="13" y2="16.6"/></symbol>
+<symbol id="i-key" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="12" r="4"/><path d="M12 12h9"/><path d="M17.5 12v3.4"/><path d="M20.4 12v2.4"/></symbol>
 </svg>
 
 <!-- ============ HEADER ============ -->
@@ -105,6 +110,7 @@
       </button>
       <a href="#features">Tính năng</a>
       <a href="#demo">Giao diện</a>
+      <a href="#install">Cài đặt</a>
       <a href="#roadmap">Đang phát triển</a>
       <a class="btn btn--primary" href="https://github.com/Datkep92/HoaDonNhe/releases/latest" target="_blank" rel="noopener" data-dl>
         <svg aria-hidden="true"><use href="#i-dl"/></svg> Tải ứng dụng
@@ -151,7 +157,8 @@
       <li><svg aria-hidden="true"><use href="#i-check"/></svg> Windows 10 / 11 — 64-bit</li>
       <li><svg aria-hidden="true"><use href="#i-check"/></svg> Dữ liệu lưu trên máy bạn</li>
       <li><svg aria-hidden="true"><use href="#i-check"/></svg> Một file .exe duy nhất</li>
-      <li><svg aria-hidden="true"><use href="#i-check"/></svg> <span data-dl-ver>v1.0.9</span> là bản mới nhất</li>
+      <li><svg aria-hidden="true"><use href="#i-check"/></svg> <span data-dl-ver>v1.1.0</span> là bản mới nhất</li>
+      <li><svg aria-hidden="true"><use href="#i-help"/></svg><button type="button" data-install aria-haspopup="dialog">Xem cách cài đặt</button></li>
     </ul>
   </div>
 </section>
@@ -399,6 +406,93 @@
   </div>
 </section>
 
+<!-- ============ HƯỚNG DẪN CÀI ĐẶT ============ -->
+<section class="sec" id="install">
+  <div class="wrap">
+    <div class="sec-head" data-rv>
+      <span class="eyebrow">Cài đặt</span>
+      <h2>Chạy được trên máy bạn trong 4 bước</h2>
+      <p>Ứng dụng là một tệp <b>.exe</b> duy nhất, không cài thêm gì. Có một chỗ duy nhất làm
+        nhiều người dừng lại — bảng cảnh báo xanh <b>“Windows đã bảo vệ PC của bạn”</b>.
+        Dưới đây là cách qua bảng đó, kèm cách tự kiểm tra tệp trước khi tin.</p>
+    </div>
+
+    <div class="inst">
+      <ol class="steps" data-rv>
+        <li>
+          <b>Tải tệp về máy</b>
+          <span>Bấm nút <em>Tải ứng dụng</em> ở đầu trang. Trình duyệt hỏi “Giữ lại tệp” thì
+            chọn <b>Giữ</b>. Tệp tên <code>CN-Tax-Tools-Setup-<span data-dl-ver>v1.1.0</span>.exe</code>,
+            dung lượng khoảng 109&nbsp;MB.</span>
+        </li>
+        <li>
+          <b>Nhấp đúp vào tệp để mở trình cài đặt</b>
+          <span>Nếu hiện bảng xanh <b>“Windows đã bảo vệ PC của bạn”</b> thì làm theo
+            hộp bên cạnh: bấm <em>More info</em> rồi <em>Run anyway</em>. Nếu không hiện bảng,
+            sang thẳng bước 3.</span>
+        </li>
+        <li>
+          <b>Chọn thư mục rồi cài</b>
+          <span>Next → giữ mặc định <code>C:\Program Files\CN Tax Tools</code> → Install →
+            <em>Run CN Tax Tools</em>. Máy cần có <b>Google Chrome</b> hoặc
+            <b>Microsoft Edge</b>, không cần cài thêm Node.js hay Python.</span>
+        </li>
+        <li>
+          <b>Đăng nhập bằng tài khoản cổng Tổng cục Thuế</b>
+          <span>Dùng chính tài khoản và mã số thuế của bạn. Phiên đăng nhập được mã hoá lưu
+            ngay trên máy, dữ liệu không đi ra ngoài ngoài cổng thuế bạn tự đăng nhập.</span>
+        </li>
+      </ol>
+
+      <div class="inst-side" data-rv style="--d:90ms">
+        <div class="inst-card inst-card--warn">
+          <h3><svg aria-hidden="true"><use href="#i-warn"/></svg> Gặp bảng “Windows đã bảo vệ PC”?</h3>
+          <ol class="inst-num">
+            <li>Bấm <b>More info</b> (Thông tin thêm) ở góc trái bảng cảnh báo.</li>
+            <li>Kiểm tra tên tệp đúng là <code>CN-Tax-Tools-Setup-…</code> rồi bấm <b>Run anyway</b> (Chạy dù sao).</li>
+            <li>Thấy bảng quyền quản trị (UAC) thì bấm <b>Yes / Đồng ý</b>.</li>
+          </ol>
+          <p class="inst-note">Đây là Microsoft Defender SmartScreen — cảnh báo mặc định cho
+            <b>mọi</b> ứng dụng Windows chưa ký chứng thư ký số, không phải báo virus.
+            Chỉ cần bấm “Run anyway” một lần là xong, không cần tắt antivirus.</p>
+          <p class="inst-note">Nếu bấm xong vẫn bị chặn: chuột phải tệp → <b>Properties</b> →
+            tích ô <b>Unblock / Bỏ chặn</b> → Apply. Hoặc vào
+            <em>Windows Security → Virus &amp; threat protection → Protection history</em> rồi
+            chọn <b>Allow on device</b>.</p>
+        </div>
+
+        <div class="inst-card">
+          <h3><svg aria-hidden="true"><use href="#i-shield"/></svg> Muốn kiểm tra trước khi tin?</h3>
+          <ul class="inst-ticks">
+            <li><svg aria-hidden="true"><use href="#i-gh"/></svg><span><b>Mã nguồn mở.</b>
+              Đọc toàn bộ mã trước khi dùng tại
+              <a href="https://github.com/Datkep92/HoaDonNhe" target="_blank" rel="noopener">github.com/Datkep92/HoaDonNhe</a>.</span></li>
+            <li><svg aria-hidden="true"><use href="#i-key"/></svg><span><b>có mã băm SHA-256.</b>
+              Mỗi bản đều kèm tệp <code>.sha256</code>. So trong PowerShell:</span>
+              <code class="inst-code">certutil -hashfile "CN-Tax-Tools-Setup-v1.1.0.exe" SHA256</code></li>
+            <li><svg aria-hidden="true"><use href="#i-info"/></svg><span><b>“Unknown publisher” là bình thường.</b>
+              Chứng thư ký số cho ứng dụng Windows có chi phí hằng năm; đây là phần mềm
+              trong nước nên chưa ký — vì vậy Windows mới hỏi lại một lần.</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="inst-cta" data-rv>
+      <p>Làm theo mà vẫn lỗi, hoặc máy tính công ty không cho cài? Gửi ảnh màn hình qua Zalo —
+        mình cài giúp luôn, không tính phí.</p>
+      <div class="inst-cta-row">
+        <a class="btn btn--primary" href="https://zalo.me/0395995035" target="_blank" rel="noopener">
+          <svg aria-hidden="true"><use href="#i-msg"/></svg> Nhắn Zalo 039.599.5035
+        </a>
+        <a class="btn" href="https://github.com/Datkep92/HoaDonNhe/releases/latest" target="_blank" rel="noopener" data-dl>
+          <svg aria-hidden="true"><use href="#i-dl"/></svg> Tải ứng dụng
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ============ ĐANG PHÁT TRIỂN ============ -->
 <section class="sec" id="roadmap">
   <div class="wrap">
@@ -487,6 +581,7 @@
     <div class="ftr-bot">
       <span>© <span id="yr">2026</span> <b>CN Tax Tools</b> — Ứng dụng đang được phát triển và cập nhật thường xuyên.</span>
       <nav aria-label="Liên kết pháp lý">
+        <a href="#install">Hướng dẫn cài đặt</a>
         <a href="#roadmap">Đang phát triển</a>
         <a href="https://github.com/Datkep92/HoaDonNhe" target="_blank" rel="noopener">Mã nguồn</a>
         <a href="https://github.com/Datkep92/HoaDonNhe/releases/latest" target="_blank" rel="noopener">Tải bản mới</a>
@@ -499,7 +594,7 @@
 <div class="dock" id="dock" role="region" aria-label="Tải ứng dụng">
   <span class="dock-info">
     <b>CN Tax Tools</b>
-    <small><span data-dl-ver>v1.0.9</span> · Một file .exe</small>
+    <small><span data-dl-ver>v1.1.0</span> · Một file .exe</small>
   </span>
   <a class="btn btn--icon btn--ghost" href="https://zalo.me/0395995035" target="_blank" rel="noopener" aria-label="Nhắn Zalo hỏi nhanh">
     <svg aria-hidden="true"><use href="#i-msg"/></svg>
@@ -507,6 +602,111 @@
   <a class="btn btn--primary btn--dl" href="https://github.com/Datkep92/HoaDonNhe/releases/latest" target="_blank" rel="noopener" data-dl>
     <svg aria-hidden="true"><use href="#i-dl"/></svg> Tải ứng dụng
   </a>
+</div>
+
+<!-- ============ HỘP THOÁI CẢNH BÁO TRƯỚC KHI TẢI ============
+     Mở ra ở MỌI lần bấm nút tải, nội dung đổi theo thiết bị đang dùng:
+     · điện thoại / máy tính bảng -> báo ứng dụng chỉ chạy trên Windows, nút chính hoá đổi sang Zalo
+     · máy tính Windows          -> hướng dẫn cài đặt + cách qua cảnh báo SmartScreen
+     · macOS / Linux             -> báo ứng dụng không chạy được trên máy này
+     Khối nội dung viết sẵn trong HTML (mỗi thiết bị một <section data-dlm-pane>);
+     main.js chỉ chọn khối cần hiện và đổi câu chữ tiêu đề. -->
+<div class="dlm" id="dlm" hidden>
+  <div class="dlm__scrim" data-dlm-close></div>
+
+  <div class="dlm__box" role="dialog" aria-modal="true" aria-labelledby="dlm-t" aria-describedby="dlm-d" tabindex="-1">
+    <header class="dlm__hd">
+      <span class="dlm__ic" id="dlm-ic" aria-hidden="true"><svg><use href="#i-warn"/></svg></span>
+      <div>
+        <span class="dlm__badge" id="dlm-badge">Máy tính Windows</span>
+        <h2 id="dlm-t">Cài đặt CN Tax Tools trên Windows</h2>
+        <p id="dlm-d">Chỉ vài thao tác là xong, kể cả khi Windows hiện bảng cảnh báo xanh.</p>
+      </div>
+      <button class="dlm__x" type="button" data-dlm-close aria-label="Đóng cảnh báo">
+        <svg aria-hidden="true"><use href="#i-x"/></svg>
+      </button>
+    </header>
+
+    <div class="dlm__bd">
+      <!-- ---------- Máy tính Windows ---------- -->
+      <section class="dlm__pane" data-dlm-pane="win" hidden>
+        <ol class="steps steps--sm">
+          <li><b>Tải tệp .exe</b><span>Bấm nút tải ở đây, trình duyệt hỏi “Giữ lại tệp” thì chọn <b>Giữ</b>. Khoảng 109&nbsp;MB.</span></li>
+          <li><b>Nhấp đúp vào tệp</b><span>Hiện bảng xanh <b>“Windows đã bảo vệ PC của bạn”</b> thì làm theo hộp bên dưới.</span></li>
+          <li><b>Chọn thư mục rồi Install</b><span>Next → <code>C:\Program Files\CN Tax Tools</code> → Install → <b>Run CN Tax Tools</b>.</span></li>
+          <li><b>Đăng nhập cổng Tổng cục Thuế</b><span>Cần có Chrome hoặc Edge. Không cài thêm Node.js, Python hay trình duyệt khác.</span></li>
+        </ol>
+
+        <div class="dlm-note dlm-note--warn">
+          <b><svg aria-hidden="true"><use href="#i-warn"/></svg> Bảng “Windows đã bảo vệ PC của bạn” — làm sao để qua?</b>
+          <ol>
+            <li>Bấm <b>More info</b> (Thông tin thêm) ở góc trái bảng cảnh báo.</li>
+            <li>Kiểm tra tên tệp đúng là <code>CN-Tax-Tools-Setup-…</code> rồi bấm <b>Run anyway</b> (Chạy dù sao).</li>
+            <li>Bảng quyền quản trị (UAC) hiện ra thì bấm <b>Yes / Đồng ý</b>.</li>
+          </ol>
+          <p>Đây là Microsoft Defender SmartScreen — cảnh báo mặc định cho <b>mọi</b> ứng dụng
+            chưa ký chứng thư ký số, không phải báo virus. Bấm “Run anyway” một lần là xong,
+            không cần tắt antivirus. Vẫn bị chặn thì chuột phải tệp → <b>Properties</b> →
+            tích <b>Unblock / Bỏ chặn</b> → Apply.</p>
+        </div>
+
+        <div class="dlm-safe">
+          <b><svg aria-hidden="true"><use href="#i-shield"/></svg> Sợ độc hại? Kiểm tra được ngay</b>
+          <ul>
+            <li><svg aria-hidden="true"><use href="#i-gh"/></svg><span><b>Mã nguồn mở</b> — đọc toàn bộ mã trước khi dùng:
+              <a href="https://github.com/Datkep92/HoaDonNhe" target="_blank" rel="noopener">github.com/Datkep92/HoaDonNhe</a></span></li>
+            <li><svg aria-hidden="true"><use href="#i-key"/></svg><span><b>Mỗi bản có tệp <code>.sha256</code></b> — so trong PowerShell:</span>
+              <code class="dlm-code">certutil -hashfile "CN-Tax-Tools-Setup-v1.1.0.exe" SHA256</code></li>
+            <li><svg aria-hidden="true"><use href="#i-info"/></svg><span><b>“Unknown publisher” là bình thường</b> — chứng thư ký số cho ứng dụng Windows có chi phí hằng năm, phần mềm trong nước nên chưa ký.</span></li>
+            <li><svg aria-hidden="true"><use href="#i-lock"/></svg><span><b>Dữ liệu nằm trên máy bạn</b> — không gửi hóa đơn, tài khoản thuế đi đâu ngoài cổng thuế bạn tự đăng nhập.</span></li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ---------- Điện thoại / máy tính bảng ---------- -->
+      <section class="dlm__pane" data-dlm-pane="mobile" hidden>
+        <div class="dlm-note dlm-note--warn">
+          <b><svg aria-hidden="true"><use href="#i-info"/></svg> Ứng dụng này không chạy được trên điện thoại</b>
+          <p>CN Tax Tools là phần mềm cài trên <b>máy tính Windows 10 / 11 – 64-bit</b>. Không có
+            bản cho Android hay iPhone, và tệp <code>.exe</code> tải về điện thoại cũng không mở được.</p>
+        </div>
+        <div class="dlm-safe">
+          <b><svg aria-hidden="true"><use href="#i-help"/></svg> Làm gì tiếp theo</b>
+          <ul>
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg><span><b>Cách nhanh nhất:</b> mở lại trang này bằng máy tính Windows rồi bấm “Tải ứng dụng”.</span></li>
+            <li><svg aria-hidden="true"><use href="#i-msg"/></svg><span><b>Đang xa máy tính:</b> nhắn Zalo, mình hướng dẫn qua màn hình chia sẻ hoặc gửi bản cài cho bạn.</span></li>
+            <li><svg aria-hidden="true"><use href="#i-file"/></svg><span><b>Cần cài trên máy tính khác:</b> tải tệp <code>.exe</code> về điện thoại rồi chuyển qua Zalo, Google Drive hay USB — nhưng việc cài và chạy vẫn phải làm trên máy tính Windows.</span></li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ---------- macOS / Linux / máy khác ---------- -->
+      <section class="dlm__pane" data-dlm-pane="other" hidden>
+        <div class="dlm-note dlm-note--warn">
+          <b><svg aria-hidden="true"><use href="#i-info"/></svg> Máy này không chạy được ứng dụng Windows</b>
+          <p>CN Tax Tools chỉ có bản cài cho <b>Windows 10 / 11 – 64-bit</b>. Tệp <code>.exe</code>
+            tải về máy macOS hoặc Linux sẽ không chạy được.</p>
+        </div>
+        <div class="dlm-safe">
+          <b><svg aria-hidden="true"><use href="#i-help"/></svg> Lựa chọn của bạn</b>
+          <ul>
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg><span><b>Dùng máy tính Windows khác</b> — máy tính văn phòng, máy của đối tác, hoặc máy tính cầm tay chạy Windows.</span></li>
+            <li><svg aria-hidden="true"><use href="#i-win"/></svg><span><b>Trên máy Mac:</b> cài Windows qua Boot Camp (CPU Intel) hoặc Parallels / VMware. Với Apple Silicon phải bật chế độ tương thích và ứng dụng chạy qua lớp dịch nên có thể chậm hơn một chút.</span></li>
+            <li><svg aria-hidden="true"><use href="#i-msg"/></svg><span><b>Cần bản cho macOS?</b> Nhắn Zalo cho mình biết — nếu nhiều người cùng cần thì mình làm thêm.</span></li>
+          </ul>
+        </div>
+      </section>
+    </div>
+
+    <footer class="dlm__ft">
+      <a class="btn btn--ghost" id="dlm-zalo" href="https://zalo.me/0395995035" target="_blank" rel="noopener" data-dlm-go="zalo">
+        <svg aria-hidden="true"><use href="#i-msg"/></svg> <span id="dlm-zalo-t">Nhắn Zalo hỗ trợ</span>
+      </a>
+      <button class="btn btn--primary" id="dlm-go" type="button">
+        <svg aria-hidden="true"><use href="#i-dl"/></svg> <span id="dlm-go-t">Tải và cài đặt</span>
+      </button>
+    </footer>
+  </div>
 </div>
 
 <script type="application/ld+json">
@@ -546,7 +746,7 @@
       "description": "Ứng dụng Windows hỗ trợ kế toán hộ kinh doanh và công ty: tự đăng nhập và giải CAPTCHA, kéo hóa đơn điện tử từ Tổng cục Thuế cho không giới hạn MST, quản lý hàng hóa và tồn kho, đối chiếu sao kê ngân hàng, theo dõi dòng tiền và công nợ.",
       "url": "https://datkep92.github.io/cntaxtools-landing/",
       "downloadUrl": "https://github.com/Datkep92/HoaDonNhe/releases/latest",
-      "softwareVersion": "1.0.9",
+      "softwareVersion": "1.1.0",
       "isAccessibleForFree": true,
       "featureList": [
         "Kéo hóa đơn điện tử hàng loạt từ Tổng cục Thuế, không giới hạn MST",
@@ -566,45 +766,14 @@
         { "@type": "ListItem", "position": 1, "name": "Trang chủ", "item": "https://datkep92.github.io/cntaxtools-landing/" },
         { "@type": "ListItem", "position": 2, "name": "Giao diện", "item": "https://datkep92.github.io/cntaxtools-landing/#demo" },
         { "@type": "ListItem", "position": 3, "name": "Hai nhóm người dùng", "item": "https://datkep92.github.io/cntaxtools-landing/#features" },
-        { "@type": "ListItem", "position": 4, "name": "Đang phát triển", "item": "https://datkep92.github.io/cntaxtools-landing/#roadmap" }
+        { "@type": "ListItem", "position": 4, "name": "Cài đặt", "item": "https://datkep92.github.io/cntaxtools-landing/#install" },
+        { "@type": "ListItem", "position": 5, "name": "Đang phát triển", "item": "https://datkep92.github.io/cntaxtools-landing/#roadmap" }
       ]
     }
   ]
 }
 </script>
 
-<!-- ============ HỘP THÔNG BÁO MOBILE (không chặn tải) ============ -->
-<!-- CN Tax Tools chỉ có bản cài Windows, tệp .exe không chạy được trên
-     iOS/Android. Nhưng khách vẫn được tải bình thường: hộp thoại này KHÔNG
-     khoá nền, KHÔNG chặn click — bấm nút tải vẫn tải ngay, và trong hộp có
-     sẵn nút "Vẫn tải về" cho ai muốn tải file .exe để chuyển sang máy tính. -->
-<dialog class="oswarn" id="oswarn" aria-labelledby="oswarn-t" aria-describedby="oswarn-d">
-  <div class="oswarn__box">
-    <button class="oswarn__x" id="oswarn-x" type="button" aria-label="Đóng thông báo">
-      <svg aria-hidden="true"><use href="#i-x"/></svg>
-    </button>
-
-    <span class="oswarn__ic" aria-hidden="true"><svg><use href="#i-win"/></svg></span>
-
-    <h2 id="oswarn-t">Ứng dụng dành cho máy tính Windows</h2>
-
-    <p id="oswarn-d">
-      CN Tax Tools là phần mềm cài đặt cho <strong>Windows 10 / 11 (64-bit)</strong>,
-      chưa có bản chạy trên điện thoại. Nếu bạn đang ở máy tính, hãy mở trang này
-      bằng <strong>máy tính</strong> để cài.
-    </p>
-
-    <div class="oswarn__act">
-      <a class="btn btn--primary btn--lg" id="oswarn-dl" href="https://github.com/Datkep92/HoaDonNhe/releases/latest">
-        <svg aria-hidden="true"><use href="#i-dl"/></svg> Vẫn tải về
-      </a>
-      <a class="btn btn--ghost btn--lg" href="https://zalo.me/0395995035" target="_blank" rel="noopener">
-        <svg aria-hidden="true"><use href="#i-msg"/></svg> Hỏi Zalo
-      </a>
-    </div>
-  </div>
-</dialog>
-
-<script src="assets/js/main.js?v=20261002d" defer></script>
+<script src="assets/js/main.js?v=20261002a" defer></script>
 </body>
 </html>

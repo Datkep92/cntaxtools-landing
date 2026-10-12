@@ -105,9 +105,9 @@
     var AUTO = 6500;
 
     var CAPS = [
-      ['Quản lý nhiều MST', 'Thêm bao nhiêu khách hàng cũng được. Mỗi MST một phiên riêng, tự đăng nhập lại khi hết hạn.'],
-      ['Tải hóa đơn hàng loạt', 'Chọn năm + quý là ứng dụng tự kéo toàn bộ hóa đơn theo định dạng bạn chọn.'],
-      ['Quản lý hàng hóa & tồn kho', 'Hóa đơn tải về được tách thành dòng hàng hóa, đối chiếu mã với danh mục và theo dõi tồn.'],
+      ['Quản lý nhiều MST', 'Chọn hồ sơ cần làm việc; dữ liệu và phiên đăng nhập được quản lý theo từng MST.'],
+      ['Tải hóa đơn theo kỳ', 'Chọn mua vào, bán ra hoặc cả hai; theo dõi tiến độ, ngưng và tiếp tục khi cần.'],
+      ['Tra cứu hàng hóa & xuất Excel', 'Tổng hợp dòng hàng từ hóa đơn, lọc theo kỳ và xuất dữ liệu để kiểm tra.'],
       ['Sao kê, dòng tiền & công nợ', 'Nạp sao kê ngân hàng, app tự khớp từng dòng và chỉ ra dòng nào lệch cần xem lại.']
     ];
 

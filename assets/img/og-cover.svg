@@ -41,12 +41,12 @@
     <text x="110" y="165" font-size="16" font-weight="600" fill="#d5e4f0">Kế toán dịch vụ · Hộ kinh doanh · Công ty</text>
 
     <!-- Tiêu đề -->
-    <text x="72" y="256" font-size="46" font-weight="800" fill="#ffffff" letter-spacing="-1.4">Kéo hóa đơn từ Tổng cục</text>
-    <text x="72" y="316" font-size="46" font-weight="800" fill="#ffffff" letter-spacing="-1.4">Thuế, <tspan fill="url(#mint)">đối chiếu sao kê</tspan></text>
+    <text x="72" y="256" font-size="46" font-weight="800" fill="#ffffff" letter-spacing="-1.4">Hóa đơn, sao kê và AI</text>
+    <text x="72" y="316" font-size="46" font-weight="800" fill="#ffffff" letter-spacing="-1.4"><tspan fill="url(#mint)">hỗ trợ kế toán</tspan></text>
 
     <!-- Mô tả -->
-    <text x="72" y="366" font-size="20" font-weight="400" fill="#a9c0d5">Tự giải CAPTCHA · Kéo hàng loạt, không giới hạn MST</text>
-    <text x="72" y="398" font-size="20" font-weight="400" fill="#a9c0d5">Kho hàng &amp; tồn kho · Công nợ · Xuất Excel mẫu MISA</text>
+    <text x="72" y="366" font-size="20" font-weight="400" fill="#a9c0d5">Quản lý nhiều MST · Đối chiếu · Phân tích dữ liệu</text>
+    <text x="72" y="398" font-size="20" font-weight="400" fill="#a9c0d5">Tổng hợp theo kỳ · Xuất Excel · Chuẩn bị dữ liệu MISA</text>
 
     <!-- Nút -->
     <rect x="72" y="440" width="196" height="54" rx="27" fill="#ffffff"/>

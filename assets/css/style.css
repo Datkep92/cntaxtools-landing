@@ -966,6 +966,67 @@ code, .inst-code, .dlm-code {
   .dlm-note--warn > b svg { color: #d9a45c; }
 }
 
+/* ---------- 18. Hướng dẫn sử dụng table ---------- */
+.guide-table {
+  display: grid;
+  gap: 16px;
+  margin-top: 24px;
+}
+.guide-table__header,
+.guide-table__row {
+  display: grid;
+  grid-template-columns: 40px 1fr 2fr;
+  gap: 16px;
+  align-items: start;
+  padding: 16px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+}
+.guide-table__header {
+  background: var(--bg-2);
+  font-weight: 800;
+  color: var(--ink);
+  border-bottom: 2px solid var(--line);
+}
+.guide-table__cell--stt {
+  text-align: center;
+  font-size: .9rem;
+  color: var(--brand);
+}
+.guide-table__cell--feature {
+  font-weight: 700;
+  color: var(--ink);
+}
+.guide-table__cell--description {
+  font-size: .94rem;
+  color: var(--ink-2);
+  line-height: 1.5;
+}
+.guide-table__row {
+  background: var(--paper-2);
+}
+.guide-table__row:nth-child(even) {
+  background: var(--paper);
+}
+.guide-note {
+  margin-top: 24px;
+  padding: 16px;
+  border-radius: var(--r-sm);
+  background: var(--mint-soft);
+  border: 1px solid var(--mint-line);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: .88rem;
+  color: var(--brand-ink);
+}
+.guide-note svg {
+  width: 18px;
+  height: 18px;
+  flex: none;
+}
+
 /* ---------- 17. Motion & print ---------- */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }

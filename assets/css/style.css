@@ -1043,3 +1043,6 @@ code, .inst-code, .dlm-code {
   .sec { padding-block: 22px; }
   .deco__win { box-shadow: none; }
 }
+
+/* Release notes and practical guides */
+.release-guides{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}.release-guides article,.release-entry{padding:22px;border:1px solid #d7e3df;border-radius:16px;background:#fff;color:#203e37}.release-guides h3,.release-entry h3{margin:0 0 12px}.release-guides ol,.release-entry ul{padding-left:22px;line-height:1.8}.release-entry{margin:18px 0}.release-entry small{font-size:14px;font-weight:400;margin-left:12px}.release-screen{margin:26px 0}.release-screen img{width:100%;height:auto;border:1px solid #d7e3df;border-radius:14px}.release-screen figcaption{margin-top:10px;text-align:center;font-size:14px}@media(max-width:700px){.release-guides{grid-template-columns:1fr}.release-guides article,.release-entry{padding:16px}.release-entry small{display:block;margin:6px 0 0}}

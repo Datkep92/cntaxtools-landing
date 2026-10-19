@@ -226,7 +226,7 @@
 
     var REPO = 'Datkep92/HoaDonNhe';
     var API = 'https://api.github.com/repos/' + REPO + '/releases/latest';
-    var CACHE_KEY = 'cntax.dl.v160';
+    var CACHE_KEY = 'cntax.dl.setup-exe.v160';
     var TTL_MS = 30 * 60 * 1000;
 
     var url = null;        // link .exe đã dò được
@@ -247,16 +247,10 @@
        payload CN-Tax-Tools-vX.Y.Z.exe (dùng cho self-update, không phải để cài). */
     function pickAsset(assets) {
       if (!Array.isArray(assets)) return null;
-      var preferred = assets.find(function (asset) { return /^CNTaxTools-Windows-Setup-Script-KhuyenDung-v\d+\.\d+\.\d+\.zip$/.test(asset.name || ''); });
+      var preferred = assets.find(function (asset) { return /^CN-Tax-Tools-Setup-v\d+\.\d+\.\d+\.exe$/.test(asset.name || ''); });
       if (preferred) return preferred.browser_download_url || null;
       var fallback = assets.find(function (asset) { return /^CNTaxTools-Windows-Setup-EXE-DuPhong-v\d+\.\d+\.\d+\.exe$/.test(asset.name || ''); });
       if (fallback) return fallback.browser_download_url || null;
-      for (var i = 0; i < assets.length; i++) {
-        var name = assets[i] && assets[i].name;
-        if (typeof name === 'string' && /^CN-Tax-Tools-Setup-v\d+\.\d+\.\d+\.exe$/.test(name)) {
-          return assets[i].browser_download_url || null;
-        }
-      }
       return null;
     }
 

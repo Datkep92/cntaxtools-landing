@@ -240,6 +240,9 @@
       url = value;
       dl.url = value;
       buttons.forEach(function (btn) { btn.setAttribute('href', value); });
+      var installLink = document.getElementById('install-download-link');
+      if (installLink) installLink.value = value;
+      $$('[data-install-filename]').forEach(function (label) { label.textContent = decodeURIComponent(value.split('/').pop().split('?')[0]); });
       return true;
     }
 
@@ -608,4 +611,27 @@
     }, { rootMargin: '-45% 0px -50% 0px' });
     sections.forEach(function (s) { sio.observe(s); });
   }
+  (function installDownloadHelp() {
+    var button = document.getElementById('install-copy-link');
+    var input = document.getElementById('install-download-link');
+    var status = document.getElementById('install-copy-status');
+    if (!button || !input || !status) return;
+    button.addEventListener('click', async function () {
+      button.disabled = true;
+      try {
+        var latest = dl.url;
+        if (!latest && dl.resolve) latest = await Promise.race([
+          dl.resolve().catch(function () { return null; }),
+          new Promise(function (resolve) { window.setTimeout(function () { resolve(null); }, dl.wait); })
+        ]);
+        input.value = latest || input.value;
+        if (!navigator.clipboard || !navigator.clipboard.writeText) throw new Error('Clipboard unavailable');
+        await navigator.clipboard.writeText(input.value);
+        status.textContent = 'Đã sao chép. Mở Chrome, dán vào thanh địa chỉ rồi nhấn Enter.';
+      } catch (_) {
+        input.focus(); input.select();
+        status.textContent = 'Hãy nhấn Ctrl + C để sao chép link đã chọn, rồi dán vào Chrome.';
+      } finally { button.disabled = false; }
+    });
+  })();
 })();

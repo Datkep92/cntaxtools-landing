@@ -634,4 +634,45 @@
       } finally { button.disabled = false; }
     });
   })();
+
+  /* Chia sẻ trang */
+  (function sharePage() {
+    var buttons = $$('[data-share]');
+    var copyBtn = document.getElementById('share-copy');
+    var status = document.getElementById('share-status');
+    if (!buttons.length && !copyBtn) return;
+
+    var canonical = document.querySelector('link[rel="canonical"]');
+    var url = canonical ? canonical.href : location.href.split('#')[0];
+    var text = 'CN Tax Tools (CNTaxTools) — công cụ hỗ trợ kế toán: tải hóa đơn điện tử, quản lý MST, đối chiếu sao kê.';
+
+    function note(message) { if (status) status.textContent = message; }
+
+    async function copyLink() {
+      try {
+        if (!navigator.clipboard || !navigator.clipboard.writeText) throw new Error('Clipboard unavailable');
+        await navigator.clipboard.writeText(url);
+        note('Đã sao chép liên kết. Cảm ơn bạn đã chia sẻ!');
+      } catch (_) {
+        note('Hãy sao chép địa chỉ trên thanh trình duyệt để chia sẻ: ' + url);
+      }
+    }
+
+    buttons.forEach(function (button) {
+      button.addEventListener('click', async function () {
+        if (navigator.share) {
+          try {
+            await navigator.share({ title: 'CN Tax Tools (CNTaxTools)', text: text, url: url });
+            note('Cảm ơn bạn đã chia sẻ!');
+            return;
+          } catch (err) {
+            if (err && err.name === 'AbortError') return;
+          }
+        }
+        copyLink();
+      });
+    });
+
+    if (copyBtn) copyBtn.addEventListener('click', copyLink);
+  })();
 })();

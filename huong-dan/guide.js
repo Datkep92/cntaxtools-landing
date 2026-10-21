@@ -13,9 +13,10 @@
     const requested = location.hash.slice(1), active = articles.find(x => x.id === requested) || articles[0];
     articles.forEach(x => x.hidden = x !== active);
     links.forEach(x => { if (x.hash === '#' + active.id) x.setAttribute('aria-current','page'); else x.removeAttribute('aria-current'); });
-    document.title = active.querySelector('h1').textContent + ' — Hướng dẫn CNTaxTools';
+    const heading = active.querySelector('h2');
+    document.title = heading.textContent + ' — Hướng dẫn CN Tax Tools (CNTaxTools)';
     selectMenu.value = '#'+active.id;
-    if (requested) { active.querySelector('h1').tabIndex=-1; active.querySelector('h1').focus({preventScroll:true}); }
+    if (requested) { heading.tabIndex=-1; heading.focus({preventScroll:true}); }
   }
   search.addEventListener('input', () => {
     const term = normalize(search.value.trim());

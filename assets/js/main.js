@@ -226,7 +226,7 @@
 
     var REPO = 'Datkep92/HoaDonNhe';
     var API = 'https://api.github.com/repos/' + REPO + '/releases/latest';
-    var CACHE_KEY = 'cntax.dl.setup-exe.v160';
+    var CACHE_KEY = 'cntax.dl.setup-exe.v182';
     var TTL_MS = 30 * 60 * 1000;
 
     var url = null;        // link .exe đã dò được

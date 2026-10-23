@@ -1,7 +1,7 @@
 {
-  "version": "1.7.0",
-  "revision": 5,
-  "reviewedAt": "2026-10-19",
+  "version": "1.8.2",
+  "revision": 8,
+  "reviewedAt": "2026-10-24",
   "topics": [
     "cai-dat",
     "them-mst",
@@ -12,7 +12,7 @@
     "tra-cuu-mst",
     "to-khai",
     "thue",
-    "import-file",
     "cap-nhat"
-  ]
+  ],
+  "sourceCommit": "ac818153bf2ff2803db67788fe68516baf285657"
 }

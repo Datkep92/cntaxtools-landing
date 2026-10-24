@@ -1,5 +1,5 @@
 {
-  "version": "1.8.2",
+  "version": "1.8.3",
   "revision": 8,
   "reviewedAt": "2026-10-24",
   "topics": [
@@ -14,5 +14,5 @@
     "thue",
     "cap-nhat"
   ],
-  "sourceCommit": "ac818153bf2ff2803db67788fe68516baf285657"
+  "sourceCommit": "fef182140fa6395f8e23d43fb4c802fdc719f7f1"
 }

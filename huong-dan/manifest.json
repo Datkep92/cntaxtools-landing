@@ -1,6 +1,6 @@
 {
   "version": "1.8.3",
-  "revision": 8,
+  "revision": 9,
   "reviewedAt": "2026-10-24",
   "topics": [
     "cai-dat",
@@ -14,5 +14,5 @@
     "thue",
     "cap-nhat"
   ],
-  "sourceCommit": "fef182140fa6395f8e23d43fb4c802fdc719f7f1"
+  "sourceCommit": "a955fa8112126ba33915c78c01119ad556bdd386"
 }

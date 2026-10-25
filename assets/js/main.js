@@ -88,7 +88,7 @@
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape' && menuOpen) { setMenu(false); burger && burger.focus(); }
   });
-  var wide = window.matchMedia('(min-width: 1001px)');
+  var wide = window.matchMedia('(min-width: 1280px)');
   (wide.addEventListener ? wide.addEventListener.bind(wide, 'change') : wide.addListener.bind(wide))(function (e) {
     if ((e.matches !== undefined ? e.matches : e) && menuOpen) setMenu(false);
   });

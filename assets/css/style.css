@@ -234,7 +234,7 @@ p  { text-wrap: pretty; }
 .scrim.is-open { opacity: 1; visibility: visible; }
 
 .sheet-grip, .sheet-close { display: none; }
-@media (max-width: 1000px) {
+@media (max-width: 1279px) {
   .nav {
     position: fixed; z-index: 49; left: 0; right: 0; bottom: 0; margin: 0;
     padding: 8px var(--gut) calc(14px + env(safe-area-inset-bottom));
@@ -274,11 +274,11 @@ p  { text-wrap: pretty; }
    XOA o `.burger` de hai nut sat nhau (gap 14px cua .hdr-in) thanh mot cum
    ben phai. Giu ca hai auto se chia deu cho khoang trong, tach chung
    xa nhau 28-62px. */
-@media (max-width: 1000px) {
+@media (max-width: 1279px) {
   .hdr-cta { margin-left: auto; }
   .burger { margin-left: 0; }
 }
-@media (min-width: 1001px) { .burger, .scrim { display: none; } }
+@media (min-width: 1280px) { .burger, .scrim { display: none; } }
 
 /* ---------- 6. Hero ---------- */
 .hero {
@@ -728,7 +728,7 @@ p  { text-wrap: pretty; }
 .dock .btn--icon { flex: none; width: 48px; padding: 0; }
 .dock .btn--icon svg { width: 20px; height: 20px; }
 @media (min-width: 620px)  { .dock-info { display: block; } .dock .btn--dl { flex: 0 1 230px; } }
-@media (min-width: 1001px) { .dock { display: none; } }
+@media (min-width: 1280px) { .dock { display: none; } }
 
 /* ---------- 13. Hướng dẫn cài đặt ---------- */
 .inst { display: grid; gap: 14px; grid-template-columns: 1fr; align-items: start; }
@@ -1081,9 +1081,9 @@ code, .inst-code, .dlm-code {
 /* ---------- Nut nhom Zalo tren header ---------- */
 .hdr-zalo { display: none; flex: none; min-height: 44px; padding: 9px 18px; font-size: .875rem; gap: 8px; }
 .hdr-zalo svg { width: 17px; height: 17px; }
-@media (min-width: 1001px) { .hdr-zalo { display: inline-flex; } }
+@media (min-width: 1280px) { .hdr-zalo { display: inline-flex; } }
 /* Mobile: giong .hdr-cta — chi con icon */
-@media (max-width: 1000px) {
+@media (max-width: 1279px) {
   .hdr-zalo { display: inline-flex; width: 44px; padding: 0; gap: 0; border-radius: 12px; justify-content: center; }
 }
 
@@ -1111,7 +1111,7 @@ code, .inst-code, .dlm-code {
   .admin-qr { width: 160px; }
   .hero .lead { font-size: .98rem; }
 }
-@media (max-width: 1000px) {
+@media (max-width: 1279px) {
   .nav a.nav__group { color: var(--brand); font-weight: 700; }
 }
 
@@ -1125,8 +1125,8 @@ code, .inst-code, .dlm-code {
 .hdr-user svg { width: 20px; height: 20px; }
 .hdr-user:hover { color: var(--brand); border-color: var(--brand); }
 .hdr-user:active { transform: scale(.92); }
-@media (max-width: 1000px) { .hdr-user { display: grid; } }
-@media (min-width: 1001px) { .hdr-user { display: grid; } }
+@media (max-width: 1279px) { .hdr-user { display: none; } }
+@media (min-width: 1280px) { .hdr-user { display: grid; } }
 
 /* Block admin cuối menu trượt mobile */
 .nav-admin {
@@ -1138,7 +1138,8 @@ code, .inst-code, .dlm-code {
   display: block; font-size: .72rem; font-weight: 800; letter-spacing: .09em;
   text-transform: uppercase; color: var(--brand-ink); margin-bottom: 10px;
 }
-.nav-admin img { width: 44px; height: 42px; border-radius: 50%; object-fit: cover; border: 2px solid var(--mint-soft); }
+.nav-admin > img:not(.nav-admin__qr) { display: block; margin: 0 auto; width: 64px; height: 64px; border-radius: 50%; object-fit: cover; object-position: 35% 40%; border: 2px solid var(--mint-soft); }
+.nav-admin > .nav-admin__qr { display: block; margin-inline: auto; object-fit: contain; border-radius: 12px; }
 .nav-admin__links { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 12px; }
 .nav-admin__links a {
   padding: 7px 12px; border-radius: 999px; font-size: .82rem; font-weight: 650;
@@ -1146,7 +1147,7 @@ code, .inst-code, .dlm-code {
 }
 .nav-admin__qr { width: 150px !important; height: auto !important; border-radius: 12px; border: 1px solid var(--line); background: #fff; padding: 6px; margin-top: 14px; }
 .nav-admin__hint { display: block; margin-top: 6px; font-size: .78rem; color: var(--muted); }
-@media (max-width: 1000px) { .nav-admin { display: block; } }
+@media (max-width: 1279px) { .nav-admin { display: block; } }
 
 /* Modal admin */
 .admin-m { display: flex; gap: 16px; align-items: flex-start; }
@@ -1167,4 +1168,43 @@ code, .inst-code, .dlm-code {
   .admin-m { flex-direction: column; align-items: center; text-align: center; }
   .admin-m__list { text-align: left; }
   .admin-m__qr { flex-direction: column; text-align: center; }
+}
+
+/* Header and navigation verified at portrait and desktop widths. */
+.hdr-in { gap: 10px; }
+.hdr-cta, .hdr-zalo { display: inline-flex; white-space: nowrap; }
+.hdr-user { order: 1; }
+.nav > a { flex: none; }
+.nav-admin { flex: none; }
+.nav-admin__name { display: block; margin-top: 8px; font-weight: 750; color: var(--ink); }
+.nav-admin__links a { display: flex; align-items: center; justify-content: center; min-height: 44px; }
+.admin-card, .admin-list span, .admin-m__list span { min-width: 0; overflow-wrap: anywhere; }
+#admin-modal .dlm__box { outline: none; }
+#admin-modal .dlm__bd { min-height: 0; }
+#admin-modal .dlm__hd { flex: none; }
+@media (min-width: 1280px) {
+  .hdr-in { --wrap: 1320px; max-width: 1320px; }
+  .nav { min-width: 0; }
+  .nav > a[href="#demo"], .nav > a[href="#roadmap"] { display: none; }
+  .nav > a { padding: 9px 8px; font-size: .82rem; white-space: nowrap; }
+  .nav > .nav__group { display: none; }
+  .hdr-zalo { padding: 9px 12px; }
+  .hdr-cta { padding: 9px 14px; }
+}
+@media (max-width: 1279px) {
+  .hdr-zalo { margin-left: auto; width: 44px; height: 44px; padding: 0; }
+  .hdr-zalo .hdr-cta-t { display: none; }
+  .hdr-cta { margin-left: 0; }
+  .nav { max-height: 86vh; max-height: 86dvh; }
+  .nav > a { padding: 11px 14px; min-height: 44px; }
+  .nav-admin { margin-top: 10px; }
+  .nav .nav-admin__links { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 8px; }
+  .nav .nav-admin__links a { padding: 8px; font-size: .82rem; }
+  .nav .nav-admin__links a:first-child { grid-column: 1 / -1; }
+}
+@media (max-width: 430px) {
+  .hdr-in { gap: 8px; }
+  .hdr-in .logo { gap: 6px; }
+  .hdr-in .logo b { font-size: .9rem; }
+  .hdr-cta { width: 44px; height: 44px; }
 }

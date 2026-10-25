@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>Kiểm thử bố cục CNTaxTools</title>
+<style>body{font:14px system-ui;margin:12px;background:#eef3f8;color:#142438}h1{font-size:18px}button{padding:10px;margin:4px}#results{white-space:pre-wrap;font-size:12px}#stage{position:relative;overflow:hidden;background:white;border:1px solid #bacbd6}iframe{border:0;position:absolute;left:0;top:0;transform-origin:top left;max-width:none}#status{font-weight:bold}</style></head>
+<body><h1>Kiểm thử WebKit: mobile + desktop</h1><p>Đây là trang QA không lập chỉ mục. Khổ desktop được render trong iframe, không phải máy tính vật lý.</p><p id="status" role="status">Đang chạy…</p><pre id="results"></pre>
+<button id="desktop">Desktop 1440 — modal</button><button id="phone">Mobile 375 — menu</button><button id="hero">Mobile — đầu trang</button><div id="stage"><iframe id="site" title="Trang đang kiểm thử"></iframe></div>
+<script>
+(async function(){
+ const frame=document.getElementById('site'), stage=document.getElementById('stage'), out=document.getElementById('results');
+ const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+ let width=1440;
+ function scale(){const s=Math.min(1,(document.documentElement.clientWidth-26)/width);frame.style.transform='scale('+s+')';stage.style.height=(900*s)+'px';}
+ function size(w){width=w;frame.style.width=w+'px';frame.style.height='900px';scale();}
+ size(1440);window.addEventListener('resize',scale);
+ await new Promise((resolve,reject)=>{frame.onload=resolve;frame.onerror=reject;frame.src='../?qa='+Date.now();});
+ await sleep(900);
+ const win=frame.contentWindow, doc=frame.contentDocument, $=s=>doc.querySelector(s);
+ const shown=el=>el&&win.getComputedStyle(el).display!=='none'&&el.getClientRects().length>0;
+ const rect=el=>el.getBoundingClientRect();
+ function tapOK(el){const r=rect(el), hit=doc.elementFromPoint(r.x+r.width/2,r.y+r.height/2);return hit===el||el.contains(hit);}
+ let failures=0;
+ function check(ok,label,errors){if(!ok){errors.push(label);failures++;}}
+ function closeModal(){if(!$('#admin-modal').hidden) $('#admin-modal [data-admin-close].dlm__x').click();}
+ async function clean(){closeModal();if($('#burger').getAttribute('aria-expanded')==='true') $('#burger').click();win.scrollTo(0,0);await sleep(400);}
+ for(const w of [320,375,390,768,1024,1280,1440,1920]){
+  await clean();size(w);await sleep(500);
+  const errors=[];
+  check(win.innerWidth===w,'viewport sai: '+win.innerWidth,errors);
+  check(doc.documentElement.scrollWidth<=w+1,'tràn ngang toàn trang',errors);
+  const buttons=Array.from(doc.querySelectorAll('.hdr-in > a,.hdr-in > button')).filter(shown).sort((a,b)=>rect(a).x-rect(b).x);
+  for(let i=0;i<buttons.length;i++){
+   const b=buttons[i],r=rect(b);
+   check(r.left>=0&&r.right<=w+1,'nút ngoài màn: '+b.className,errors);
+   check(tapOK(b),'vùng bấm bị che: '+b.className,errors);
+   if(i)check(rect(buttons[i-1]).right<=r.left+1,'nút header chồng nhau',errors);
+  }
+  if(w<1280){
+   check(!shown($('#admin-btn')),'Admin vẫn hiện trên mobile',errors);
+   check(shown($('#burger')),'thiếu menu mobile',errors);
+   check(!$('#nav [data-dl]'),'nút tải lặp trong menu',errors);
+   $('#burger').click();await sleep(500);
+   check($('#nav').classList.contains('is-open'),'menu không mở',errors);
+   const nav=$('#nav');nav.scrollTop=nav.scrollHeight;await sleep(100);
+   const qr=$('.nav-admin__hint'), nr=rect(nav), qrRect=rect(qr);
+   check(qrRect.bottom<=nr.bottom+1&&qrRect.top>=nr.top,'không cuộn tới admin/QR',errors);
+   check($('.nav-admin').textContent.includes('Nguyễn Đạt'),'sai tên admin menu',errors);
+   const photo=$('.nav-admin > img:not(.nav-admin__qr)'), code=$('.nav-admin__qr'), card=rect($('.nav-admin'));
+   check(Math.abs(rect(photo).left+rect(photo).width/2-(card.left+card.width/2))<2,'avatar lệch tâm',errors);
+   check(Math.abs(rect(code).left+rect(code).width/2-(card.left+card.width/2))<2,'QR lệch tâm',errors);
+   check(parseFloat(win.getComputedStyle(code).borderTopLeftRadius)<=16,'QR bị bo tròn cắt mã',errors);
+   nav.scrollTop=0;$('#sheet-close').click();await sleep(400);
+   check(!nav.classList.contains('is-open'),'menu không đóng',errors);
+   check(doc.body.style.overflow!=='hidden','nền không mở cuộn sau đóng menu',errors);
+  }else{
+   check(shown($('#admin-btn')),'thiếu nút Admin desktop',errors);
+   const links=Array.from(doc.querySelectorAll('#nav > a')).filter(shown);
+   if(links.length)check(rect(links[links.length-1]).right<=rect($('#hdr .hdr-zalo')).left+1,'menu desktop đè nút phải '+Math.round(rect(links[links.length-1]).right)+'>'+Math.round(rect($('#hdr .hdr-zalo')).left),errors);
+   $('#admin-btn').click();await sleep(500);
+   check(!$('#admin-modal').hidden,'modal không mở',errors);
+   check(doc.body.style.overflow==='hidden','modal không khóa nền',errors);
+   check($('#admin-modal').contains(doc.activeElement),'focus ngoài modal',errors);
+   check($('#admin-modal').textContent.includes('Nguyễn Đạt'),'sai tên admin modal',errors);
+   const box=rect($('#admin-modal .dlm__box'));
+   check(box.left>=0&&box.right<=w+1&&box.bottom<=900,'modal ngoài viewport',errors);
+   doc.dispatchEvent(new win.KeyboardEvent('keydown',{key:'Escape',bubbles:true}));await sleep(400);
+   check($('#admin-modal').hidden,'ESC không đóng',errors);
+   check(doc.activeElement===$('#admin-btn'),'không trả focus',errors);
+   $('#admin-btn').click();await sleep(400);$('#admin-modal .dlm__scrim').click();await sleep(400);
+   check($('#admin-modal').hidden,'bấm nền không đóng',errors);
+  }
+  const icons=Array.from(doc.querySelectorAll('#admin svg'));
+  check(icons.every(el=>rect(el).width<=24&&rect(el).height<=24),'icon admin bị phóng to',errors);
+  out.textContent+=w+'px: '+(errors.length?'FAIL — '+errors.join('; '):'PASS')+'\n';
+ }
+ document.getElementById('status').textContent=failures?'FAIL: '+failures+' kiểm tra chưa đạt':'PASS — 8 khổ màn hình, header/menu/modal';
+ window.qaResults={failures,text:out.textContent};
+ fetch('../__qa_report?result='+encodeURIComponent(JSON.stringify(window.qaResults))).catch(()=>{});
+ async function preview(w,mode){await clean();size(w);await sleep(500);if(mode==='modal')$('#admin-btn').click();if(mode==='menu'){$('#burger').click();await sleep(450);$('#nav').scrollTop=$('#nav').scrollHeight;}}
+ document.getElementById('desktop').onclick=()=>preview(1440,'modal');
+ document.getElementById('phone').onclick=()=>preview(375,'menu');
+ document.getElementById('hero').onclick=()=>preview(375,'hero');
+ await preview(1440,'modal');
+})().catch(e=>{document.getElementById('status').textContent='ERROR: '+e.message;});
+</script></body></html>

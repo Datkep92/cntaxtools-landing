@@ -61,8 +61,8 @@
      Tham số ?v= giúp tải lại ngay sau khi deploy — GitHub Pages cache tài nguyên
      tĩnh 10 phút, không có tham số này người dùng dễ thấy bản CSS cũ. -->
 <link rel="preload" as="image" href="assets/img/logo.png" type="image/png">
-<link rel="preload" as="style" href="assets/css/style.css?v=20261025-layout">
-<link rel="stylesheet" href="assets/css/style.css?v=20261025-layout">
+<link rel="preload" as="style" href="assets/css/style.css?v=20261025-tested-1">
+<link rel="stylesheet" href="assets/css/style.css?v=20261025-tested-1">
 <script>document.documentElement.classList.add('js');</script>
 </head>
 
@@ -91,6 +91,7 @@
 <symbol id="i-win" viewBox="0 0 24 24" fill="currentColor"><path d="M3 5.5 10.5 4.3v7.2H3zM11.8 4.1 21 2.8v8.7h-9.2zM3 12.9h7.5v7.2L3 18.9zM11.8 12.9H21v8.7l-9.2-1.3z"/></symbol>
 <symbol id="i-zap" viewBox="0 0 24 24" fill="currentColor"><path d="M13.2 1 3 13.4c-.4.5 0 1.3.7 1.3h5.5l-1 7.5c-.1.8 1 1.2 1.5.6L20 11.2c.4-.5 0-1.3-.7-1.3h-5.4l1-7.9c.2-.8-1-1.2-1.5-.6z"/></symbol>
 <symbol id="i-share" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 10.5l6.8-4M8.6 13.5l6.8 4"/></symbol>
+<symbol id="i-user" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21v-2a8 8 0 0 1 16 0v2"/></symbol>
 </svg>
 
 <!-- ============ HEADER ============ -->
@@ -120,10 +121,11 @@
       </a>
 
       <div class="nav-admin">
-        <span class="nav-admin__t">Admin CNTaxTools</span>
-        <img src="assets/img/admin-avatar.jpg" alt="" width="44" height="42" loading="lazy" decoding="async">
+        <span class="nav-admin__t">Người phát triển CNTaxTools</span>
+        <img src="assets/img/admin-avatar.jpg" alt="Nguyễn Đạt — Admin CNTaxTools" width="44" height="42" loading="lazy" decoding="async">
+        <span class="nav-admin__name">Nguyễn Đạt</span>
         <div class="nav-admin__links">
-          <a href="https://zalo.me/0932155035" target="_blank" rel="noopener">Zalo 0932.155.035</a>
+          <a href="https://zalo.me/0932155035" target="_blank" rel="noopener">Zalo 0395995035</a>
           <a href="https://www.facebook.com/share/1ZdTpbPdNe/?mibextid=wwXIfr" target="_blank" rel="noopener">Facebook</a>
           <a href="https://www.facebook.com/share/1EpC21NWND/?mibextid=wwXIfr" target="_blank" rel="noopener">Fanpage</a>
           <a href="https://www.tiktok.com/@cntaxtools/video/7699307541766868232?_r=1&_t=ZS-9Akwn8pAKy9" target="_blank" rel="noopener">TikTok</a>
@@ -135,7 +137,7 @@
     </nav>
 
     <button class="hdr-user" id="admin-btn" type="button" aria-label="Thông tin Admin CNTaxTools" title="Thông tin Admin">
-      <svg aria-hidden="true"><use href="#i-bot"/></svg>
+      <svg aria-hidden="true"><use href="#i-user"/></svg>
     </button>
 
     <a class="btn btn--ghost hdr-zalo" href="https://zalo.me/g/hdcocpslx09xwpfnh5xz" target="_blank" rel="noopener" aria-label="Tham gia cộng đồng CNTaxTools trên Zalo" title="Tham gia nhóm Zalo">
@@ -230,7 +232,7 @@
    </article>
   </div>
   <aside class="install-chrome" id="install-chrome"><h3>Muốn tải bằng Google Chrome?</h3><p>Website không thể tự chọn Chrome thay cho Edge trên mọi máy. Nếu máy đã có Chrome: <strong>sao chép link → mở Chrome → dán vào thanh địa chỉ → Enter</strong>. Bạn cũng có thể mở trang CNTaxTools trong Chrome rồi bấm Tải ứng dụng.</p><div class="install-copy"><button class="btn btn--primary" id="install-copy-link" type="button">Sao chép link tải cho Chrome</button><a href="https://support.google.com/chrome/answer/95417?hl=vi" target="_blank" rel="noopener">Cách đặt Chrome làm trình duyệt mặc định</a></div><label for="install-download-link">Link tải bộ cài Setup EXE chính thức</label><input id="install-download-link" type="url" readonly value="https://github.com/Datkep92/HoaDonNhe/releases/download/v1.8.3/CNTaxTools-Setup-v1.8.3.exe" spellcheck="false"><p id="install-copy-status" role="status" aria-live="polite"></p><p class="install-small">Chrome vẫn có thể cảnh báo khi tải. Cảnh báo của Windows khi mở bộ cài vẫn có thể xuất hiện dù bạn tải bằng trình duyệt nào.</p></aside>
-  <div class="install-faq" id="install-faq"><h3>Lỗi thường gặp và cách xử lý</h3><details><summary>Không thấy nút Vẫn chạy / Run anyway</summary><p>Một số máy bật Smart App Control hoặc do cơ quan quản lý không cho phép tiếp tục. Hãy liên hệ quản trị viên hoặc hỗ trợ CNTaxTools, kèm ảnh cảnh báo. Không cần tắt các lớp bảo vệ của Windows để làm theo hướng dẫn này.</p></details><details><summary>Trình duyệt hoặc Defender ghi rõ có virus / mã độc</summary><p>Dừng cài đặt, không dùng các bước Giữ hoặc Vẫn chạy ở trên. Kiểm tra lại nguồn và gửi ảnh cảnh báo cho hỗ trợ để xác minh file. Hướng dẫn này chỉ dành cho cảnh báo file chưa được nhận diện hoặc nhà phát hành chưa xác minh.</p></details><details><summary>Xuất hiện hộp “Bạn có muốn cho phép ứng dụng này…?”</summary><p>Đây là yêu cầu xác nhận quyền của Windows. Chỉ chọn Có (Yes) khi đúng bộ cài bạn vừa tải từ nguồn chính thức và bạn chấp nhận cho phép. Nếu máy yêu cầu tài khoản quản trị mà bạn không có, liên hệ người quản lý máy.</p></details><details><summary>Tải bị đứt, không tìm thấy file hoặc chưa cài được</summary><p>Nhấn Ctrl + J để xem tải đã hoàn tất chưa. Nếu tải đứt, kiểm tra mạng và tải lại từ nút Tải ứng dụng. Nếu cài vẫn lỗi, gửi ảnh thông báo qua <a href="https://zalo.me/0395995035" target="_blank" rel="noopener">hỗ trợ CNTaxTools</a>; không gửi mật khẩu hoặc mã xác nhận.</p></details></div>
+  <div class="install-faq" id="install-faq"><h3>Lỗi thường gặp và cách xử lý</h3><details><summary>Không thấy nút Vẫn chạy / Run anyway</summary><p>Một số máy bật Smart App Control hoặc do cơ quan quản lý không cho phép tiếp tục. Hãy liên hệ quản trị viên hoặc hỗ trợ CNTaxTools, kèm ảnh cảnh báo. Không cần tắt các lớp bảo vệ của Windows để làm theo hướng dẫn này.</p></details><details><summary>Trình duyệt hoặc Defender ghi rõ có virus / mã độc</summary><p>Dừng cài đặt, không dùng các bước Giữ hoặc Vẫn chạy ở trên. Kiểm tra lại nguồn và gửi ảnh cảnh báo cho hỗ trợ để xác minh file. Hướng dẫn này chỉ dành cho cảnh báo file chưa được nhận diện hoặc nhà phát hành chưa xác minh.</p></details><details><summary>Xuất hiện hộp “Bạn có muốn cho phép ứng dụng này…?”</summary><p>Đây là yêu cầu xác nhận quyền của Windows. Chỉ chọn Có (Yes) khi đúng bộ cài bạn vừa tải từ nguồn chính thức và bạn chấp nhận cho phép. Nếu máy yêu cầu tài khoản quản trị mà bạn không có, liên hệ người quản lý máy.</p></details><details><summary>Tải bị đứt, không tìm thấy file hoặc chưa cài được</summary><p>Nhấn Ctrl + J để xem tải đã hoàn tất chưa. Nếu tải đứt, kiểm tra mạng và tải lại từ nút Tải ứng dụng. Nếu cài vẫn lỗi, gửi ảnh thông báo qua <a href="https://zalo.me/0932155035" target="_blank" rel="noopener">hỗ trợ CNTaxTools</a>; không gửi mật khẩu hoặc mã xác nhận.</p></details></div>
   <p class="install-sources">Tham khảo: <a href="https://learn.microsoft.com/en-us/troubleshoot/microsoft-edge/development/download-failures" target="_blank" rel="noopener">Hướng dẫn tải file của Microsoft Edge</a> · <a href="https://learn.microsoft.com/en-us/windows/apps/package-and-deploy/smartscreen-reputation" target="_blank" rel="noopener">Cảnh báo SmartScreen và chữ ký nhà phát hành</a>. Tên nút và màu giao diện có thể khác theo Windows, trình duyệt và ngôn ngữ.</p>
  </div>
 </section>
@@ -604,7 +606,7 @@
 
     <div class="road-note" data-rv>
       <svg aria-hidden="true"><use href="#i-msg"/></svg>
-      <span>Bạn cần một tính năng chưa có trong danh sách trên? Nhắn Zalo <a href="https://zalo.me/0395995035" target="_blank" rel="noopener">039.599.5035</a> — các yêu cầu được nhiều sẽ được đưa vào bản cập nhật kế tiếp.</span>
+      <span>Bạn cần một tính năng chưa có trong danh sách trên? Nhắn Zalo <a href="https://zalo.me/0932155035" target="_blank" rel="noopener">039.599.5035</a> — các yêu cầu được nhiều sẽ được đưa vào bản cập nhật kế tiếp.</span>
     </div>
   </div>
 </section>
@@ -667,8 +669,8 @@
         <img class="admin-avatar" src="assets/img/admin-avatar.jpg" alt="Ảnh đại diện Admin CNTaxTools" width="120" height="114" loading="lazy" decoding="async">
         <h3>Kênh chính thức</h3>
         <ul class="admin-list">
-          <li><svg aria-hidden="true"><use href="#i-msg"/></svg><span><b>Zalo hỗ trợ:</b> <a href="https://zalo.me/0932155035" target="_blank" rel="noopener">0932.155.035</a></span></li>
-          <li><svg aria-hidden="true"><use href="#i-fb"/></svg><span><b>Facebook Admin:</b> <a href="https://www.facebook.com/share/1ZdTpbPdNe/?mibextid=wwXIfr" target="_blank" rel="noopener">linhnhaxac.vn</a></span></li>
+          <li><svg aria-hidden="true"><use href="#i-msg"/></svg><span><b>Zalo hỗ trợ:</b> <a href="https://zalo.me/0932155035" target="_blank" rel="noopener">0395995035</a></span></li>
+          <li><svg aria-hidden="true"><use href="#i-fb"/></svg><span><b>Facebook Admin:</b> <a href="https://www.facebook.com/share/1ZdTpbPdNe/?mibextid=wwXIfr" target="_blank" rel="noopener">Nguyễn Đạt</a></span></li>
           <li><svg aria-hidden="true"><use href="#i-fb"/></svg><span><b>Fanpage:</b> <a href="https://www.facebook.com/share/1EpC21NWND/?mibextid=wwXIfr" target="_blank" rel="noopener">CNTaxTools — Hỗ Trợ Kế Toán Thuế</a></span></li>
           <li><svg aria-hidden="true"><use href="#i-gh"/></svg><span><b>GitHub:</b> <a href="https://github.com/Datkep92" target="_blank" rel="noopener">github.com/Datkep92</a> — mã nguồn mở, lịch sử phát hành công khai</span></li>
         </ul>
@@ -738,7 +740,7 @@
         <p>Công cụ hỗ trợ kế toán hộ kinh doanh và công ty: kéo hóa đơn hàng loạt từ cổng thuế, tổng hợp hàng hóa, đối chiếu sao kê ngân hàng và theo dõi công nợ.</p>
         <div class="socials">
           <a href="https://github.com/Datkep92/HoaDonNhe" target="_blank" rel="noopener" aria-label="Mã nguồn trên GitHub"><svg aria-hidden="true"><use href="#i-gh"/></svg></a>
-          <a href="https://zalo.me/0395995035" target="_blank" rel="noopener" aria-label="Hỗ trợ qua Zalo"><svg aria-hidden="true"><use href="#i-msg"/></svg></a>
+          <a href="https://zalo.me/0932155035" target="_blank" rel="noopener" aria-label="Hỗ trợ qua Zalo"><svg aria-hidden="true"><use href="#i-msg"/></svg></a>
           <a href="https://fb.com/linhnhaxac.vn" target="_blank" rel="noopener" aria-label="Facebook CNTaxTools"><svg aria-hidden="true"><use href="#i-fb"/></svg></a>
         </div>
       </div>
@@ -757,7 +759,7 @@
       <div>
         <h3>Liên hệ</h3>
         <ul class="ftr-contact">
-          <li><svg aria-hidden="true"><use href="#i-msg"/></svg><span>Zalo: <a href="https://zalo.me/0395995035" target="_blank" rel="noopener">039.599.5035</a></span></li>
+          <li><svg aria-hidden="true"><use href="#i-msg"/></svg><span>Zalo: <a href="https://zalo.me/0932155035" target="_blank" rel="noopener">039.599.5035</a></span></li>
           <li><svg aria-hidden="true"><use href="#i-clock"/></svg><span>8:00 – 21:00, cả T7 &amp; CN</span></li>
           <li><svg aria-hidden="true"><use href="#i-win"/></svg><span>Ứng dụng cho Windows 10 / 11 – 64-bit</span></li>
           <li><svg aria-hidden="true"><use href="#i-lock"/></svg><span>Dữ liệu lưu trên máy, mã hoá phiên đăng nhập</span></li>
@@ -940,7 +942,7 @@
   <div class="dlm__scrim" data-admin-close></div>
   <div class="dlm__box">
     <div class="dlm__hd">
-      <span class="dlm__ic"><svg><use href="#i-bot"/></svg></span>
+      <span class="dlm__ic"><svg><use href="#i-user"/></svg></span>
       <div>
         <span class="dlm__badge">Admin</span>
         <h2 id="admin-mt">CNTaxTools — Người phát triển</h2>
@@ -954,8 +956,8 @@
       <div class="admin-m">
         <img class="admin-m__ava" src="assets/img/admin-avatar.jpg" alt="Ảnh đại diện Admin CNTaxTools" width="96" height="91" loading="lazy" decoding="async">
         <ul class="admin-m__list">
-          <li><svg aria-hidden="true"><use href="#i-msg"/></svg><span><b>Zalo hỗ trợ:</b> <a href="https://zalo.me/0932155035" target="_blank" rel="noopener">0932.155.035</a></span></li>
-          <li><svg aria-hidden="true"><use href="#i-fb"/></svg><span><b>Facebook Admin:</b> <a href="https://www.facebook.com/share/1ZdTpbPdNe/?mibextid=wwXIfr" target="_blank" rel="noopener">linhnhaxac.vn</a></span></li>
+          <li><svg aria-hidden="true"><use href="#i-msg"/></svg><span><b>Zalo hỗ trợ:</b> <a href="https://zalo.me/0932155035" target="_blank" rel="noopener">0395995035</a></span></li>
+          <li><svg aria-hidden="true"><use href="#i-fb"/></svg><span><b>Facebook Admin:</b> <a href="https://www.facebook.com/share/1ZdTpbPdNe/?mibextid=wwXIfr" target="_blank" rel="noopener">Nguyễn Đạt</a></span></li>
           <li><svg aria-hidden="true"><use href="#i-fb"/></svg><span><b>Fanpage:</b> <a href="https://www.facebook.com/share/1EpC21NWND/?mibextid=wwXIfr" target="_blank" rel="noopener">CNTaxTools — Hỗ Trợ Kế Toán Thuế</a></span></li>
           <li><svg aria-hidden="true"><use href="#i-share"/></svg><span><b>TikTok:</b> <a href="https://www.tiktok.com/@cntaxtools/video/7699307541766868232?_r=1&_t=ZS-9Akwn8pAKy9" target="_blank" rel="noopener">@cntaxtools</a> — hướng dẫn, mẹo xử lý hóa đơn</span></li>
           <li><svg aria-hidden="true"><use href="#i-gh"/></svg><span><b>GitHub:</b> <a href="https://github.com/Datkep92" target="_blank" rel="noopener">github.com/Datkep92</a> — mã nguồn mở, phát hành công khai</span></li>
@@ -999,37 +1001,14 @@
       <a class="btn btn--primary btn--lg" id="oswarn-dl" href="https://github.com/Datkep92/HoaDonNhe/releases/latest">
         <svg aria-hidden="true"><use href="#i-dl"/></svg> Vẫn tải về
       </a>
-      <a class="btn btn--ghost btn--lg" href="https://zalo.me/0395995035" target="_blank" rel="noopener">
+      <a class="btn btn--ghost btn--lg" href="https://zalo.me/0932155035" target="_blank" rel="noopener">
         <svg aria-hidden="true"><use href="#i-msg"/></svg> Hỏi Zalo
       </a>
     </div>
   </div>
 </dialog>
 
-<script src="assets/js/main.js?v=20261025-layout" defer></script>
-<script>
-(function () {
-  'use strict';
-  var modal = document.getElementById('admin-modal');
-  var btn = document.getElementById('admin-btn');
-  if (!modal || !btn) return;
-  function open() {
-    modal.hidden = false;
-    void modal.offsetWidth;
-    modal.classList.add('is-open');
-  }
-  function close() {
-    modal.classList.remove('is-open');
-    setTimeout(function () { modal.hidden = true; }, 300);
-  }
-  btn.addEventListener('click', open);
-  modal.addEventListener('click', function (e) {
-    if (e.target.closest('[data-admin-close]')) close();
-  });
-  document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' && !modal.hidden) close();
-  });
-})();
-</script>
+<script src="assets/js/main.js?v=20261025-tested-1" defer></script>
+<script src="assets/js/admin.js?v=20261025-tested-1" defer></script>
 </body>
 </html>

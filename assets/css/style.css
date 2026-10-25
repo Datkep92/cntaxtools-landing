@@ -1102,3 +1102,6 @@ code, .inst-code, .dlm-code {
 .admin-list b{color:var(--ink)}
 .admin-list a{color:var(--brand);font-weight:650}
 .admin-note{margin-top:14px;font-size:.82rem;color:var(--muted)}
+
+/* ---------- Anh dai dien admin ---------- */
+.admin-avatar{width:112px;height:112px;object-fit:cover;border-radius:50%;border:3px solid var(--mint-soft);box-shadow:var(--sh-1);margin:0 auto 12px;display:block}

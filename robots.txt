@@ -11,4 +11,4 @@ Disallow: /404.html
 Disallow: /*?
 Disallow: /*&
 
-Sitemap: https://datkep92.github.io/cntaxtools-landing/sitemap.xml
+Sitemap: https://cntaxtools.com/sitemap.xml

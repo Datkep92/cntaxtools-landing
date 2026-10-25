@@ -1,6 +1,6 @@
 # Đưa trang lên Google Search Console
 
-**Trang đã deploy:** <https://datkep92.github.io/cntaxtools-landing/>
+**Trang đã deploy:** <https://cntaxtools.com/>
 **Repo:** <https://github.com/Datkep92/cntaxtools-landing> (nhánh `master`)
 
 Phần kỹ thuật đã xong hết. Việc còn lại cần bạn đăng nhập Google — làm theo 6 bước dưới, tầm 10 phút.
@@ -15,7 +15,7 @@ Phần kỹ thuật đã xong hết. Việc còn lại cần bạn đăng nhập
 4. Dán đúng URL này, có dấu `/` ở cuối:
 
    ```
-   https://datkep92.github.io/cntaxtools-landing/
+   https://cntaxtools.com/
    ```
 
 5. Bấm **Continue**
@@ -62,13 +62,13 @@ Sau khi xác minh xong:
 
 3. Bấm **Submit**
 
-Đã có sẵn `https://datkep92.github.io/cntaxtools-landing/sitemap.xml` — nội dung:
+Đã có sẵn `https://cntaxtools.com/sitemap.xml` — nội dung:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://datkep92.github.io/cntaxtools-landing/</loc>
+    <loc>https://cntaxtools.com/</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
@@ -83,7 +83,7 @@ Sau khi xác minh xong:
 ## Bước 4 — Yêu cầu lập chỉ mục
 
 1. Menu **URL Inspection** (ô tìm kiếm ở trên)
-2. Dán `https://datkep92.github.io/cntaxtools-landing/`
+2. Dán `https://cntaxtools.com/`
 3. Bấm **Request indexing**
 
 Google sẽ quét và index trong vài ngày. Có thể gửi lại lần nữa sau 1–2 tuần nếu trang có thay đổi lớn.
@@ -182,7 +182,7 @@ Trang này cũng dùng được cho Bing/Edge — Bing đọc chung nhiều tín
 
 | Việc | Trạng thái |
 | --- | --- |
-| Property thêm vào Search Console | ✅ `https://datkep92.github.io/cntaxtools-landing/` |
+| Property thêm vào Search Console | ✅ `https://cntaxtools.com/` |
 | Token xác minh đã deploy | ✅ meta tag + file `google-site-verification.html` |
 | Tài khoản | `linhnhaxac10@gmail.com` |
 | Search Console API | ✅ đã bật trên project `hddt-49af7` |
@@ -207,7 +207,7 @@ Cả hai cùng trỏ một token nên Google đọc được từ đường dẫ
 
 Kiểm tra trực tiếp bằng trình duyệt:
 
-- <https://datkep92.github.io/cntaxtools-landing/google-site-verification.html> — phải hiện đúng 43 ký tự
+- <https://cntaxtools.com/google-site-verification.html> — phải hiện đúng 43 ký tự
 - Mở View Source trang chủ, tìm `google-site-verification`
 
 Cả hai đúng mà vẫn chưa xác minh thì vào web bấm **Xác minh** lại để xem Google

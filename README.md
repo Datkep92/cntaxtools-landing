@@ -11,7 +11,7 @@
 - AI hỗ trợ đọc file, phân tích, so sánh và chuẩn bị báo cáo.
 - Chuẩn bị dữ liệu và file thay thế hóa đơn theo mẫu MISA; kiểm tra trước khi nhập hoặc phát hành.
 
-[Xem trang giới thiệu](https://datkep92.github.io/cntaxtools-landing/) · [Tải bản mới](https://github.com/Datkep92/HoaDonNhe/releases/latest) · [Liên hệ Admin](https://zalo.me/0395995035)
+[Xem trang giới thiệu](https://cntaxtools.com/) · [Tải bản mới](https://github.com/Datkep92/HoaDonNhe/releases/latest) · [Liên hệ Admin](https://zalo.me/0395995035)
 
 ## Chỉnh sửa trang
 

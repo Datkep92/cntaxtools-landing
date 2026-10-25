@@ -1079,3 +1079,12 @@ code, .inst-code, .dlm-code {
 .nav a.nav__group { display: inline-flex; align-items: center; gap: 7px; color: var(--brand); }
 .nav a.nav__group:hover { color: var(--brand); background: var(--paper-2); }
 .nav a.nav__group svg { width: 17px; height: 17px; }
+
+/* ---------- Nut nhom Zalo tren header ---------- */
+.hdr-zalo { display: none; flex: none; min-height: 44px; padding: 9px 18px; font-size: .875rem; gap: 8px; }
+.hdr-zalo svg { width: 17px; height: 17px; }
+@media (min-width: 1001px) { .hdr-zalo { display: inline-flex; } }
+/* Mobile: giong .hdr-cta — chi con icon */
+@media (max-width: 1000px) {
+  .hdr-zalo { display: inline-flex; width: 44px; padding: 0; gap: 0; border-radius: 12px; justify-content: center; }
+}

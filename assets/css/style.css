@@ -1074,3 +1074,8 @@ code, .inst-code, .dlm-code {
 .share-actions{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:24px}
 .share-actions .btn{flex:1 1 220px;max-width:300px}
 .share-status{min-height:24px;margin-top:12px!important;color:var(--brand-ink)!important;font-size:.9rem!important;font-weight:650}
+
+/* ---------- Nhom Zalo trong menu nav ---------- */
+.nav a.nav__group { display: inline-flex; align-items: center; gap: 7px; color: var(--brand); }
+.nav a.nav__group:hover { color: var(--brand); background: var(--paper-2); }
+.nav a.nav__group svg { width: 17px; height: 17px; }

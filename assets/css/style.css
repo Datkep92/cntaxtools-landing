@@ -345,13 +345,11 @@ p  { text-wrap: pretty; }
 /* Mobile: hai nút luôn nằm cùng MỘT hàng, không xuống dòng.
    Nút co theo phần không gian còn lại (flex-basis 0) nên luôn bằng nhau. */
 @media (max-width: 600px) {
-  .cta-row { flex-wrap: nowrap; gap: 8px; }
+  .cta-row { flex-direction: column; gap: 10px; }
   .cta-row .btn {
-    flex: 1 1 0; min-width: 0; max-width: none;
-    padding: 12px 8px; font-size: .84rem; gap: 6px; letter-spacing: -.015em;
+    flex: 1 1 auto; width: 100%; max-width: 420px; margin-inline: auto;
+    min-height: 52px; justify-content: center; font-size: .95rem;
   }
-  .cta-row .btn--lg { min-height: 50px; }
-  .cta-row .btn svg { width: 16px; height: 16px; }
 }
 
 .hero-meta {
@@ -1106,25 +1104,13 @@ code, .inst-code, .dlm-code {
 /* ---------- Anh dai dien admin ---------- */
 .admin-avatar{width:112px;height:112px;object-fit:cover;border-radius:50%;border:3px solid var(--mint-soft);box-shadow:var(--sh-1);margin:0 auto 12px;display:block}
 
-/* ---------- Toi uu hero + admin tren mobile ---------- */
-/* Hero: 2 nut xep chac, deu nhau tren mobile */
-@media (max-width: 700px) {
-  .cta-row--hero { flex-direction: column; gap: 10px; }
-  .cta-row--hero .btn { flex: 1 1 auto; max-width: 100%; width: 100%; min-height: 52px; justify-content: center; }
-  .hero .lead { font-size: .98rem; }
-}
-/* CTA cuoi trang cung can doi voi hero */
-@media (max-width: 700px) {
-  .final .cta-row { flex-direction: column; gap: 10px; }
-  .final .cta-row .btn { max-width: 100%; width: 100%; min-height: 52px; justify-content: center; }
-}
-/* Admin: tren mobile dung thanh, QR + avatar can deu */
+/* ---------- Admin mobile ---------- */
 @media (max-width: 700px) {
   .admin-grid { grid-template-columns: 1fr; gap: 14px; }
   .admin-card { padding: 20px 18px; }
   .admin-qr { width: 160px; }
+  .hero .lead { font-size: .98rem; }
 }
-/* Nav menu mobile: giu nguyen cau truc, nut group noi bat */
 @media (max-width: 1000px) {
   .nav a.nav__group { color: var(--brand); font-weight: 700; }
 }

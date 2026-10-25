@@ -1,0 +1,33 @@
+<!doctype html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>QA header công cụ hóa đơn</title><style>body{font:14px system-ui;margin:12px;background:#edf3f6}h1{font-size:18px}pre{white-space:pre-wrap;font-size:12px}#stage{position:relative;overflow:hidden;background:white}iframe{position:absolute;top:0;left:0;max-width:none;border:0;transform-origin:top left}button{padding:10px;margin:3px}</style></head><body><h1>QA header phân loại hóa đơn</h1><p id="status">Đang kiểm thử WebKit…</p><pre id="results"></pre><button id="mobile">375px — menu mở</button><button id="desktop">1440px — desktop</button><div id="stage"><iframe id="frame" title="Trang công cụ đang kiểm thử"></iframe></div><script>
+(async()=>{
+ const f=document.getElementById('frame'),stage=document.getElementById('stage'),out=document.getElementById('results');let width=375,failures=0;
+ const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+ function size(w){width=w;f.style.width=w+'px';f.style.height='900px';let s=Math.min(1,(innerWidth-24)/w);f.style.transform='scale('+s+')';stage.style.height=900*s+'px';}
+ size(375);window.addEventListener('resize',()=>size(width));
+ await new Promise(r=>{f.onload=r;f.src='../phan-loai-hoa-don/?qa='+Date.now();});await sleep(700);
+ const win=f.contentWindow,d=f.contentDocument,$=s=>d.querySelector(s),rect=e=>e.getBoundingClientRect(),visible=e=>win.getComputedStyle(e).display!=='none'&&e.getClientRects().length;
+ for(const w of [320,375,390,479,768,1024,1280,1440,1920]){
+  size(w);win.scrollTo(0,0);await sleep(180);const errors=[];
+  function check(ok,msg){if(!ok){errors.push(msg);failures++;}}
+  const h=$('.shdr'),nav=$('#tool-site-nav'),toggle=$('#tool-menu-toggle');
+  if(toggle.getAttribute('aria-expanded')==='true')toggle.click();
+  check(win.innerWidth===w,'viewport sai');check(d.documentElement.scrollWidth<=w+1,'tràn ngang trang');
+  check(h.scrollWidth<=w+1,'header tràn ngang');
+  const controls=[$('.shdr .slogo'),...d.querySelectorAll('.sactions a,.sactions button')].filter(visible).sort((a,b)=>rect(a).x-rect(b).x);
+  controls.forEach((e,i)=>{const r=rect(e),hit=d.elementFromPoint(r.x+r.width/2,r.y+r.height/2);check(r.left>=0&&r.right<=w+1,'nút ra ngoài khung');check(r.height>=43,'vùng chạm nhỏ');check(hit===e||e.contains(hit),'vùng bấm bị che');if(i)check(rect(controls[i-1]).right<=r.left+1,'nút chồng nhau');});
+  if(w<1024){
+   check(visible(toggle),'thiếu nút menu');check(!visible(nav),'menu không ẩn ban đầu');toggle.click();
+   check(visible(nav)&&toggle.getAttribute('aria-expanded')==='true','menu không mở');
+   check(rect(nav).left>=0&&rect(nav).right<=w+1,'menu tràn màn');
+   d.dispatchEvent(new win.KeyboardEvent('keydown',{key:'Escape',bubbles:true}));check(!visible(nav),'ESC không đóng');
+   toggle.click();$('main').dispatchEvent(new win.Event('pointerdown',{bubbles:true}));check(!visible(nav),'bấm ngoài không đóng');
+  }else{check(!visible(toggle),'menu mobile hiện desktop');check(visible(nav),'thiếu menu desktop');check(rect(nav).right<=rect($('.sactions')).left+1,'nav đè cụm nút');}
+  $('#tab-pdf').click();check($('#tab-pdf').getAttribute('aria-pressed')==='true','tab PDF hỏng');$('#tab-sort').click();check($('#tab-sort').getAttribute('aria-pressed')==='true','tab XML hỏng');
+  out.textContent+=w+'px: '+(errors.length?'FAIL '+errors.join('; '):'PASS')+'\n';
+ }
+ document.getElementById('status').textContent=failures?'FAIL: '+failures:'PASS — 9 khổ màn hình, menu và tab XML/PDF';
+ const report={failures,text:out.textContent};fetch('../__qa_tool?result='+encodeURIComponent(JSON.stringify(report))).catch(()=>{});
+ function preview(w){if($('#tool-menu-toggle').getAttribute('aria-expanded')==='true')$('#tool-menu-toggle').click();size(w);win.scrollTo(0,0);if(w<1024)$('#tool-menu-toggle').click();}
+ document.getElementById('mobile').onclick=()=>preview(375);document.getElementById('desktop').onclick=()=>preview(1440);preview(375);
+})().catch(e=>{document.getElementById('status').textContent='ERROR: '+e.message;});
+</script></body></html>

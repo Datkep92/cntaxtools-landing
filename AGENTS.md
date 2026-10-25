@@ -10,6 +10,7 @@
 - Serve locally: `python3 -m http.server 8765 --bind 127.0.0.1` from the root.
 - Open http://127.0.0.1:8765/tests/layout.html in Safari. It uses real WebKit iframe viewports at 320, 375, 390, 768, 1024, 1280, 1440 and 1920px, testing header hit regions, overflow, mobile menu open/scroll/close, admin modal focus/ESC/backdrop and admin SVG sizes. It is noindex and must not enter sitemap.
 - Also test the main page directly with dedicated UI tools: Safari portrait, tap hamburger, scroll menu to the admin card, close menu, inspect the admin section. Capture actual screenshots, not only HTTP results.
+- For the organizer header, also open http://127.0.0.1:8765/tests/organizer-header.html. It checks nine widths (320–1920px), header overflow/hit regions, menu open/ESC/outside close, and XML/PDF tab switching. The organizer site header uses isolated inline .shdr/.snav styles and a disclosure menu below 1024px; keep its business scripts and CSP unchanged.
 - Desktop iframe layout tests are NOT a physical Windows/macOS or Chrome test; state this distinction in reports.
 
 ## Confirmed identity / contacts

@@ -1,7 +1,7 @@
 {
-  "version": "1.8.3",
+  "version": "1.8.6",
   "revision": 9,
-  "reviewedAt": "2026-10-24",
+  "reviewedAt": "2026-10-26",
   "topics": [
     "cai-dat",
     "them-mst",
@@ -13,6 +13,5 @@
     "to-khai",
     "thue",
     "cap-nhat"
-  ],
-  "sourceCommit": "a955fa8112126ba33915c78c01119ad556bdd386"
+  ]
 }

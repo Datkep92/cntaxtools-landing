@@ -226,8 +226,7 @@
 
     var REPO = 'Datkep92/HoaDonNhe';
     var API = 'https://api.github.com/repos/' + REPO + '/releases/latest';
-    var releaseLabel = document.querySelector('[data-dl-ver]');
-    var CACHE_KEY = 'cntax.dl.setup-exe.' + (releaseLabel ? releaseLabel.textContent.trim() : 'current');
+    var CACHE_KEY = 'cntax.dl.direct-exe.' + ((labels[0] && labels[0].textContent.trim()) || 'v1.8.7');
     var TTL_MS = 30 * 60 * 1000;
 
     var url = null;        // link .exe đã dò được
@@ -247,15 +246,11 @@
       return true;
     }
 
-    /* Chỉ nhận đúng tệp bộ cài của CN Tax Tools: bỏ qua .sha256, bỏ qua bản
-       payload CN-Tax-Tools-vX.Y.Z.exe (dùng cho self-update, không phải để cài). */
+    // Chỉ chọn EXE chạy trực tiếp; không chọn Setup, Engine hoặc checksum.
     function pickAsset(assets) {
       if (!Array.isArray(assets)) return null;
-      var preferred = assets.find(function (asset) { return /^CN-Tax-Tools-Setup-v\d+\.\d+\.\d+\.exe$/.test(asset.name || ''); });
-      if (preferred) return preferred.browser_download_url || null;
-      var fallback = assets.find(function (asset) { return /^CNTaxTools-Windows-Setup-EXE-DuPhong-v\d+\.\d+\.\d+\.exe$/.test(asset.name || ''); });
-      if (fallback) return fallback.browser_download_url || null;
-      return null;
+      var direct = assets.find(function (asset) { return /^CN-Tax-Tools-v\d+\.\d+\.\d+\.exe$/.test(asset.name || ''); });
+      return direct ? direct.browser_download_url || null : null;
     }
 
     /* Số phiên bản lấy từ tag (v1.0.9), không có thì lấy từ tên tệp */
@@ -291,7 +286,7 @@
         if (!data || typeof data !== 'object') return null;
         if (Date.now() - Number(data.at || 0) > TTL_MS) return null;
         // Chỉ nhận link https của chính repo phát hành, không tin dữ liệu lạ ghi vào
-        if (typeof data.url === 'string' && data.url.indexOf('https://github.com/' + REPO + '/releases/download/') !== 0) {
+        if (typeof data.url !== 'string' || !/^https:\/\/github\.com\/Datkep92\/HoaDonNhe\/releases\/download\/v\d+\.\d+\.\d+\/CN-Tax-Tools-v\d+\.\d+\.\d+\.exe$/.test(data.url)) {
           return null;
         }
         return data;
@@ -387,10 +382,10 @@
       win: {
         badge: 'Máy tính Windows',
         icon: '#i-win',
-        title: 'Cài đặt CN Tax Tools trên Windows',
-        desc: 'Chỉ vài thao tác là xong — kể cả khi Windows hiện bảng cảnh báo xanh “Windows đã bảo vệ PC của bạn”.',
-        go: 'Tải và cài đặt',
-        zalo: 'Cài bị lỗi? Nhắn Zalo'
+        title: 'Tải CNTaxTools, mở là dùng',
+        desc: 'Tải file EXE rồi mở, không cần cài đặt. Lần đầu ứng dụng cần chuẩn bị thành phần đi kèm.',
+        go: 'Tải EXE không cần cài đặt',
+        zalo: 'Mở không được? Nhắn Zalo'
       },
       mobile: {
         badge: '',   // lấy theo hệ điều hành, xem mobileBadge()
@@ -405,7 +400,7 @@
         badge: 'Không phải máy tính Windows',
         icon: '#i-info',
         title: 'Máy này không chạy được ứng dụng Windows',
-        desc: 'CN Tax Tools chỉ có bản cài cho Windows 10 / 11 – 64-bit. Tệp .exe không mở được trên máy này.',
+        desc: 'CN Tax Tools chỉ chạy trên Windows 10 / 11 – 64-bit. Tệp .exe không mở được trên máy này.',
         go: 'Tải tệp .exe về',
         zalo: 'Nhắn Zalo hỗ trợ'
       }

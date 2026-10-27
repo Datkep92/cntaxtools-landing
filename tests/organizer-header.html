@@ -22,7 +22,7 @@
    d.dispatchEvent(new win.KeyboardEvent('keydown',{key:'Escape',bubbles:true}));check(!visible(nav),'ESC không đóng');
    toggle.click();$('main').dispatchEvent(new win.Event('pointerdown',{bubbles:true}));check(!visible(nav),'bấm ngoài không đóng');
   }else{check(!visible(toggle),'menu mobile hiện desktop');check(visible(nav),'thiếu menu desktop');check(rect(nav).right<=rect($('.sactions')).left+1,'nav đè cụm nút');}
-  check(new URL($('#tab-pdf').href).pathname.endsWith('/tai-pdf/'),'Thiếu đường dẫn PDF riêng');check(new URL($('#tab-sort').href).pathname.endsWith('/phan-loai-hoa-don/'),'Thiếu đường dẫn phân loại riêng');check(win.OrganizerApp.current.mode==='sort','Trang phân loại khởi tạo sai');
+  check(new URL($('#tab-pdf').href).pathname.endsWith('/tai-hoa-don-goc/'),'Thiếu đường dẫn PDF riêng');check(new URL($('#tab-sort').href).pathname.endsWith('/phan-loai-hoa-don/'),'Thiếu đường dẫn phân loại riêng');check(win.OrganizerApp.current.mode==='sort','Trang phân loại khởi tạo sai');
   out.textContent+=w+'px: '+(errors.length?'FAIL '+errors.join('; '):'PASS')+'\n';
  }
  document.getElementById('status').textContent=failures?'FAIL: '+failures:'PASS — 9 khổ màn hình, menu và tab XML/PDF';

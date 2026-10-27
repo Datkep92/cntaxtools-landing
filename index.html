@@ -11,7 +11,7 @@
 <meta name="google-site-verification" content="_ym4zbT-vyDN5vEuqdj5oLXCSZIKvVM84SHVmLxIJL8">
 
 <title>CNTaxTools (CNTaxTools) — Công Cụ Hỗ Trợ Kế Toán</title>
-<meta name="description" content="CNTaxTools — phần mềm hỗ trợ kế toán trên Windows: tải hóa đơn điện tử hàng loạt, tổng hợp hàng hóa, đối chiếu sao kê, theo dõi công nợ.">
+<meta name="description" content="CNTaxTools: tải hóa đơn điện tử, phân loại XML/ZIP theo MST và tải hóa đơn gốc PDF. Công cụ hỗ trợ kế toán, đối chiếu sao kê và quản lý hóa đơn.">
 <meta name="author" content="CNTaxTools">
 <meta name="application-name" content="CNTaxTools">
 <meta name="apple-mobile-web-app-title" content="CNTaxTools">
@@ -26,19 +26,19 @@
 
 <!-- URL gốc của trang — dùng chung cho canonical, OG và sitemap.
      Đổi tên miền: sửa 1 dòng này rồi chạy  node tools/set-domain.cjs <ten-mien> -->
-<link rel="canonical" href="https://cntaxtools.com/">
-<link rel="alternate" hreflang="vi-VN" href="https://cntaxtools.com/">
-<link rel="alternate" hreflang="x-default" href="https://cntaxtools.com/">
-<link rel="sitemap" type="application/xml" title="Sitemap" href="https://cntaxtools.com/sitemap.xml">
+<link rel="canonical" href="https://datkep92.github.io/cntaxtools-landing/">
+<link rel="alternate" hreflang="vi-VN" href="https://datkep92.github.io/cntaxtools-landing/">
+<link rel="alternate" hreflang="x-default" href="https://datkep92.github.io/cntaxtools-landing/">
+<link rel="sitemap" type="application/xml" title="Sitemap" href="https://datkep92.github.io/cntaxtools-landing/sitemap.xml">
 
 <!-- ============ Open Graph / Facebook / Zalo ============ -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="CNTaxTools">
 <meta property="og:locale" content="vi_VN">
-<meta property="og:url" content="https://cntaxtools.com/">
+<meta property="og:url" content="https://datkep92.github.io/cntaxtools-landing/">
 <meta property="og:title" content="CNTaxTools (CNTaxTools) — Công cụ hỗ trợ kế toán">
 <meta property="og:description" content="Phần mềm hỗ trợ kế toán trên Windows: tải hóa đơn điện tử hàng loạt, tổng hợp hàng hóa, đối chiếu sao kê ngân hàng và theo dõi công nợ.">
-<meta property="og:image" content="https://cntaxtools.com/assets/img/og-cover.png">
+<meta property="og:image" content="https://datkep92.github.io/cntaxtools-landing/assets/img/og-cover.png">
 <meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -48,7 +48,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="CNTaxTools (CNTaxTools) — Công cụ hỗ trợ kế toán">
 <meta name="twitter:description" content="Phần mềm hỗ trợ kế toán trên Windows: tải hóa đơn điện tử hàng loạt, tổng hợp hàng hóa, đối chiếu sao kê và công nợ.">
-<meta name="twitter:image" content="https://cntaxtools.com/assets/img/og-cover.png">
+<meta name="twitter:image" content="https://datkep92.github.io/cntaxtools-landing/assets/img/og-cover.png">
 <meta name="twitter:image:alt" content="Giao diện CNTaxTools: quản lý nhiều MST, tải hóa đơn hàng loạt, kho hàng và đối chiếu sao kê.">
 
 <!-- ============ Favicon ============ -->
@@ -61,8 +61,8 @@
      Tham số ?v= giúp tải lại ngay sau khi deploy — GitHub Pages cache tài nguyên
      tĩnh 10 phút, không có tham số này người dùng dễ thấy bản CSS cũ. -->
 <link rel="preload" as="image" href="assets/img/logo.png" type="image/png">
-<link rel="preload" as="style" href="assets/css/style.css?v=20261027-189">
-<link rel="stylesheet" href="assets/css/style.css?v=20261027-189">
+<link rel="preload" as="style" href="assets/css/style.css?v=20261028-invoice-tools">
+<link rel="stylesheet" href="assets/css/style.css?v=20261028-invoice-tools">
 <script>document.documentElement.classList.add('js');</script>
 </head>
 
@@ -111,6 +111,7 @@
       </button>
       <a href="#features">Tính năng</a>
       <a href="phan-loai-hoa-don/">Phân loại hóa đơn</a>
+      <a href="tai-hoa-don-goc/">Tải hóa đơn gốc</a>
       <a href="#demo">Giao diện</a>
       <a href="#install">Cách sử dụng</a>
         <a href="huong-dan/">Hướng dẫn</a>
@@ -214,6 +215,8 @@
     </div>
   </div>
 </section>
+
+<section class="sec invoice-tools" id="cong-cu-hoa-don" aria-labelledby="invoice-tools-title"><div class="wrap"><div class="sec-head sec-head--center"><span class="eyebrow">CÔNG CỤ HÓA ĐƠN</span><h2 id="invoice-tools-title">Hai công cụ riêng cho XML và PDF hóa đơn</h2><p>Mở đúng công cụ bạn cần. Phân loại hóa đơn và tải hóa đơn gốc hoạt động độc lập.</p></div><div class="invoice-tools-grid"><article class="invoice-tool invoice-tool--sort"><span class="invoice-tool-label">XML / ZIP · SẮP XẾP DỮ LIỆU</span><h3>Phân loại hóa đơn</h3><p>Đọc XML hoặc ZIP, sắp xếp hóa đơn mua vào và bán ra theo MST. Giữ nguyên nguồn, bỏ qua bản trùng và tách nội dung xung đột để kiểm tra.</p><p class="invoice-tool-note">Dùng trên Chrome/Edge, không cần mở CNTaxTools.</p><a class="btn" href="phan-loai-hoa-don/">Mở công cụ phân loại hóa đơn <span aria-hidden="true">→</span></a></article><article class="invoice-tool invoice-tool--pdf"><span class="invoice-tool-label">PDF GỐC · TẢI TỪ XML</span><h3>Tải hóa đơn gốc</h3><p>Chọn thư mục hoặc nhiều tệp XML, chọn nơi lưu rồi tải bản PDF gốc từ nhà cung cấp. Không cần phân loại trước và không chọn MST.</p><p class="invoice-tool-note">Cần mở CNTaxTools có bộ tải tương thích trên máy Windows.</p><a class="btn" href="tai-hoa-don-goc/">Mở công cụ tải hóa đơn gốc <span aria-hidden="true">→</span></a></article></div></div></section>
 
 <!-- Installation help: common reputation warnings, not malware detections. -->
 <section class="sec install-help" id="install" aria-labelledby="install-title">
@@ -754,6 +757,8 @@
       <div>
         <h3>Tính năng</h3>
         <ul>
+          <li><a href="phan-loai-hoa-don/">Phân loại hóa đơn XML / ZIP</a></li>
+          <li><a href="tai-hoa-don-goc/">Tải hóa đơn gốc PDF</a></li>
           <li><a href="#features">Kéo hàng loạt MST</a></li>
           <li><a href="#features">Tổng hợp hàng hóa</a></li>
           <li><a href="#features">Đối chiếu sao kê ngân hàng</a></li>
@@ -811,13 +816,13 @@
   "@graph": [
     {
       "@type": "Organization",
-      "@id": "https://cntaxtools.com/#organization",
+      "@id": "https://datkep92.github.io/cntaxtools-landing/#organization",
       "name": "CNTaxTools",
       "alternateName": "CNTaxTools",
-      "url": "https://cntaxtools.com/",
+      "url": "https://datkep92.github.io/cntaxtools-landing/",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://cntaxtools.com/assets/img/logo.png"
+        "url": "https://datkep92.github.io/cntaxtools-landing/assets/img/logo.png"
       },
       "description": "Đơn vị phát triển CNTaxTools (CNTaxTools) — công cụ hỗ trợ kế toán hộ kinh doanh và công ty.",
       "areaServed": { "@type": "Country", "name": "Việt Nam" },
@@ -829,12 +834,13 @@
     },
     {
       "@type": "WebSite",
-      "@id": "https://cntaxtools.com/#website",
-      "url": "https://cntaxtools.com/",
+      "@id": "https://datkep92.github.io/cntaxtools-landing/#website",
+      "url": "https://datkep92.github.io/cntaxtools-landing/",
       "name": "CNTaxTools",
       "alternateName": "CNTaxTools",
       "inLanguage": "vi-VN",
-      "publisher": { "@id": "https://cntaxtools.com/#organization" }
+      "publisher": { "@id": "https://datkep92.github.io/cntaxtools-landing/#organization" },
+      "hasPart": [{"@type":"WebPage","url":"https://datkep92.github.io/cntaxtools-landing/phan-loai-hoa-don/","name":"Phân loại hóa đơn"},{"@type":"WebPage","url":"https://datkep92.github.io/cntaxtools-landing/tai-hoa-don-goc/","name":"Tải hóa đơn gốc"}]
     },
     {
       "@type": "SoftwareApplication",
@@ -848,11 +854,11 @@
       "cpuArchitecture": "x86",
       "inLanguage": "vi-VN",
       "description": "Ứng dụng Windows hỗ trợ kế toán hộ kinh doanh và công ty: tự đăng nhập, kéo hóa đơn điện tử từ Tổng cục Thuế cho không giới hạn MST, tổng hợp hàng hóa, đối chiếu sao kê ngân hàng, theo dõi dòng tiền và công nợ.",
-      "url": "https://cntaxtools.com/",
-      "installUrl": "https://cntaxtools.com/#install",
+      "url": "https://datkep92.github.io/cntaxtools-landing/",
+      "installUrl": "https://datkep92.github.io/cntaxtools-landing/#install",
       "downloadUrl": "https://github.com/Datkep92/HoaDonNhe/releases/latest",
-      "softwareHelp": "https://cntaxtools.com/huong-dan/",
-      "screenshot": "https://cntaxtools.com/assets/img/og-cover.png",
+      "softwareHelp": "https://datkep92.github.io/cntaxtools-landing/huong-dan/",
+      "screenshot": "https://datkep92.github.io/cntaxtools-landing/assets/img/og-cover.png",
       "softwareVersion": "1.8.9",
       "isAccessibleForFree": true,
       "offers": {
@@ -870,23 +876,23 @@
         "Xuất Excel đúng mẫu MISA AMIS",
         "Mã hoá phiên đăng nhập theo tài khoản Windows"
       ],
-      "author": { "@id": "https://cntaxtools.com/#organization" },
-      "publisher": { "@id": "https://cntaxtools.com/#organization" }
+      "author": { "@id": "https://datkep92.github.io/cntaxtools-landing/#organization" },
+      "publisher": { "@id": "https://datkep92.github.io/cntaxtools-landing/#organization" }
     },
     {
       "@type": "BreadcrumbList",
       "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "Trang chủ", "item": "https://cntaxtools.com/" },
-        { "@type": "ListItem", "position": 2, "name": "Giới thiệu CNTaxTools", "item": "https://cntaxtools.com/#gioi-thieu" },
-        { "@type": "ListItem", "position": 3, "name": "Giao diện", "item": "https://cntaxtools.com/#demo" },
-        { "@type": "ListItem", "position": 4, "name": "Hướng dẫn sử dụng", "item": "https://cntaxtools.com/huong-dan/" },
-        { "@type": "ListItem", "position": 5, "name": "Câu hỏi thường gặp", "item": "https://cntaxtools.com/#faq" }
+        { "@type": "ListItem", "position": 1, "name": "Trang chủ", "item": "https://datkep92.github.io/cntaxtools-landing/" },
+        { "@type": "ListItem", "position": 2, "name": "Giới thiệu CNTaxTools", "item": "https://datkep92.github.io/cntaxtools-landing/#gioi-thieu" },
+        { "@type": "ListItem", "position": 3, "name": "Giao diện", "item": "https://datkep92.github.io/cntaxtools-landing/#demo" },
+        { "@type": "ListItem", "position": 4, "name": "Hướng dẫn sử dụng", "item": "https://datkep92.github.io/cntaxtools-landing/huong-dan/" },
+        { "@type": "ListItem", "position": 5, "name": "Câu hỏi thường gặp", "item": "https://datkep92.github.io/cntaxtools-landing/#faq" }
       ]
     },
     {
       "@type": "FAQPage",
-      "@id": "https://cntaxtools.com/#faq",
-      "url": "https://cntaxtools.com/#faq",
+      "@id": "https://datkep92.github.io/cntaxtools-landing/#faq",
+      "url": "https://datkep92.github.io/cntaxtools-landing/#faq",
       "inLanguage": "vi-VN",
       "mainEntity": [
         {
@@ -1014,7 +1020,7 @@
   </div>
 </dialog>
 
-<script src="assets/js/main.js?v=20261027-189" defer></script>
+<script src="assets/js/main.js?v=20261028-invoice-tools" defer></script>
 <script src="assets/js/admin.js?v=20261027-release-188" defer></script>
 </body>
 </html>

@@ -5,10 +5,10 @@
  const sleep=ms=>new Promise(r=>setTimeout(r,ms));
  function size(w){frame.style.width=w+'px';frame.style.height='1100px';const scale=Math.min(1,(innerWidth-24)/w);frame.style.transform='scale('+scale+')';stage.style.height=1100*scale+'px';}
  function check(ok,text){out.textContent+=(ok?'PASS ':'FAIL ')+text+'\n';if(!ok)failures++;}
- size(375);await new Promise(resolve=>{frame.onload=resolve;frame.src='../tai-pdf/?qa=companion-'+Date.now();});await sleep(4200);
+ size(375);await new Promise(resolve=>{frame.onload=resolve;frame.src='../tai-hoa-don-goc/?qa=companion-'+Date.now();});await sleep(4200);
  const win=frame.contentWindow,doc=frame.contentDocument,$=id=>doc.getElementById(id),app=win.OrganizerApp;
  check(!!app,'Ứng dụng khởi tạo');if(!app)throw Error('Thiếu OrganizerApp');
- check(app.current.mode==='pdf','Khởi tạo thẳng PDF');check($('profiles-section').hidden,'Không yêu cầu chọn MST');check($('source-files').hidden===false,'Cho nhập nhiều XML');check($('companion-download').href==='https://github.com/Datkep92/HoaDonNhe/releases/latest','Liên kết tải chính thức');
+ check(app.current.mode==='pdf','Khởi tạo thẳng PDF');check(!$('profiles-section'),'Không yêu cầu chọn MST');check($('source-files').hidden===false,'Cho nhập nhiều XML');check($('companion-download').href==='https://github.com/Datkep92/HoaDonNhe/releases/latest','Liên kết tải chính thức');
  // Simulated status notifications test UI only, not a real bridge/download.
  for(const kind of ['offline','permission','error','lost']){
   app.bridge.onChange(kind,'QA '+kind,'Chi tiết kỹ thuật QA');

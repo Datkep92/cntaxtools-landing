@@ -22,11 +22,11 @@
    d.dispatchEvent(new win.KeyboardEvent('keydown',{key:'Escape',bubbles:true}));check(!visible(nav),'ESC không đóng');
    toggle.click();$('main').dispatchEvent(new win.Event('pointerdown',{bubbles:true}));check(!visible(nav),'bấm ngoài không đóng');
   }else{check(!visible(toggle),'menu mobile hiện desktop');check(visible(nav),'thiếu menu desktop');check(rect(nav).right<=rect($('.sactions')).left+1,'nav đè cụm nút');}
-  $('#tab-pdf').click();check($('#tab-pdf').getAttribute('aria-pressed')==='true','tab PDF hỏng');$('#tab-sort').click();check($('#tab-sort').getAttribute('aria-pressed')==='true','tab XML hỏng');
+  check(new URL($('#tab-pdf').href).pathname.endsWith('/tai-pdf/'),'Thiếu đường dẫn PDF riêng');check(new URL($('#tab-sort').href).pathname.endsWith('/phan-loai-hoa-don/'),'Thiếu đường dẫn phân loại riêng');check(win.OrganizerApp.current.mode==='sort','Trang phân loại khởi tạo sai');
   out.textContent+=w+'px: '+(errors.length?'FAIL '+errors.join('; '):'PASS')+'\n';
  }
  document.getElementById('status').textContent=failures?'FAIL: '+failures:'PASS — 9 khổ màn hình, menu và tab XML/PDF';
- const report={failures,text:out.textContent};fetch('../__qa_tool?result='+encodeURIComponent(JSON.stringify(report))).catch(()=>{});
+ const report={failures,text:out.textContent};window.qaResults=report;fetch('../__qa_tool?result='+encodeURIComponent(JSON.stringify(report))).catch(()=>{});
  function preview(w){if($('#tool-menu-toggle').getAttribute('aria-expanded')==='true')$('#tool-menu-toggle').click();size(w);win.scrollTo(0,0);if(w<1024)$('#tool-menu-toggle').click();}
  document.getElementById('mobile').onclick=()=>preview(375);document.getElementById('desktop').onclick=()=>preview(1440);preview(375);
 })().catch(e=>{document.getElementById('status').textContent='ERROR: '+e.message;});

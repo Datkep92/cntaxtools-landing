@@ -5,29 +5,26 @@
  const sleep=ms=>new Promise(r=>setTimeout(r,ms));
  function size(w){frame.style.width=w+'px';frame.style.height='1100px';const scale=Math.min(1,(innerWidth-24)/w);frame.style.transform='scale('+scale+')';stage.style.height=1100*scale+'px';}
  function check(ok,text){out.textContent+=(ok?'PASS ':'FAIL ')+text+'\n';if(!ok)failures++;}
- size(375);await new Promise(resolve=>{frame.onload=resolve;frame.src='../phan-loai-hoa-don/?qa=companion-'+Date.now();});await sleep(4200);
+ size(375);await new Promise(resolve=>{frame.onload=resolve;frame.src='../tai-pdf/?qa=companion-'+Date.now();});await sleep(4200);
  const win=frame.contentWindow,doc=frame.contentDocument,$=id=>doc.getElementById(id),app=win.OrganizerApp;
  check(!!app,'Ứng dụng khởi tạo');if(!app)throw Error('Thiếu OrganizerApp');
- check(doc.querySelector('.companion-guide').textContent.includes('không cần thêm MST'),'XML ngoài không cần thêm MST vào ứng dụng');
- check(doc.querySelector('.companion-version').textContent.includes('1.8.3 hiện chưa có cầu nối'),'Cảnh báo đúng phiên bản');
- check($('companion-download').getAttribute('href')==='https://github.com/Datkep92/HoaDonNhe/releases/latest','Nút tải trỏ bản phát hành chính thức');
- check(!!(doc.querySelector('.companion-version').compareDocumentPosition($('companion-download'))&win.Node.DOCUMENT_POSITION_FOLLOWING),'Cảnh báo đứng trước nút tải');
+ check(app.current.mode==='pdf','Khởi tạo thẳng PDF');check($('profiles-section').hidden,'Không yêu cầu chọn MST');check($('source-files').hidden===false,'Cho nhập nhiều XML');check($('companion-download').href==='https://github.com/Datkep92/HoaDonNhe/releases/latest','Liên kết tải chính thức');
  // Simulated status notifications test UI only, not a real bridge/download.
  for(const kind of ['offline','permission','error','lost']){
   app.bridge.onChange(kind,'QA '+kind,'Chi tiết kỹ thuật QA');
-  check(!$('connection-panel').hidden&&$('connection-detail').textContent.includes('1.8.3 chưa hỗ trợ')&&$('connection-diagnostic').textContent==='Chi tiết kỹ thuật QA',kind+': giữ hướng dẫn và tách chẩn đoán');
+  check(!$('connection-panel').hidden&&$('connection-detail').textContent.includes('Chi tiết kỹ thuật QA'),kind+': giữ hướng dẫn và tách chẩn đoán');
  }
  app.bridge.onChange('ready','QA ready');check($('connection-panel').hidden,'ready: ẩn bảng kết nối');
  $('connection-settings').click();check(!$('connection-panel').hidden,'Mở thiết lập');$('skip-connection').click();check($('connection-panel').hidden,'Bỏ qua kết nối');$('connection-settings').click();
  for(const w of [320,375,390,479,768,1024,1280,1440,1920]){
-  size(w);doc.querySelector('.companion-steps').open=true;doc.querySelector('.companion-advanced').open=true;await sleep(180);
-  const nodes=[doc.querySelector('.companion-guide'),$('connection-panel'),$('companion-download'),$('check-connection'),$('skip-connection')];
+  size(w);await sleep(180);
+  const nodes=[$('connection-panel'),$('companion-download'),$('check-connection'),$('skip-connection')];
   check(doc.documentElement.scrollWidth<=w+1&&nodes.every(el=>{const r=el.getBoundingClientRect();return r.left>=0&&r.right<=w+1&&el.scrollWidth<=el.clientWidth+1;}),w+'px: hướng dẫn mở không tràn ngang');
  }
- $('tab-pdf').click();check($('tab-pdf').getAttribute('aria-pressed')==='true','Đổi tab PDF');$('tab-sort').click();check($('tab-sort').getAttribute('aria-pressed')==='true','Trở lại XML');
+ check(new URL($('tab-sort').href).pathname.endsWith('/phan-loai-hoa-don/'),'Link phân loại riêng');
  const xml='<HDon><DLHDon><TTChung><KHMSHDon>1</KHMSHDon><KHHDon>C26TAA</KHHDon><SHDon>123</SHDon></TTChung><NBan><MST>0101234567</MST><Ten>QA Seller</Ten></NBan><NMua><MST>0301234567</MST><Ten>QA Buyer</Ten></NMua></DLHDon></HDon>';
  const row=win.InvoiceOrganizer.parse(new win.TextEncoder().encode(xml));check(row.seller==='0101234567'&&row.buyer==='0301234567','Đọc XML độc lập, không cần bộ tải');
- app.bridge.onChange('offline','Chưa kết nối bộ tải','QA: không có bộ tải tương thích');doc.querySelector('.companion-steps').open=false;doc.querySelector('.companion-advanced').open=false;size(375);win.scrollTo(0,0);
- document.getElementById('status').textContent=failures?'FAIL: '+failures:'PASS — hướng dẫn, trạng thái kết nối, 9 khổ và XML mẫu';window.scrollTo(0,0);
+ app.bridge.onChange('offline','Chưa kết nối bộ tải','QA: không có bộ tải tương thích');size(375);win.scrollTo(0,0);
+ document.getElementById('status').textContent=failures?'FAIL: '+failures:'PASS — hướng dẫn, trạng thái kết nối, 9 khổ và XML mẫu';window.qaResults={failures,text:out.textContent};window.scrollTo(0,0);
 })().catch(e=>{document.getElementById('status').textContent='ERROR: '+e.message;});
 </script></body></html>

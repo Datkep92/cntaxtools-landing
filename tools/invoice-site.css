@@ -1,0 +1,44 @@
+
+/* ---------- Header + Footer site (trang con) ---------- */
+.shdr{display:block;position:sticky;top:0;z-index:50;width:100%;margin:0;background:rgba(255,255,255,.96);border-bottom:1px solid var(--line)}
+.shdr-in{width:100%;max-width:1240px;min-height:68px;margin:0 auto;padding:10px 24px;display:flex;align-items:center;gap:16px}
+.shdr a{color:var(--muted);text-decoration:none;font-weight:600;font-size:.9rem;padding:10px 12px;border-radius:9px}
+.shdr a:hover{color:#183747;background:#edf2f5}
+.shdr .slogo{display:flex;flex:none;align-items:center;gap:8px;padding:0;min-height:44px;color:#183747;font-size:1.05rem;font-weight:750;white-space:nowrap}
+.shdr .slogo img{width:30px;height:30px;object-fit:contain;border-radius:7px}
+.shdr .slogo i{color:var(--teal);font-style:normal}
+.shdr .snav{display:flex;align-items:center;gap:2px;margin:0 auto}
+.shdr .snav a{white-space:nowrap;min-height:44px;display:flex;align-items:center}
+.shdr .snav [aria-current=page]{color:var(--teal);background:#e8f5ef}
+.shdr .sactions{display:flex;flex:none;align-items:center;gap:8px}
+.shdr .btn,.shdr .smenu{display:inline-flex;flex:none;align-items:center;justify-content:center;gap:7px;min-height:44px;border:1px solid var(--teal);background:var(--teal);color:#fff;padding:9px 12px;border-radius:11px;font:600 .875rem/1.3 system-ui,sans-serif;white-space:nowrap;text-decoration:none}
+.shdr .btn.ghost,.shdr .smenu{background:#fff;color:var(--teal);border-color:#cbdcd9}
+.shdr .smenu{display:none}
+.shdr svg{display:block;width:19px;height:19px;flex:none}
+.shdr a:focus-visible,.shdr button:focus-visible{outline:3px solid #087f73;outline-offset:3px}
+.sftr{border-top:1px solid var(--line);background:#fff;margin-top:34px}
+.sftr-in{max-width:1240px;margin:0 auto;padding:28px 24px 20px;display:flex;flex-wrap:wrap;gap:26px;justify-content:space-between}
+.sftr-in h3{font-size:.92rem;margin:0 0 9px}
+.sftr-in ul{list-style:none;margin:0;padding:0}
+.sftr-in li{margin:6px 0;color:var(--muted);font-size:.9rem}
+.sftr-in a{color:var(--muted);text-decoration:none}
+.sftr-in a:hover{color:var(--teal)}
+.sftr-bot{max-width:1240px;margin:0 auto;padding:14px 24px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;color:var(--muted);font-size:.82rem}
+.sftr-bot a{color:var(--muted);text-decoration:none;margin-right:10px}
+.sftr-bot a:hover{color:var(--teal)}
+@media(max-width:1023px){
+ .shdr-in{position:relative;min-height:64px;padding:10px 15px;gap:8px;flex-wrap:wrap}
+ .shdr .slogo{font-size:1rem;margin-right:auto}
+ .shdr .snav{order:3;display:grid;flex-basis:100%;gap:5px;padding-top:10px}
+ .shdr .snav a{white-space:normal}
+ .shdr[data-enhanced] .snav{display:none;position:absolute;top:100%;left:12px;right:12px;margin:0;padding:10px;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 14px 34px #18374724;max-height:calc(100vh - 110px);max-height:calc(100dvh - 110px);overflow-y:auto}
+ .shdr[data-enhanced] .snav.is-open{display:grid}
+ .shdr[data-enhanced] .smenu{display:inline-flex;width:44px;height:44px;padding:0}
+}
+@media(max-width:479px){
+ .shdr-in{padding:10px 12px}
+ .shdr .sactions .btn{width:44px;height:44px;padding:0}
+ .shdr .saction-label{display:none}
+}
+
+@media(max-width:360px){.shdr .slogo{font-size:.92rem;gap:6px}.shdr .slogo img{width:28px;height:28px}.shdr .sactions{gap:6px}}

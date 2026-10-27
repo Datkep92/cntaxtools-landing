@@ -1,1 +1,2 @@
-a45910bd88326a3f270e44726a89b2799065b614e8da0abf467f9d081ac17c28  CNTaxTools-PhanLoai.html
+aee4818733af022a887507c99ad220054b60203442a1ed2ee403d8e5d2d4ada6  CNTaxTools-PhanLoai.html
+6602e9ec6b0afecc27cebcbdfb7d9e53cddd92c73ae46a5dfe119f287fe989e1  CNTaxTools-TaiPDF.html

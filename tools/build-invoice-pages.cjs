@@ -16,7 +16,7 @@ for(const [directory,mode,title,offline] of [['phan-loai-hoa-don','sort','Phân 
  const metadata='<meta name="description" content="'+(mode==='pdf'?'Chọn thư mục XML hoặc nhiều tệp XML, chọn nơi lưu và tải PDF gốc trực tiếp.':'Phân loại XML và ZIP theo MST mua vào, bán ra trên thiết bị, giữ nguyên nguồn.')+'"><link rel="canonical" href="https://datkep92.github.io/cntaxtools-landing/'+directory+'/">';
  const active=header.replace('href="../'+directory+'/"','href="../'+directory+'/" aria-current="page"');
  html=html.replace('</head>',theme+metadata+'</head>').replace('<main>',active+'<main>').replace('</body>',footer+'</body>');
- fs.writeFileSync(path.join(out,'index.html'),html);
+ fs.writeFileSync(path.join(out,'index.html'),html.replace(/\r\n/g,'\n'));
  for(const name of ['CNTaxTools-PhanLoai.html','CNTaxTools-TaiPDF.html'])fs.copyFileSync(path.join(dist,name),path.join(out,name));
  for(const name of ['HUONG-DAN.md','THIRD_PARTY_NOTICES.md','SHA256SUMS.txt'])fs.copyFileSync(path.join(dist,name),path.join(out,name));
  console.log(directory+': '+title+'; offline '+offline);

@@ -180,25 +180,8 @@
   }
 
   /* ----------------------------------------------------------------------
-     4. NÚT TẢI — tự dò bản mới nhất trong GitHub Releases
-     ----------------------------------------------------------------------
-     Mọi nút tải đánh dấu `data-dl`. Trong HTML, href của chúng đã trỏ sẵn về
-     /releases/latest (GitHub tự chuyển hướng tới release mới nhất) nên kể cả khi
-     JavaScript bị chặn, mạng lỗi hay API GitHub sập, nút vẫn tải đúng bản mới —
-     chỉ mất tiện lợi là phải bấm thêm một lần ở trang Releases.
-
-     Có JavaScript thì tra API để lấy thẳng link file .exe. api.github.com có
-     CORS `*` nên gọi thẳng từ trình duyệt được, không cần máy chủ.
-
-     Cùng lần tra đó, mọi nhãn `data-dl-ver` cũng được đổi theo — để trang không
-     còn rơi lại số phiên bản cũ sau khi đã phát hành bản mới.
-
-     Link đã dò được và hàm `resolve()` được đặt vào `dl` cho hộp thoại ở mục 5
-     dùng lại: bấm nút tải trong hộp thoại phải ra đúng bản mới nhất y hệt bấm
-     nút ngoài trang, không phải chờ tra lại lần nữa.
-
-     Cache localStorage 30 phút: GitHub giới hạn 60 lượt/giờ cho request không
-     đăng nhập, và bản mới không xuất hiện dày đặc đến vậy. */
+     4. NÚT TẢI — ghim bản 1.9.0 theo quyết định vận hành.
+     Không tự dò latest hoặc dùng cache của phiên bản khác. */
   var dl = { url: null, resolve: null, wait: 3000 };
 
   /* Đi tới link tải, chờ tối đa `dl.wait` ms cho lời gọi API về rồi mới chuyển
@@ -220,129 +203,15 @@
   }
 
   (function downloadLinks() {
-    var buttons = $$('[data-dl]');
-    var labels = $$('[data-dl-ver]');
-    if ((!buttons.length && !labels.length) || !window.fetch) return;
-
-    var REPO = 'Datkep92/HoaDonNhe';
-    var API = 'https://api.github.com/repos/' + REPO + '/releases/latest';
-    var CACHE_KEY = 'cntax.dl.direct-exe.' + ((labels[0] && labels[0].textContent.trim()) || 'v1.9.2');
-    var TTL_MS = 30 * 60 * 1000;
-
-    var url = null;        // link .exe đã dò được
-    var version = null;    // số phiên bản đã đổi lên nhãn
-    var pending = null;    // promise đang chờ, dùng lại cho mọi lần bấm
-
-    /* Ghi link .exe vào mọi nút tải và nhớ lại cho hộp thoại. Chỉ gán một lần:
-       nếu API đổi ý giữa chừng thì vẫn giữ link đã biết là đúng. */
-    function setUrl(value) {
-      if (!value || url) return false;
-      url = value;
-      dl.url = value;
-      buttons.forEach(function (btn) { btn.setAttribute('href', value); });
-      var installLink = document.getElementById('install-download-link');
-      if (installLink) installLink.value = value;
-      $$('[data-install-filename]').forEach(function (label) { label.textContent = decodeURIComponent(value.split('/').pop().split('?')[0]); });
-      return true;
-    }
-
-    // Chỉ chọn EXE chạy trực tiếp; không chọn Setup, Engine hoặc checksum.
-    function pickAsset(assets) {
-      if (!Array.isArray(assets)) return null;
-      var direct = assets.find(function (asset) { return /^CN-Tax-Tools-v\d+\.\d+\.\d+\.exe$/.test(asset.name || ''); });
-      return direct ? direct.browser_download_url || null : null;
-    }
-
-    /* Số phiên bản lấy từ tag (v1.0.9), không có thì lấy từ tên tệp */
-    function pickVersion(data) {
-      var tag = data && typeof data.tag_name === 'string' ? data.tag_name : '';
-      var m = tag.match(/(\d+\.\d+\.\d+)/);
-      if (m) return m[1];
-      var assets = data && data.assets;
-      if (Array.isArray(assets) && assets[0] && typeof assets[0].name === 'string') {
-        var n = assets[0].name.match(/(\d+\.\d+\.\d+)/);
-        if (n) return n[1];
-      }
-      return null;
-    }
-
-    /* Nhãn nào bắt đầu bằng "v<số>" thì thay tiền tố đó, giữ nguyên phần còn lại.
-       "v1.0.9 là bản mới nhất" -> "v1.0.10 là bản mới nhất" */
-    function applyVersion(value) {
-      if (!value) return;
-      version = value;
-      labels.forEach(function (el) {
-        var text = el.textContent || '';
-        if (!/^v\d+\.\d+\.\d+/.test(text)) return;
-        el.textContent = 'v' + value + text.replace(/^v\d+\.\d+\.\d+/, '');
-      });
-    }
-
-    function readCache() {
-      try {
-        var raw = window.localStorage.getItem(CACHE_KEY);
-        if (!raw) return null;
-        var data = JSON.parse(raw);
-        if (!data || typeof data !== 'object') return null;
-        if (Date.now() - Number(data.at || 0) > TTL_MS) return null;
-        // Chỉ nhận link https của chính repo phát hành, không tin dữ liệu lạ ghi vào
-        if (typeof data.url !== 'string' || !/^https:\/\/github\.com\/Datkep92\/HoaDonNhe\/releases\/download\/v\d+\.\d+\.\d+\/CN-Tax-Tools-v\d+\.\d+\.\d+\.exe$/.test(data.url)) {
-          return null;
-        }
-        return data;
-      } catch (error) {
-        return null;   // localStorage bị chặn (chế độ riêng tư) — bỏ qua cache
-      }
-    }
-
-    function writeCache(value) {
-      try {
-        window.localStorage.setItem(CACHE_KEY, JSON.stringify(value));
-      } catch (error) { /* bỏ qua */ }
-    }
-
-    function apply(cached) {
-      if (!cached) return;
-      if (cached.url) setUrl(cached.url);
-      if (cached.version && !version) applyVersion(cached.version);
-    }
-
-    function resolve() {
-      var needUrl = buttons.length && !url;
-      var needVersion = labels.length && !version;
-      if (!needUrl && !needVersion) return Promise.resolve(url);
-      if (pending) return pending;
-
-      pending = window.fetch(API, { headers: { Accept: 'application/vnd.github+json' } })
-        .then(function (res) {
-          if (!res.ok) throw new Error('HTTP ' + res.status);
-          return res.json();
-        })
-        .then(function (data) {
-          var found = { url: pickAsset(data && data.assets), version: pickVersion(data) };
-          if (found.url) setUrl(found.url);
-          if (found.version && !version) applyVersion(found.version);
-          if (url || version) writeCache({ url: url, version: version, at: Date.now() });
-          return url;
-        })
-        .catch(function () {
-          return null;   // mạng lỗi / API lỗi / đổi cấu trúc -> giữ nguyên href dự phòng
-        })
-        .then(function (value) {
-          pending = null;   // cho phép thử lại ở lượt sau nếu lần này hỏng
-          return value;
-        });
-
-      return pending;
-    }
-
-    apply(readCache());
-    dl.resolve = resolve;
-    if ((buttons.length && !url) || (labels.length && !version)) resolve();
-
-    /* KHÔNG bắt sự kiện click ở đây nữa: mọi lượt bấm chuột trái đã bị hộp thoại
-       ở mục 5 chặn lại trước để hiện cảnh báo. Giữ `href` đã dò sẵn ở trên là đủ
-       cho các lượt mở bằng chuột phải / Ctrl+click / mở tab mới. */
+    // Pin the offered release, including modal/copy links; ignore old latest caches.
+    var url = 'https://github.com/Datkep92/HoaDonNhe/releases/download/v1.9.0/CN-Tax-Tools-v1.9.0.exe';
+    dl.url = url;
+    dl.resolve = function () { return Promise.resolve(url); };
+    $$('[data-dl]').forEach(function (button) { button.setAttribute('href', url); });
+    $$('[data-dl-ver]').forEach(function (label) { label.textContent = 'v1.9.0'; });
+    $$('[data-install-filename]').forEach(function (label) { label.textContent = 'CN-Tax-Tools-v1.9.0.exe'; });
+    var input = document.getElementById('install-download-link');
+    if (input) input.value = url;
   })();
 
   /* ----------------------------------------------------------------------
@@ -363,7 +232,7 @@
     var box = $('#dlm');
     if (!box) return;
 
-    var RELEASE = 'https://github.com/Datkep92/HoaDonNhe/releases/latest';
+    var RELEASE = 'https://github.com/Datkep92/HoaDonNhe/releases/download/v1.9.0/CN-Tax-Tools-v1.9.0.exe';
     var GATEWAY = 'https://hoadon-support-gateway.linhnhaxac10.workers.dev/v1/landing/download';
 
     // `box` là lớp phủ, `dlg` là hộp thoại có tabindex="-1" — chỉ hộp thoại mới

@@ -8,7 +8,7 @@
  size(375);await new Promise(resolve=>{frame.onload=resolve;frame.src='../tai-hoa-don-goc/?qa=companion-'+Date.now();});await sleep(4200);
  const win=frame.contentWindow,doc=frame.contentDocument,$=id=>doc.getElementById(id),app=win.OrganizerApp;
  check(!!app,'Ứng dụng khởi tạo');if(!app)throw Error('Thiếu OrganizerApp');
- check(app.current.mode==='pdf','Khởi tạo thẳng PDF');check(!$('profiles-section'),'Không yêu cầu chọn MST');check($('source-files').hidden===false,'Cho nhập nhiều XML');check($('companion-download').href==='https://github.com/Datkep92/HoaDonNhe/releases/latest','Liên kết tải chính thức');
+ check(app.current.mode==='pdf','Khởi tạo thẳng PDF');check(!$('profiles-section'),'Không yêu cầu chọn MST');check($('source-files').hidden===false,'Cho nhập nhiều XML');check($('companion-download').href==='https://github.com/Datkep92/HoaDonNhe/releases/download/v1.9.0/CN-Tax-Tools-v1.9.0.exe','Liên kết tải chính thức');
  // Simulated status notifications test UI only, not a real bridge/download.
  for(const kind of ['offline','permission','error','lost']){
   app.bridge.onChange(kind,'QA '+kind,'Chi tiết kỹ thuật QA');

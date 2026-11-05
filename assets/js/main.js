@@ -183,6 +183,9 @@
      4. NÚT TẢI — ghim bản 1.9.0 theo quyết định vận hành.
      Không tự dò latest hoặc dùng cache của phiên bản khác. */
   var dl = { url: null, resolve: null, wait: 3000 };
+  var VERSION = 'v1.9.0';
+  var SETUP_URL = 'https://github.com/Datkep92/HoaDonNhe/releases/download/v1.9.0/CN-Tax-Tools-Setup-v1.9.0.exe';
+  var PORTABLE_URL = 'https://github.com/Datkep92/HoaDonNhe/releases/download/v1.9.0/CN-Tax-Tools-v1.9.0.exe';
 
   /* Đi tới link tải, chờ tối đa `dl.wait` ms cho lời gọi API về rồi mới chuyển
      trang. Quá hạn thì thả theo `fallback` (href dự phòng trong HTML) — không
@@ -204,12 +207,18 @@
 
   (function downloadLinks() {
     // Pin the offered release, including modal/copy links; ignore old latest caches.
-    var url = 'https://github.com/Datkep92/HoaDonNhe/releases/download/v1.9.0/CN-Tax-Tools-v1.9.0.exe';
+    var url = PORTABLE_URL;
     dl.url = url;
     dl.resolve = function () { return Promise.resolve(url); };
     $$('[data-dl]').forEach(function (button) { button.setAttribute('href', url); });
     $$('[data-dl-ver]').forEach(function (label) { label.textContent = 'v1.9.0'; });
     $$('[data-install-filename]').forEach(function (label) { label.textContent = 'CN-Tax-Tools-v1.9.0.exe'; });
+
+    var setupLink = document.getElementById('ver-setup');
+    var portableLink = document.getElementById('ver-portable');
+    if (setupLink) setupLink.setAttribute('href', SETUP_URL);
+    if (portableLink) portableLink.setAttribute('href', PORTABLE_URL);
+
     var input = document.getElementById('install-download-link');
     if (input) input.value = url;
   })();
@@ -232,7 +241,7 @@
     var box = $('#dlm');
     if (!box) return;
 
-    var RELEASE = 'https://github.com/Datkep92/HoaDonNhe/releases/download/v1.9.0/CN-Tax-Tools-v1.9.0.exe';
+    var RELEASE = PORTABLE_URL;
     var GATEWAY = 'https://hoadon-support-gateway.linhnhaxac10.workers.dev/v1/landing/download';
 
     // `box` là lớp phủ, `dlg` là hộp thoại có tabindex="-1" — chỉ hộp thoại mới
@@ -419,6 +428,76 @@
       report();
       close();
       startDownload(target);
+    });
+  })();
+
+  /* ----------------------------------------------------------------------
+     5b. Chọn phiên bản tải: setup hoặc không cần cài đặt
+     ---------------------------------------------------------------------- */
+  (function versionPicker() {
+    var box = $('#ver-modal');
+    if (!box) return;
+    var dlg = $('.dlm__box', box);
+    var lastFocus = null;
+    var isOpen = false;
+    var GATEWAY = 'https://hoadon-support-gateway.linhnhaxac10.workers.dev/v1/landing/download';
+
+    function report() {
+      if (!navigator.sendBeacon) return;
+      try {
+        navigator.sendBeacon(GATEWAY, new Blob(
+          [JSON.stringify({ page: window.location.pathname + window.location.hash })],
+          { type: 'text/plain' }
+        ));
+      } catch (error) { /* ignore */ }
+    }
+
+    function open() {
+      lastFocus = document.activeElement;
+      isOpen = true;
+      box.hidden = false;
+      document.body.style.overflow = 'hidden';
+      void box.offsetWidth;
+      box.classList.add('is-open');
+      dlg.focus();
+      window.setTimeout(function () { if (isOpen) dlg.focus(); }, 0);
+    }
+
+    function close() {
+      if (!isOpen) return;
+      isOpen = false;
+      box.classList.remove('is-open');
+      document.body.style.overflow = '';
+      window.setTimeout(function () { if (!isOpen) box.hidden = true; }, 300);
+      if (lastFocus && lastFocus.focus) lastFocus.focus();
+      lastFocus = null;
+    }
+
+    box.addEventListener('click', function (event) {
+      if (event.target.closest('[data-ver-close]')) close();
+    });
+
+    $$('#ver-modal [data-ver]').forEach(function (link) {
+      link.addEventListener('click', function (event) {
+        if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return;
+        event.preventDefault();
+        report();
+        close();
+        var target = link.getAttribute('href');
+        if (target) window.location.href = target;
+      });
+    });
+
+    document.addEventListener('click', function (event) {
+      var el = event.target.closest ? event.target.closest('[data-dl]') : null;
+      if (!el) return;
+      if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return;
+      event.preventDefault();
+      open();
+    }, true);
+
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape' && isOpen) close();
     });
   })();
 

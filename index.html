@@ -61,8 +61,8 @@
      Tham số ?v= giúp tải lại ngay sau khi deploy — GitHub Pages cache tài nguyên
      tĩnh 10 phút, không có tham số này người dùng dễ thấy bản CSS cũ. -->
 <link rel="preload" as="image" href="assets/img/logo.png" type="image/png">
-<link rel="preload" as="style" href="assets/css/style.css?v=20261103-release-192">
-<link rel="stylesheet" href="assets/css/style.css?v=20261103-release-192">
+<link rel="preload" as="style" href="assets/css/style.css?v=20261106-chrome-hint">
+<link rel="stylesheet" href="assets/css/style.css?v=20261106-chrome-hint">
 <script>document.documentElement.classList.add('js');</script>
 </head>
 
@@ -791,7 +791,7 @@
         <a href="huong-dan/">Hướng dẫn</a>
         <a href="#roadmap">Đang phát triển</a>
         <a href="https://github.com/Datkep92/HoaDonNhe" target="_blank" rel="noopener">Mã nguồn</a>
-        <a href="https://github.com/Datkep92/HoaDonNhe/releases/download/v1.9.0/CN-Tax-Tools-v1.9.0.exe" target="_blank" rel="noopener">Tải bản mới</a>
+        <a href="https://github.com/Datkep92/HoaDonNhe/releases/download/v1.9.0/CN-Tax-Tools-v1.9.0.exe" target="_blank" rel="noopener" data-dl>Tải bản mới</a>
       </nav>
     </div>
   </div>
@@ -801,7 +801,7 @@
 <div class="dock" id="dock" role="region" aria-label="Tải ứng dụng">
   <span class="dock-info">
     <b>CNTaxTools</b>
-    <small><span data-dl-ver>v1.9.0</span> · EXE không cần cài đặt</small>
+    <small><span data-dl-ver>v1.9.0</span> · chọn bản setup hoặc EXE chạy nhanh</small>
   </span>
   <button class="btn btn--icon btn--ghost" type="button" data-share aria-label="Chia sẻ trang CNTaxTools" title="Chia sẻ">
     <svg aria-hidden="true"><use href="#i-share"/></svg>
@@ -953,6 +953,45 @@
 }
 </script>
 
+<!-- ============ MODAL CHỌN PHIÊN BẢN TẢI ỨNG DỤNG ============ -->
+<div class="dlm" id="ver-modal" hidden role="dialog" aria-modal="true" aria-labelledby="ver-modal-t">
+  <div class="dlm__scrim" data-ver-close></div>
+  <div class="dlm__box ver-modal__box" tabindex="-1">
+    <div class="dlm__hd">
+      <span class="dlm__ic"><svg><use href="#i-dl"/></svg></span>
+      <div>
+        <span class="dlm__badge">Tải CNTaxTools</span>
+        <h2 id="ver-modal-t">Chọn phiên bản để tải</h2>
+        <p>Đang cung cấp <strong data-dl-ver>v1.9.0</strong>. Hai file dưới đây là cùng một phiên bản, chỉ khác cách cài.</p>
+      </div>
+      <button class="dlm__x" type="button" data-ver-close aria-label="Đóng">
+        <svg aria-hidden="true"><use href="#i-x"/></svg>
+      </button>
+    </div>
+    <div class="dlm__bd">
+      <a class="ver-choice ver-choice--featured" id="ver-setup" href="https://github.com/Datkep92/HoaDonNhe/releases/download/v1.9.0/CNTaxTools-Setup-v1.9.0.exe" data-ver="setup">
+        <span class="ver-choice__name">Bản setup <span class="ver-choice__mark">ổn định, ít lỗi</span></span>
+        <span class="ver-choice__file">CN-Tax-Tools-Setup-v1.9.0.exe</span>
+        <span class="ver-choice__desc">Cài đặt lên máy tính, tạo shortcut và thư mục dữ liệu mặc định; phù hợp đa số người dùng.</span>
+      </a>
+      <a class="ver-choice" id="ver-portable" href="https://github.com/Datkep92/HoaDonNhe/releases/download/v1.9.0/CN-Tax-Tools-v1.9.0.exe" data-ver="portable">
+        <span class="ver-choice__name">Bản không cần cài đặt</span>
+        <span class="ver-choice__file">CN-Tax-Tools-v1.9.0.exe</span>
+        <span class="ver-choice__desc">Tải file EXE chạy trực tiếp, không tạo shortcut hay entry Windows; phù hợp tải nhanh hoặc dùng USB.</span>
+      </a>
+      <p class="dlm-note dlm-note--warn">
+        <span class="dlm-note__ic chrome-dot" aria-hidden="true"></span>
+        <span>Gợi ý: để tránh lỗi khi tải về, nên dùng <strong>Google Chrome</strong> thay vì Edge.</span>
+        <a class="ver-chrome-link" href="#install-chrome" data-ver-close>
+          <span class="ver-chrome-link__ic chrome-dot" aria-hidden="true"></span>
+          Xem hướng dẫn tải qua Chrome
+        </a>
+      </p>
+      <p class="dlm-note">Cảnh báo Edge/Windows khi tải vẫn có thể xuất hiện do file chưa có chữ ký xác minh. Chỉ tiếp tục khi đúng bộ cài từ trang chính thức hoặc GitHub <strong>Datkep92/HoaDonNhe</strong>.</p>
+    </div>
+  </div>
+</div>
+
 <!-- ============ MODAL THÔNG TIN ADMIN ============ -->
 <div class="dlm" id="admin-modal" hidden role="dialog" aria-modal="true" aria-labelledby="admin-mt">
   <div class="dlm__scrim" data-admin-close></div>
@@ -1024,7 +1063,7 @@
   </div>
 </dialog>
 
-<script src="assets/js/main.js?v=20261104-pin-190" defer></script>
+<script src="assets/js/main.js?v=20261106-chrome-hint" defer></script>
 <script src="assets/js/admin.js?v=20261027-release-188" defer></script>
 </body>
 </html>

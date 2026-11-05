@@ -61,8 +61,8 @@
      Tham số ?v= giúp tải lại ngay sau khi deploy — GitHub Pages cache tài nguyên
      tĩnh 10 phút, không có tham số này người dùng dễ thấy bản CSS cũ. -->
 <link rel="preload" as="image" href="assets/img/logo.png" type="image/png">
-<link rel="preload" as="style" href="assets/css/style.css?v=20261106-chrome-hint">
-<link rel="stylesheet" href="assets/css/style.css?v=20261106-chrome-hint">
+<link rel="preload" as="style" href="assets/css/style.css?v=20261106-chrome-copy">
+<link rel="stylesheet" href="assets/css/style.css?v=20261106-chrome-copy">
 <script>document.documentElement.classList.add('js');</script>
 </head>
 
@@ -979,14 +979,20 @@
         <span class="ver-choice__file">CN-Tax-Tools-v1.9.0.exe</span>
         <span class="ver-choice__desc">Tải file EXE chạy trực tiếp, không tạo shortcut hay entry Windows; phù hợp tải nhanh hoặc dùng USB.</span>
       </a>
-      <p class="dlm-note dlm-note--warn">
+      <div class="dlm-note dlm-note--warn">
         <span class="dlm-note__ic chrome-dot" aria-hidden="true"></span>
         <span>Gợi ý: để tránh lỗi khi tải về, nên dùng <strong>Google Chrome</strong> thay vì Edge.</span>
+        <span class="ver-edge-hint" data-edge-hint hidden>Bạn đang mở bằng Edge — hãy sao chép link rồi tải trong Chrome.</span>
+        <div class="ver-copy-row">
+          <button type="button" class="ver-copy-btn" data-ver-copy="setup">Sao chép link setup</button>
+          <button type="button" class="ver-copy-btn" data-ver-copy="portable">Sao chép link bản không cài</button>
+          <span class="ver-copy-status" data-ver-copy-status role="status" aria-live="polite"></span>
+        </div>
         <a class="ver-chrome-link" href="#install-chrome" data-ver-close>
           <span class="ver-chrome-link__ic chrome-dot" aria-hidden="true"></span>
           Xem hướng dẫn tải qua Chrome
         </a>
-      </p>
+      </div>
       <p class="dlm-note">Cảnh báo Edge/Windows khi tải vẫn có thể xuất hiện do file chưa có chữ ký xác minh. Chỉ tiếp tục khi đúng bộ cài từ trang chính thức hoặc GitHub <strong>Datkep92/HoaDonNhe</strong>.</p>
     </div>
   </div>
@@ -1063,7 +1069,7 @@
   </div>
 </dialog>
 
-<script src="assets/js/main.js?v=20261106-chrome-hint" defer></script>
+<script src="assets/js/main.js?v=20261106-chrome-copy" defer></script>
 <script src="assets/js/admin.js?v=20261027-release-188" defer></script>
 </body>
 </html>

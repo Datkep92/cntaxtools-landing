@@ -441,6 +441,7 @@
     var lastFocus = null;
     var isOpen = false;
     var GATEWAY = 'https://hoadon-support-gateway.linhnhaxac10.workers.dev/v1/landing/download';
+    var IS_EDGE = /Edg\//.test(navigator.userAgent || '');
 
     function report() {
       if (!navigator.sendBeacon) return;
@@ -499,6 +500,47 @@
     document.addEventListener('keydown', function (event) {
       if (event.key === 'Escape' && isOpen) close();
     });
+
+    (function edgeHint() {
+      var hint = box.querySelector('[data-edge-hint]');
+      if (IS_EDGE && hint) hint.hidden = false;
+    })();
+
+    (function copyButtons() {
+      var status = box.querySelector('[data-ver-copy-status]');
+      var urlByKind = { setup: SETUP_URL, portable: PORTABLE_URL };
+      function setStatus(text) {
+        if (status) status.textContent = text || '';
+      }
+      function copy(url) {
+        var done = function () { setStatus('Đã sao chép link.'); };
+        var fail = function () { setStatus('Không sao chép được. Vui lòng copy thủ công.'); };
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(url).then(done, fail);
+          return;
+        }
+        try {
+          var textarea = document.createElement('textarea');
+          textarea.value = url;
+          textarea.setAttribute('readonly', '');
+          textarea.style.position = 'fixed';
+          textarea.style.left = '-9999px';
+          document.body.appendChild(textarea);
+          textarea.select();
+          document.execCommand('copy');
+          document.body.removeChild(textarea);
+          done();
+        } catch (error) { fail(); }
+      }
+      $$('#ver-modal [data-ver-copy]').forEach(function (button) {
+        button.addEventListener('click', function (event) {
+          event.preventDefault();
+          var kind = button.getAttribute('data-ver-copy');
+          copy(urlByKind[kind] || PORTABLE_URL);
+          window.setTimeout(function () { setStatus(''); }, 3000);
+        });
+      });
+    })();
   })();
 
   /* ----------------------------------------------------------------------

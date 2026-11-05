@@ -906,6 +906,28 @@ code, .inst-code, .dlm-code {
   text-decoration: none; margin-left: auto;
 }
 .ver-chrome-link:hover { text-decoration: underline; }
+.ver-copy-row {
+  display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
+  width: 100%;
+}
+.ver-copy-btn {
+  appearance: none; border: 1px solid var(--line); background: #fff;
+  color: var(--ink); border-radius: 999px; padding: 6px 12px;
+  font-size: .83rem; font-weight: 600; cursor: pointer;
+  transition: background .15s ease, border-color .15s ease;
+}
+.ver-copy-btn:hover { background: var(--paper-2); border-color: var(--brand-line, var(--line)); }
+.ver-copy-btn:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+.ver-copy-status { font-size: .82rem; color: var(--muted); min-height: 1em; }
+.ver-edge-hint { font-size: .84rem; color: #8a5a12; width: 100%; }
+@media (prefers-color-scheme: dark) {
+  .ver-copy-btn { background: #1a1f33; color: var(--ink); }
+  .ver-copy-btn:hover { background: #232a42; }
+}
+@media (max-width: 420px) {
+  .ver-copy-btn { width: 100%; text-align: center; }
+  .ver-chrome-link { width: 100%; justify-content: center; margin-left: 0; }
+}
 
 .dlm-safe {
   padding: 14px 15px; border-radius: var(--r-sm);

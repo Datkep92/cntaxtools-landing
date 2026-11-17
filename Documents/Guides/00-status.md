@@ -11,3 +11,10 @@
 - Kiểm tra bản chuẩn bị: node --test tests/invoice-seo.test.cjs tests/release-downloads.test.cjs đạt 3/3.
 - Chờ: xuất bản bản sửa, HTTPS GitHub, gửi và đọc lại sitemap Google. Chưa xác nhận giao diện bằng trình duyệt trong phiên này.
 - Không lưu thông tin đăng nhập trong kho. Không xoá mục Search Console cũ.
+
+### Kết quả sau xuất bản
+
+- Commit d7da451c6513e85a44ae210cd2e9c3f356f0ae41 đã push; GitHub Pages built không lỗi.
+- Đọc lại website công khai qua HTTP: sitemap có đủ 4 URL mới, robots chỉ đúng sitemap mới, canonical mới đúng, Tawk.to còn nguyên.
+- Google đã nhận https://cntaxtools.com/sitemap.xml lúc 13:57:03 ngày 17/11/2026 (Asia/Saigon). API đọc lại: isPending=true, errors=0, warnings=0. Đây là nhận yêu cầu, chưa phải đã đọc hoặc lập chỉ mục.
+- HTTPS GitHub vẫn state=new, chưa cấp chứng chỉ và chưa bật https_enforced. Cần kiểm lại HTTPS trước khi kết luận hoàn tất chuyển tên miền.

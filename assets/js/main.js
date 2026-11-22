@@ -180,12 +180,12 @@
   }
 
   /* ----------------------------------------------------------------------
-     4. NÚT TẢI — ghim bản 1.9.8 theo quyết định vận hành.
+     4. NÚT TẢI — ghim bản 1.9.10 theo quyết định vận hành.
      Không tự dò latest hoặc dùng cache của phiên bản khác. */
   var dl = { url: null, resolve: null, wait: 3000 };
-  var VERSION = 'v1.9.8';
-  var SETUP_URL = 'https://github.com/Datkep92/HoaDonNhe/releases/download/v1.9.8/CN-Tax-Tools-Setup-v1.9.8.exe';
-  var PORTABLE_URL = 'https://github.com/Datkep92/HoaDonNhe/releases/download/v1.9.8/CN-Tax-Tools-v1.9.8.exe';
+  var VERSION = 'v1.9.10';
+  var SETUP_URL = 'https://github.com/Datkep92/HoaDonNhe/releases/download/v1.9.10/CN-Tax-Tools-Setup-v1.9.10.exe';
+  var PORTABLE_URL = 'https://github.com/Datkep92/HoaDonNhe/releases/download/v1.9.10/CN-Tax-Tools-v1.9.10.exe';
 
   /* Đi tới link tải, chờ tối đa `dl.wait` ms cho lời gọi API về rồi mới chuyển
      trang. Quá hạn thì thả theo `fallback` (href dự phòng trong HTML) — không
@@ -211,8 +211,8 @@
     dl.url = url;
     dl.resolve = function () { return Promise.resolve(url); };
     $$('[data-dl]').forEach(function (button) { button.setAttribute('href', url); });
-    $$('[data-dl-ver]').forEach(function (label) { label.textContent = 'v1.9.8'; });
-    $$('[data-install-filename]').forEach(function (label) { label.textContent = 'CN-Tax-Tools-v1.9.8.exe'; });
+    $$('[data-dl-ver]').forEach(function (label) { label.textContent = 'v1.9.10'; });
+    $$('[data-install-filename]').forEach(function (label) { label.textContent = 'CN-Tax-Tools-v1.9.10.exe'; });
 
     var setupLink = document.getElementById('ver-setup');
     var portableLink = document.getElementById('ver-portable');

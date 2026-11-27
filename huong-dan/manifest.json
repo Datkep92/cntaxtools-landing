@@ -1,7 +1,7 @@
 {
-  "version": "1.9.11",
-  "revision": 13,
-  "reviewedAt": "2026-11-23",
+  "version": "1.9.14",
+  "revision": 14,
+  "reviewedAt": "2026-11-26",
   "topics": [
     "cai-dat",
     "them-mst",
@@ -13,6 +13,7 @@
     "to-khai",
     "thue",
     "cong-cu-mo-rong",
+    "ung-dung-tich-hop",
     "cap-nhat",
     "so-tay"
   ]

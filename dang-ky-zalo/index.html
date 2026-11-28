@@ -3,7 +3,29 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Đăng ký CN Tax Tools</title>
+<title>Đăng ký gói CN Tax Tools</title>
+<meta name="description" content="Chọn gói Free, Plus hoặc Pro cho CN Tax Tools, điền thông tin và quét mã thanh toán để nhận key kích hoạt qua Zalo.">
+<meta name="theme-color" content="#087f70">
+<link rel="canonical" href="https://cntaxtools.com/dang-ky-zalo/">
+<link rel="icon" type="image/png" sizes="64x64" href="../assets/img/app-icon.png">
+<link rel="icon" type="image/svg+xml" href="../assets/img/favicon.svg">
+<link rel="apple-touch-icon" href="../assets/img/app-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="CNTaxTools">
+<meta property="og:locale" content="vi_VN">
+<meta property="og:url" content="https://cntaxtools.com/dang-ky-zalo/">
+<meta property="og:title" content="Đăng ký gói CN Tax Tools">
+<meta property="og:description" content="Chọn gói Free, Plus hoặc Pro, quét mã thanh toán và nhắn Zalo để nhận key kích hoạt CN Tax Tools.">
+<meta property="og:image" content="https://cntaxtools.com/assets/img/og-cover.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="CN Tax Tools — đăng ký gói, quản lý nhiều mã số thuế và tải hóa đơn điện tử.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Đăng ký gói CN Tax Tools">
+<meta name="twitter:description" content="Chọn gói Free, Plus hoặc Pro, quét mã thanh toán và nhắn Zalo để nhận key kích hoạt CN Tax Tools.">
+<meta name="twitter:image" content="https://cntaxtools.com/assets/img/og-cover.png">
+<meta name="twitter:image:alt" content="CN Tax Tools — đăng ký gói, quản lý nhiều mã số thuế và tải hóa đơn điện tử.">
 <style>
 :root{--brand:#087f70;--accent:#2bd4ae;--bg:#f5f8fb;--ink:#12333a;--muted:#5b6f76;--line:#dce7ea;--white:#fff}
 *{box-sizing:border-box}
@@ -65,16 +87,64 @@ input:focus{outline:2px solid rgba(43,212,174,.45);outline-offset:1px;border-col
 .card{padding:24px}
 .plan{padding:16px 20px}
 }
+@media (min-width:960px){
+.page{width:min(100% - 64px,1180px);padding-top:56px;padding-bottom:120px}
+.hero{margin-bottom:32px}
+.badge{font-size:13px;padding:7px 16px}
+.hero h1{font-size:44px;margin:14px 0 8px}
+.lead{max-width:58ch;font-size:17px}
+.layout{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(320px,1fr);gap:24px;align-items:start}
+.layout .card+.card{margin-top:0}
+.card{border-radius:20px;padding:28px;box-shadow:0 14px 36px rgba(8,127,112,.09)}
+.card h2{font-size:22px;margin-bottom:20px}
+.terms{grid-template-columns:repeat(3,minmax(120px,190px));gap:10px}
+.term{min-height:46px;border-radius:12px;font-size:15px}
+.plans{grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:16px}
+.plan{display:flex;flex-direction:column;align-items:flex-start;gap:8px;min-height:152px;padding:20px;border-radius:16px}
+.plan .right{text-align:left;margin-top:auto}
+.plan .name{font-size:19px}
+.plan .desc{font-size:13px;line-height:1.4}
+.plan .price{font-size:24px}
+.plan .unit{font-size:12px}
+.hint{font-size:13px}
+.pay{position:sticky;top:24px;background:linear-gradient(180deg,#fff 0,#f7fbf9 100%)}
+.pay h2{margin-bottom:14px}
+.pay p{font-size:15px;line-height:1.6}
+.bank{font-size:16px}
+.modal-card{width:min(100%,760px);max-height:calc(100dvh - 56px);padding:24px;display:grid;gap:18px 24px;border-radius:22px}
+.modal-head h2{font-size:22px}
+.modal-close{width:46px;height:46px}
+.plan-info{display:flex;align-items:center;gap:8px 24px;flex-wrap:wrap;margin-top:0;padding:16px 18px}
+.plan-info p{margin:0}
+.plan-info strong{font-size:18px}
+.plan-info .price-line{margin-top:0;font-size:16px}
+.form-step{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 16px;margin-top:0}
+.form-step .field{margin:0}
+.form-step label{font-size:14px}
+.form-step .err{grid-column:1 / -1;margin-top:0}
+.form-step .btn{grid-column:1 / -1}
+input[type=text],input[type=tel]{font-size:15px;padding:13px 15px}
+.qr-box{grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);grid-template-areas:"hint hint" "frame payload" "actions actions" "back status";gap:14px 20px;margin-top:0}
+.qr-box #qrHint{grid-area:hint;justify-self:start}
+.qr-frame{grid-area:frame}
+.qr-frame svg{max-width:260px}
+.payload{grid-area:payload;align-self:stretch;font-size:13px;line-height:1.6}
+.actions{grid-area:actions;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.back-btn{grid-area:back;justify-self:start;font-size:14px}
+.status{grid-area:status;align-self:center;min-height:18px;font-size:13px;color:var(--muted)}
+.zalo-cta{right:28px;bottom:28px;padding:14px 20px;font-size:15px}
+}
 </style>
 </head>
 <body>
 <main class="page">
   <header class="hero">
     <span class="badge">CN TAX TOOLS</span>
-    <h1>Đăng ký bản quyền</h1>
+    <h1>Đăng ký gói</h1>
     <p class="lead">Chọn gói, điền thông tin trong cửa sổ, quét mã và nhắn Zalo để nhận key.</p>
   </header>
 
+  <div class="layout">
   <section class="card" aria-labelledby="planTitle">
     <h2 id="planTitle">1. Chọn kỳ hạn và gói</h2>
     <div class="terms" role="group" aria-label="Kỳ hạn">
@@ -105,9 +175,10 @@ input:focus{outline:2px solid rgba(43,212,174,.45);outline-offset:1px;border-col
   <section class="card pay" aria-labelledby="payTitle">
     <h2 id="payTitle">2. Thanh toán và nhận key</h2>
     <p class="bank">ACB 970416 · tài khoản 28776081 · NGUYEN QUOC DAT</p>
-    <p>Gói trả phí: chuyển đúng số tiền gói đã chọn, đối soát xong mới cấp key thủ công.</p>
+    <p>Gói trả phí: chuyển đúng số tiền gói đã chọn. Nhắn tin em để nhận key kích hoạt nhé.</p>
     <p class="free-note">Gói Free 0đ: không cần chuyển tiền.</p>
   </section>
+  </div>
 
   <div class="modal" id="modal" hidden>
     <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
@@ -128,7 +199,7 @@ input:focus{outline:2px solid rgba(43,212,174,.45);outline-offset:1px;border-col
             <p class="hint">10 số, bắt đầu bằng 0.</p>
           </div>
           <div class="field">
-            <label for="name">Tên</label>
+            <label for="name">Họ và tên</label>
             <input id="name" name="name" type="text" autocomplete="name" placeholder="Nguyễn Văn A">
           </div>
           <p class="err" id="err" role="alert"></p>
@@ -212,9 +283,9 @@ input:focus{outline:2px solid rgba(43,212,174,.45);outline-offset:1px;border-col
     var nameGoi = planName();
     var kyHan = termNames[term];
     var lines = [
-      'CN TAX TOOLS - ĐĂNG KÝ BẢN QUYỀN',
+      'CN TAX TOOLS - ĐĂNG KÝ GÓI',
       'Gói: ' + nameGoi + ' | Kỳ hạn: ' + kyHan,
-      'Tên: ' + name,
+      'Họ và tên: ' + name,
       'Số Zalo: ' + phone,
       'Số tiền: ' + amount() + ' VND',
       'Nội dung CK: ' + nameGoi + ' ' + kyHan + ' ' + phone
@@ -247,7 +318,7 @@ input:focus{outline:2px solid rgba(43,212,174,.45);outline-offset:1px;border-col
     clearResult();
     err.textContent = '';
     status.textContent = '';
-    hint.textContent = 'Điền tên và số điện thoại rồi bấm thanh toán.';
+    hint.textContent = 'Điền họ tên và số điện thoại rồi bấm thanh toán.';
   }
 
   function openModal(trigger) {
@@ -269,8 +340,8 @@ input:focus{outline:2px solid rgba(43,212,174,.45);outline-offset:1px;border-col
     var name = nameInput.value.trim();
     var phone = phoneInput.value.trim();
     if (!name || !/^0\d{9}$/.test(phone)) {
-      err.textContent = !name ? 'Vui lòng nhập tên.' : 'Số điện thoại phải có đúng 10 số, bắt đầu bằng 0.';
-      hint.textContent = 'Điền tên và số điện thoại rồi bấm thanh toán.';
+      err.textContent = !name ? 'Vui lòng nhập họ và tên.' : 'Số điện thoại phải có đúng 10 số, bắt đầu bằng 0.';
+      hint.textContent = 'Điền họ tên và số điện thoại rồi bấm thanh toán.';
       return false;
     }
     err.textContent = '';

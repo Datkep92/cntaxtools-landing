@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Đăng ký CN Tax Tools</title>
+<style>
+:root{--brand:#087f70;--accent:#2bd4ae;--bg:#f5f8fb;--ink:#12333a;--muted:#5b6f76;--line:#dce7ea;--white:#fff}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;font-size:17px;line-height:1.55}
+.wrap{max-width:620px;margin:0 auto;padding:20px 14px 44px}
+.eyebrow{margin:0;font-size:14px;font-weight:700;letter-spacing:.08em;color:var(--brand)}
+.head h1{font-size:27px;margin:4px 0 8px;color:var(--brand)}
+.lead{margin:0;color:var(--muted);font-size:16px}
+.steps{list-style:none;display:grid;grid-template-columns:1fr;gap:8px;padding:0;margin:18px 0}
+.steps li{display:flex;align-items:center;gap:10px;background:var(--white);border:1px solid var(--line);border-radius:10px;padding:11px 12px;font-size:16px}
+.steps b{display:inline-grid;place-items:center;width:28px;height:28px;flex:none;border-radius:50%;background:var(--brand);color:#fff;font-size:15px}
+.layout{display:grid;grid-template-columns:1fr;gap:16px;align-items:start}
+.card{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:16px;box-shadow:0 6px 20px rgba(8,127,112,.06)}
+.card h2{font-size:20px;margin:0 0 14px}
+.terms{border:0;padding:0;margin:0 0 14px;display:grid;grid-template-columns:1fr;gap:8px}
+.terms legend{font-size:14px;color:var(--muted);padding:0 0 6px}
+.terms label{display:flex;align-items:center;gap:10px;min-height:48px;border:1px solid var(--line);border-radius:9px;padding:10px 12px;font-size:16px;cursor:pointer}
+.terms input{width:18px;height:18px;accent-color:var(--brand)}
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:15px}
+thead{display:none}
+tbody tr{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;border-bottom:1px solid var(--line);padding-bottom:12px;margin-bottom:12px}
+tbody tr:last-child{margin-bottom:0;padding-bottom:0;border-bottom:0}
+tbody th,tbody td{border:0;padding:0;display:block}
+tbody th{grid-column:1/-1;text-align:left;font-size:17px;font-weight:700}
+tbody th small{display:block;font-size:14px;font-weight:400;color:var(--muted)}
+.tlabel{display:block;font-size:12px;font-weight:600;color:var(--muted);margin-bottom:4px}
+.amount{display:block;font-size:14px}
+.price{width:100%;min-height:52px;border:1px solid var(--accent);border-radius:9px;background:#eaf8f4;color:var(--brand);padding:7px 4px;font-size:15px;font-weight:700;cursor:pointer}
+.price.sel{background:var(--brand);border-color:var(--brand);color:#fff}
+.price.sel .tlabel{color:#e6fff8}
+form label,.chosen-label{display:block;margin:14px 0 7px;font-size:15px;font-weight:600}
+input[type=text],input[type=tel]{width:100%;min-height:52px;padding:12px;border:1px solid var(--line);border-radius:9px;background:var(--white);color:var(--ink);font-size:17px}
+.hint{margin:7px 0 0;font-size:14px;color:var(--muted)}
+.chosen{padding:12px;border:1px solid var(--accent);border-radius:9px;background:#eaf8f4;color:var(--brand);font-weight:700;font-size:16px}
+.err{min-height:20px;margin:8px 0;color:#c0392b;font-size:15px}
+.submit,.copy{border-radius:10px;font-size:17px;font-weight:700;cursor:pointer}
+.submit{width:100%;min-height:56px;border:0;background:var(--brand);color:#fff}
+.copy{min-height:52px;border:1px solid var(--accent);background:#eaf8f4;color:var(--brand)}
+.result{margin-top:18px;border-top:1px solid var(--line);padding-top:14px}
+textarea{width:100%;resize:vertical;padding:12px;border:1px solid var(--line);border-radius:9px;background:var(--white);color:var(--ink);font-size:16px}
+.status{margin:10px 0;font-size:15px;color:var(--muted)}
+.actions{display:grid;grid-template-columns:1fr;gap:10px}
+.fallback{display:block;text-align:center;min-height:48px;line-height:48px;border:1px solid var(--accent);border-radius:10px;color:var(--brand);font-size:16px;font-weight:700;text-decoration:underline}
+.pay{margin-top:18px;border:1px solid var(--accent);border-radius:12px;background:#eaf8f4;padding:16px}
+.pay h2{margin:0 0 6px;font-size:17px;color:var(--brand)}
+.pay p{margin:0;font-size:16px}
+@media (min-width:640px){
+.wrap{padding:28px 20px 56px}
+.card{padding:20px}
+}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <header class="head">
+    <p class="eyebrow">CN Tax Tools</p>
+    <h1>Đăng ký bản quyền</h1>
+    <p class="lead">Chọn gói, gửi tin nhắn Zalo, nhận key sau khi đối soát.</p>
+  </header>
+
+  <ol class="steps">
+    <li><b>1</b><span>Chọn gói</span></li>
+    <li><b>2</b><span>Điền tên / số Zalo</span></li>
+    <li><b>3</b><span>Gửi nhận key</span></li>
+  </ol>
+
+  <div class="layout">
+    <section class="card plans">
+      <h2>Bảng giá</h2>
+      <fieldset class="terms">
+        <legend>Kỳ hạn</legend>
+        <label><input type="radio" name="term" value="1 tháng" checked> 1 tháng</label>
+        <label><input type="radio" name="term" value="12 tháng"> 12 tháng</label>
+        <label><input type="radio" name="term" value="vĩnh viễn"> vĩnh viễn</label>
+      </fieldset>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Gói</th><th>1 tháng</th><th>12 tháng</th><th>vĩnh viễn</th></tr></thead>
+          <tbody>
+            <tr>
+              <th scope="row">Plus<small>tối đa 15 MST</small></th>
+              <td><button type="button" class="price" data-plan="Plus" data-term="1 tháng"><span class="tlabel">1 tháng</span><span class="amount">49.000đ</span></button></td>
+              <td><button type="button" class="price" data-plan="Plus" data-term="12 tháng"><span class="tlabel">12 tháng</span><span class="amount">499.000đ</span></button></td>
+              <td><button type="button" class="price" data-plan="Plus" data-term="vĩnh viễn"><span class="tlabel">vĩnh viễn</span><span class="amount">1.499.000đ</span></button></td>
+            </tr>
+            <tr>
+              <th scope="row">Pro<small>không giới hạn MST</small></th>
+              <td><button type="button" class="price" data-plan="Pro" data-term="1 tháng"><span class="tlabel">1 tháng</span><span class="amount">99.000đ</span></button></td>
+              <td><button type="button" class="price" data-plan="Pro" data-term="12 tháng"><span class="tlabel">12 tháng</span><span class="amount">999.000đ</span></button></td>
+              <td><button type="button" class="price" data-plan="Pro" data-term="vĩnh viễn"><span class="tlabel">vĩnh viễn</span><span class="amount">1.999.000đ</span></button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="card form-card">
+      <h2>Thông tin đăng ký</h2>
+      <form id="form" novalidate>
+        <label for="name">Họ tên</label>
+        <input id="name" name="name" type="text" autocomplete="name" placeholder="Nguyễn Văn A">
+        <label for="phone">Số Zalo / điện thoại</label>
+        <input id="phone" name="phone" type="tel" inputmode="numeric" maxlength="10" placeholder="09xxxxxxxx">
+        <p class="hint">10 số, bắt đầu bằng 0.</p>
+        <p class="chosen-label">Gói đang chọn</p>
+        <div class="chosen" id="chosen">Gói Plus · 1 tháng · 49.000đ</div>
+        <p class="err" id="err" role="alert"></p>
+        <button class="submit" type="submit">Soạn tin nhắn đăng ký</button>
+      </form>
+      <div class="result" id="result" hidden>
+        <label for="msg">Tin nhắn của bạn</label>
+        <textarea id="msg" rows="5" readonly></textarea>
+        <p class="status" id="status"></p>
+        <div class="actions">
+          <button type="button" class="copy" id="copyAgain">Copy lại</button>
+          <a class="fallback" href="https://zalo.me/0932155035" target="_blank" rel="noopener">Link Zalo dự phòng</a>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <section class="pay">
+    <h2>Thanh toán</h2>
+    <p>ACB 970416 · tài khoản 28776081 · NGUYEN QUOC DAT. Gửi key sau khi đối soát nhận tiền.</p>
+  </section>
+</main>
+<script>
+(function () {
+  'use strict';
+  var prices = {
+    Plus: { '1 tháng': '49.000đ', '12 tháng': '499.000đ', 'vĩnh viễn': '1.499.000đ' },
+    Pro: { '1 tháng': '99.000đ', '12 tháng': '999.000đ', 'vĩnh viễn': '1.999.000đ' }
+  };
+  var plan = 'Plus';
+  var term = '1 tháng';
+  var chosen = document.getElementById('chosen');
+  var err = document.getElementById('err');
+  var result = document.getElementById('result');
+  var msg = document.getElementById('msg');
+  var status = document.getElementById('status');
+
+  function amount() { return prices[plan][term]; }
+
+  function render() {
+    chosen.textContent = 'Gói ' + plan + ' · ' + term + ' · ' + amount();
+    var terms = document.querySelectorAll('input[name="term"]');
+    for (var i = 0; i < terms.length; i++) {
+      terms[i].checked = (terms[i].value === term);
+    }
+    var buttons = document.querySelectorAll('.price');
+    for (var j = 0; j < buttons.length; j++) {
+      var b = buttons[j];
+      b.classList.toggle('sel', b.getAttribute('data-plan') === plan && b.getAttribute('data-term') === term);
+    }
+  }
+
+  var terms = document.querySelectorAll('input[name="term"]');
+  for (var i = 0; i < terms.length; i++) {
+    terms[i].addEventListener('change', function () { term = this.value; render(); });
+  }
+  var buttons = document.querySelectorAll('.price');
+  for (var j = 0; j < buttons.length; j++) {
+    buttons[j].addEventListener('click', function () {
+      plan = this.getAttribute('data-plan');
+      term = this.getAttribute('data-term');
+      render();
+    });
+  }
+
+  function legacyCopy(text) {
+    var t = document.createElement('textarea');
+    t.value = text;
+    t.setAttribute('readonly', '');
+    t.style.position = 'fixed';
+    t.style.left = '-9999px';
+    document.body.appendChild(t);
+    t.select();
+    var ok = false;
+    try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+    document.body.removeChild(t);
+    return ok;
+  }
+
+  function copyText(text) {
+    if (navigator.clipboard && window.isSecureContext) {
+      return navigator.clipboard.writeText(text).then(
+        function () { return true; },
+        function () { return legacyCopy(text); }
+      );
+    }
+    return Promise.resolve(legacyCopy(text));
+  }
+
+  document.getElementById('form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var name = document.getElementById('name').value.trim();
+    var phone = document.getElementById('phone').value.trim();
+    if (!name) { err.textContent = 'Vui lòng nhập họ tên.'; return; }
+    if (!/^0\d{9}$/.test(phone)) { err.textContent = 'Số Zalo phải có đúng 10 số và bắt đầu bằng 0.'; return; }
+    err.textContent = '';
+    var text = 'ĐĂNG KÝ CN TAX TOOLS / ' + name + ' / ' + phone + ' / ' + plan + ' / ' + term + ' / ' + amount();
+    msg.value = text;
+    result.hidden = false;
+    msg.focus();
+    msg.select();
+    copyText(text).then(function (ok) {
+      status.textContent = ok
+        ? 'Đã sao chép tin nhắn. Dán vào Zalo và gửi.'
+        : 'Không tự sao chép được. Bấm “Copy lại” hoặc chọn tin nhắn trong ô trên.';
+    });
+    window.open('https://zalo.me/0932155035', '_blank', 'noopener');
+  });
+
+  document.getElementById('copyAgain').addEventListener('click', function () {
+    copyText(msg.value).then(function (ok) {
+      status.textContent = ok ? 'Đã sao chép lại tin nhắn.' : 'Chưa sao chép được. Hãy chọn tin nhắn trong ô trên để copy.';
+    });
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>

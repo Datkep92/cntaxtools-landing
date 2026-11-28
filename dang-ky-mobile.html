@@ -5,290 +5,412 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Đăng ký CN Tax Tools</title>
 <style>
-:root{--brand:#087f70;--accent:#2bd4ae;--bg:#f5f8fb;--ink:#12333a;--muted:#5b6f76;--line:#dce7ea;--white:#fff}
+:root{--brand:#087f70;--ink:#20324a;--muted:#718298;--line:#dae3ec;--bg:#f5f8fb;--white:#fff}
 *{box-sizing:border-box}
 [hidden]{display:none!important}
 html,body{margin:0}
 a,button,input{-webkit-tap-highlight-color:transparent}
-:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
-body{background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;font-size:16px;line-height:1.5}
-.wrap{max-width:620px;margin:0 auto;padding:14px 12px calc(28px + env(safe-area-inset-bottom,0px))}
-.eyebrow{margin:0;font-size:13px;font-weight:800;letter-spacing:.08em;color:var(--brand)}
-.head h1{font-size:26px;margin:2px 0 6px;color:var(--brand)}
-.lead{margin:0;font-size:15px;color:var(--muted)}
-.block{margin-top:14px}
-.block>h2{font-size:17px;margin:0 0 8px}
-.terms{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
-.term{min-height:46px;border:1px solid var(--line);border-radius:10px;background:var(--white);color:var(--ink);font-size:15px;font-weight:700;cursor:pointer}
-.term.sel{border-color:var(--brand);background:var(--brand);color:#fff;box-shadow:0 0 0 2px rgba(43,212,174,.35)}
-.plans{display:grid;grid-template-columns:1fr;gap:9px}
-.plan{display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"name price" "mst price" "desc price";column-gap:10px;align-items:center;min-height:86px;padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:var(--white);text-align:left;cursor:pointer}
-.plan.sel{border-color:var(--brand);background:#eaf8f4;box-shadow:0 0 0 2px var(--brand),0 6px 16px rgba(8,127,112,.16)}
-.pname{grid-area:name;font-size:17px;font-weight:800;color:var(--brand)}
-.pmst{grid-area:mst;font-size:14px;font-weight:600}
-.pdesc{grid-area:desc;font-size:12px;color:var(--muted)}
-.pprice{grid-area:price;font-size:17px;font-weight:800;color:var(--brand);white-space:nowrap}
-form label{display:block;margin:10px 0 5px;font-size:14px;font-weight:700}
-input[type=text],input[type=tel]{width:100%;min-height:48px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--white);color:var(--ink);font-size:16px}
-.err{min-height:18px;margin:8px 0 0;color:#c0392b;font-size:13px}
-.qr-block{text-align:center}
-.qr-hint{margin:0 0 8px;font-size:14px;color:var(--muted)}
-.qr-frame{display:inline-block;width:100%;max-width:240px;padding:10px;background:#fff;border:1px solid var(--line);border-radius:12px}
-.qr-frame svg{display:block;width:100%;height:auto;shape-rendering:crispEdges}
-.payload{margin:10px 0 0;padding:10px;white-space:pre-wrap;word-break:break-word;text-align:left;font:12px/1.45 ui-monospace,SFMono-Regular,Menlo,monospace;background:var(--white);border:1px solid var(--line);border-radius:10px;color:var(--ink)}
-.actions{display:grid;grid-template-columns:1fr;gap:8px;margin-top:10px}
-.btn{display:flex;align-items:center;justify-content:center;min-height:48px;border-radius:10px;font-size:15px;font-weight:800;text-decoration:none;cursor:pointer}
-.copy{border:1px solid var(--accent);background:#eaf8f4;color:var(--brand)}
-.zalo{border:0;background:var(--brand);color:#fff}
-.status{min-height:18px;margin:8px 0 0;font-size:13px;color:var(--muted)}
-.pay{margin-top:16px;border:1px solid var(--accent);border-radius:12px;background:#eaf8f4;padding:12px;text-align:left}
-.pay h2{margin:0 0 4px;font-size:15px;color:var(--brand)}
-.pay p{margin:0;font-size:14px;overflow-wrap:anywhere}
-@media (min-width:640px){
-.wrap{padding:20px 20px calc(36px + env(safe-area-inset-bottom,0px))}
-.plan{min-height:92px}
-.btn{font-size:16px}
-}
+:focus-visible{outline:3px solid #298474;outline-offset:2px}
+body{background:var(--bg);color:var(--ink);font:15px/1.6 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
+.page{max-width:560px;margin:0 auto;padding:14px 12px calc(30px + env(safe-area-inset-bottom,0px))}
+.modal{background:var(--white);border:1px solid var(--line);border-radius:16px;box-shadow:0 12px 36px rgba(14,37,61,.10);overflow:hidden}
+.modal-head{padding:18px 16px 14px;border-bottom:1px solid #e8edf2}
+.eyebrow{display:block;font-size:10px;font-weight:750;letter-spacing:.12em;color:var(--brand)}
+.modal-head h1{font-size:21px;line-height:1.3;letter-spacing:-.02em;margin:5px 0 4px}
+.modal-head p{font-size:12px;color:#748499;margin:0}
+.pane{padding:16px}
+.fab{position:fixed;right:14px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:15;display:inline-flex;align-items:center;gap:8px;min-height:50px;padding:10px 15px;border:1px solid #0a6e61;border-radius:26px;background:var(--brand);color:#fff;text-decoration:none;font-size:13px;font-weight:750;box-shadow:0 10px 24px rgba(8,127,112,.35)}
+.fab svg{width:21px;height:21px;flex:none;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.catalog-head{margin:20px 0 12px}
+.catalog-head h2{font-size:15px;margin:0 0 4px}
+.catalog-head p{font-size:11px;color:#718298;margin:0 0 12px}
+.term{display:flex;padding:3px;gap:2px;border-radius:10px;background:#f0f4f8}
+.term button{flex:1;min-height:42px;border:0;background:transparent;color:#697b91;border-radius:8px;padding:7px 6px;font-size:12px;font-weight:650;cursor:pointer}
+.term button[aria-pressed=true]{background:#fff;color:#173e5c;box-shadow:0 2px 6px rgba(36,64,89,.10)}
+.term small{display:block;font-size:9px;color:#16816c;margin-top:1px}
+.swipe-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 0 6px}
+.swipe-head span{font-size:11px;color:#8a9aaa}
+.plans{display:flex;align-items:stretch;gap:12px;margin:0 -12px;padding:4px 12px 10px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-left:12px;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;scrollbar-width:none}
+.plans::-webkit-scrollbar{display:none}
+.plan{--tier:#335a7e;--tint:#eff5fa;--edge:#ccddea;flex:0 0 min(78vw,268px);min-height:306px;scroll-snap-align:center;display:flex;flex-direction:column;gap:8px;padding:16px;border:1px solid var(--edge);border-radius:14px;background:linear-gradient(180deg,var(--tint),#fff 70%)}
+.plan[data-plan=FREE]{--tier:#0d8b72;--tint:#e9f7f1;--edge:#bde6d5}
+.plan[data-plan=PLUS]{--tier:#7952b0;--tint:#f3edfc;--edge:#ded0ef}
+.plan[data-plan=PRO]{--tier:#95651c;--tint:#fff4dd;--edge:#efddb7}
+.plan-top{display:flex;align-items:center;gap:9px;min-height:38px}
+.icon{display:grid;place-items:center;width:38px;height:38px;flex:0 0 38px;border-radius:11px;background:var(--tint);color:var(--tier)}
+.icon svg{width:22px;height:24px}
+.tag{font-size:10px;font-weight:650;color:var(--tier)}
+.plan h3{font-size:17px;letter-spacing:-.02em;color:#20354c;margin:0}
+.price{font-size:26px;line-height:1.3;letter-spacing:-.04em;margin:4px 0 2px;color:#17324d;white-space:nowrap}
+.price small{display:block;font-size:10px;font-weight:500;color:#7c8b9c;margin-top:4px}
+.limit{font-size:13px;font-weight:750;color:var(--tier);min-height:20px;margin:4px 0}
+.plan ul{list-style:none;padding:12px 0 0;margin:3px 0;border-top:1px solid rgba(0,0,0,.07);display:grid;gap:8px;color:#5f7188;font-size:12px;flex:1 0 auto}
+.plan li::before{content:'✓';color:var(--tier);font-weight:750;margin-right:6px}
+.savings{font-size:11px;line-height:1.5;color:#79889a;min-height:32px;margin:6px 0}
+.cta{width:100%;min-height:46px;margin-top:auto;padding:10px 12px;border-radius:10px;border:1px solid var(--edge);background:linear-gradient(135deg,#fff,var(--tint));color:var(--tier);font-size:14px;font-weight:750;cursor:pointer}
+.dots{display:flex;justify-content:center;align-items:center;gap:6px;margin:8px 0 0}
+.dot{width:7px;height:7px;padding:0;border:0;border-radius:4px;background:#cbd5e1;transition:width .2s,background .2s}
+.dot.active{width:20px;background:var(--brand)}
+.footnote{display:block;margin:12px 0 0;font-size:11px;line-height:1.7;color:#8190a2}
+.pay-info{margin:18px 0 0;border:1px solid #d9e8e1;border-radius:12px;background:#f6fbf8;overflow:hidden}
+.pay-info summary{display:flex;justify-content:space-between;gap:10px;cursor:pointer;padding:13px 14px;color:#23634d;font-weight:700}
+.pay-info summary small{font-size:11px;color:#588575}
+.pay-info>div{padding:0 14px 14px}
+.pay-info p{font-size:12px;line-height:1.8;color:#48675d;margin:0}
+.pay-info p b{color:#25435b}
+.pay-info .memo{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;background:#f2f6fa;border-radius:8px;padding:8px 10px;margin-top:3px;overflow-wrap:anywhere;display:block}
+.sheet{position:fixed;inset:0;z-index:20;display:flex;align-items:flex-end;justify-content:center;padding:0;background:rgba(19,43,70,.48)}
+.sheet-card{width:100%;max-height:94vh;overflow:auto;padding:18px 16px calc(20px + env(safe-area-inset-bottom,0px));background:#fff;color:#20324a;border:1px solid #dce5ef;border-radius:18px 18px 0 0;box-shadow:0 -12px 40px rgba(20,44,73,.28)}
+.sheet-head{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;border-bottom:1px solid #edf1f6;padding-bottom:14px;margin-bottom:16px}
+.sheet-head h2{font-size:20px;line-height:1.3;letter-spacing:-.02em;color:#1c344d;margin:5px 0}
+.sheet-head p{font-size:12px;color:#78899b;margin:0}
+.close{flex:0 0 40px;width:40px;height:40px;border:1px solid #dce5ee;border-radius:10px;background:#f8fafc;color:#526b85;font-size:24px;line-height:1;cursor:pointer}
+.quote{font-size:13px;font-weight:700;padding:11px 12px;background:#f0f7f5;border:1px solid #d1e8df;border-radius:10px;color:#256c60;margin:0 0 12px;overflow-wrap:anywhere}
+.sheet form label{display:grid;gap:6px;margin:12px 0;font-size:13px;font-weight:650;color:#40566d}
+.sheet input{box-sizing:border-box;width:100%;min-height:50px;padding:12px;border:1px solid #d6e1ec;border-radius:10px;font-size:16px;color:#213b54;background:#fbfdff}
+.sheet input:focus{outline:2px solid #cae7e0;border-color:#3b9b8a}
+.primary{width:100%;min-height:52px;margin-top:14px;padding:12px 18px;border:1px solid var(--brand);border-radius:11px;background:var(--brand);color:#fff;font-size:15px;font-weight:750;cursor:pointer}
+.secondary{min-height:46px;padding:10px 14px;border:1px solid #cbd7e2;border-radius:10px;background:#fff;color:#355a79;font-size:13px;font-weight:650;cursor:pointer}
+.err{font-size:13px;line-height:1.6;color:#b63434}
+.err:empty{display:none}
+.pay-grid{display:grid;grid-template-columns:1fr;gap:16px;padding-top:16px;border-top:1px solid #e7edf3;margin-top:18px}
+.qr-frame{display:flex;justify-content:center}
+.qr-frame svg{width:100%;max-width:230px;height:auto;shape-rendering:crispEdges}
+.pay-grid h3{font-size:24px;margin:0 0 10px;color:#1a7666}
+.pay-grid p{font-size:13px;line-height:1.7;color:#75869a;margin:0 0 10px}
+.pay-grid p strong{display:block;color:#25435b;font-size:14px}
+.pay-grid .memo{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;padding:9px 11px;background:#f2f6fa;border-radius:8px;margin-top:5px;overflow-wrap:anywhere;display:block}
+.status{font-size:13px;color:var(--brand);margin:12px 0 0}
+.status:empty{display:none}
+.sheet-foot{margin-top:18px;padding-top:16px;border-top:1px solid #e7edf3}
+.thanks{font-size:12px;line-height:1.75;color:#718298;margin:0 0 14px}
+.zalo-link{display:flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:11px 14px;border:1px solid #c5def3;border-radius:11px;background:#f0f7fd;color:#116db7;text-decoration:none;font-size:14px;font-weight:650}
+.zalo-link svg{width:24px;height:24px;flex:none;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.sheet-actions{display:grid;grid-template-columns:1fr;gap:8px;margin-top:10px}
+.sheet-actions button{width:100%}
 </style>
 </head>
 <body>
-<main class="wrap">
-  <header class="head">
-    <p class="eyebrow">CN Tax Tools</p>
-    <h1>Đăng ký bản quyền</h1>
-    <p class="lead">Chọn gói, điền thông tin, quét mã hoặc nhắn Zalo.</p>
-  </header>
+<main class="page">
+  <div class="modal">
+    <header class="modal-head">
+      <span class="eyebrow">CN TAX TOOLS</span>
+      <h1>Đăng Ký</h1>
+      <p>Quản lý bản quyền, chọn gói và kích hoạt trên thiết bị của bạn.</p>
+    </header>
+    <section class="pane">
+      <div class="catalog-head">
+        <h2>Chọn gói sử dụng</h2>
+        <p>Mọi gói đều đầy đủ tính năng. Khác nhau ở số MST.</p>
+        <nav class="term" aria-label="Kỳ đăng ký">
+          <button type="button" data-term="month" aria-pressed="true">Theo tháng</button>
+          <button type="button" data-term="year" aria-pressed="false">Theo năm <small>Tiết kiệm hơn</small></button>
+          <button type="button" data-term="lifetime" aria-pressed="false">Vĩnh viễn</button>
+        </nav>
+      </div>
 
-  <section class="block">
-    <h2>Kỳ hạn</h2>
-    <div class="terms" role="group" aria-label="Kỳ hạn">
-      <button type="button" class="term sel" data-term="month" aria-pressed="true">Tháng</button>
-      <button type="button" class="term" data-term="year" aria-pressed="false">Năm</button>
-      <button type="button" class="term" data-term="lifetime" aria-pressed="false">Vĩnh viễn</button>
-    </div>
-  </section>
+      <div class="swipe-head"><span>Vuốt để xem thêm gói →</span></div>
+      <div class="plans" id="plans" aria-label="Các gói đăng ký">
+        <article class="plan" data-plan="FREE">
+          <div class="plan-top">
+            <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 26" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21c-5-3-8-7-6-13 6-2 10 1 10 6 0 3-2 5-4 7Zm0 0V11"/></svg></span>
+            <span class="tag"></span>
+          </div>
+          <h3>Free</h3>
+          <div class="price" data-price="FREE">0đ<small> / không giới hạn thời gian</small></div>
+          <p class="limit">1 MST</p>
+          <ul><li>1 MST Free hoàn toàn mọi tính năng</li></ul>
+          <small class="savings">Miễn phí không giới hạn thời gian</small>
+          <button type="button" class="cta" data-plan-open="FREE">Chọn MST Free</button>
+        </article>
 
-  <section class="block">
-    <h2>Chọn gói</h2>
-    <div class="plans" id="plans">
-      <button type="button" class="plan" data-plan="free" aria-pressed="false">
-        <span class="pname">Free</span>
-        <span class="pmst">1 MST</span>
-        <span class="pdesc">đầy đủ chức năng</span>
-        <span class="pprice" data-price="free">0đ</span>
-      </button>
-      <button type="button" class="plan" data-plan="plus" aria-pressed="false">
-        <span class="pname">Plus</span>
-        <span class="pmst">2–15 MST</span>
-        <span class="pdesc">nhiều MST hơn</span>
-        <span class="pprice" data-price="plus">49.000đ</span>
-      </button>
-      <button type="button" class="plan" data-plan="pro" aria-pressed="false">
-        <span class="pname">Pro</span>
-        <span class="pmst">không giới hạn MST</span>
-        <span class="pdesc">không giới hạn</span>
-        <span class="pprice" data-price="pro">99.000đ</span>
-      </button>
-    </div>
-  </section>
+        <article class="plan" data-plan="PLUS">
+          <div class="plan-top">
+            <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 26" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 2.5 6.5L21 12l-6.5 2.5L12 21l-2.5-6.5L3 12l6.5-2.5L12 3Z"/></svg></span>
+            <span class="tag"></span>
+          </div>
+          <h3>Plus</h3>
+          <div class="price" data-price="PLUS">49.000đ<small> / tháng</small></div>
+          <p class="limit">2–15 MST</p>
+          <ul><li>Đầy đủ mọi tính năng</li></ul>
+          <small class="savings" data-savings="PLUS"></small>
+          <button type="button" class="cta" data-plan-open="PLUS">Đăng ký Plus</button>
+        </article>
 
-  <section class="block form-block" id="formBlock" hidden>
-    <h2>Thông tin của bạn</h2>
-    <form id="form" novalidate>
-      <label for="name">Tên</label>
-      <input id="name" name="name" type="text" autocomplete="name" placeholder="Nguyễn Văn A">
-      <label for="phone">Số điện thoại / Zalo</label>
-      <input id="phone" name="phone" type="tel" inputmode="numeric" autocomplete="tel" maxlength="10" placeholder="09xxxxxxxx">
-      <p class="err" id="err" role="alert"></p>
-    </form>
-  </section>
+        <article class="plan" data-plan="PRO">
+          <div class="plan-top">
+            <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 26" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m3 6 5 5 4-7 4 7 5-5-2 13H5L3 6Zm3 17h12"/></svg></span>
+            <span class="tag"></span>
+          </div>
+          <h3>Pro</h3>
+          <div class="price" data-price="PRO">99.000đ<small> / tháng</small></div>
+          <p class="limit">Không giới hạn MST</p>
+          <ul><li>Đầy đủ mọi tính năng</li></ul>
+          <small class="savings" data-savings="PRO"></small>
+          <button type="button" class="cta" data-plan-open="PRO">Đăng ký Pro</button>
+        </article>
+      </div>
+      <div class="dots" id="dots" aria-hidden="true"><button type="button" class="dot active"></button><button type="button" class="dot"></button><button type="button" class="dot"></button></div>
 
-  <section class="block qr-block" id="qrBlock" hidden>
-    <h2>Nội dung đăng ký</h2>
-    <p class="qr-hint" id="qrHint">Điền tên và số điện thoại để tạo mã.</p>
-    <div class="qr-frame" id="qrFrame" hidden></div>
-    <pre class="payload" id="payload" hidden></pre>
-    <div class="actions">
-      <button type="button" class="btn copy" id="copyBtn" hidden>Sao chép nội dung</button>
-      <a class="btn zalo" id="zaloBtn" href="https://zalo.me/0932155035" target="_blank" rel="noopener" hidden>Nhắn Zalo nhận key</a>
-    </div>
-    <p class="status" id="status" role="status"></p>
-  </section>
+      <small class="footnote">1 MST Free hoàn toàn mọi tính năng. Hết hạn vẫn xem được dữ liệu ở tất cả MST. Gửi key sau khi đối soát nhận tiền.</small>
 
-  <section class="pay">
-    <h2>Thanh toán</h2>
-    <p>ACB 970416 · tài khoản 28776081 · NGUYEN QUOC DAT. Gửi key sau khi đối soát nhận tiền.</p>
-  </section>
+      <details class="pay-info">
+        <summary><span>Thông tin thanh toán</span><small>ACB · 28776081</small></summary>
+        <div>
+          <p>Ngân hàng <b>ACB</b></p>
+          <p>Số tài khoản <b>970416 · 28776081</b></p>
+          <p>Chủ tài khoản <b>NGUYEN QUOC DAT</b></p>
+          <span class="memo">Nội dung: tên gói · kỳ hạn · số Zalo</span>
+        </div>
+      </details>
+    </section>
+  </div>
 </main>
+
+<div class="sheet" id="sheet" hidden>
+  <div class="sheet-card" role="dialog" aria-modal="true" aria-labelledby="sheet-title">
+    <header class="sheet-head">
+      <div>
+        <span class="eyebrow">ĐĂNG KÝ GÓI SỬ DỤNG</span>
+        <h2 id="sheet-title">Đăng ký gói sử dụng</h2>
+        <p>Điền thông tin để tạo nội dung đăng ký và mã thanh toán.</p>
+      </div>
+      <button type="button" class="close" id="sheet-close" aria-label="Đóng">×</button>
+    </header>
+
+    <p class="quote" id="quote"></p>
+    <p class="err" id="sheet-err" role="alert"></p>
+
+    <form id="sheet-form" novalidate>
+      <label for="name">Họ và tên<input id="name" name="name" type="text" autocomplete="name" maxlength="100" placeholder="Nguyễn Văn A"></label>
+      <label for="phone">Số điện thoại / Zalo<input id="phone" name="phone" type="tel" inputmode="numeric" autocomplete="tel" maxlength="10" placeholder="09xxxxxxxx"></label>
+      <button type="submit" class="primary" id="sheet-submit">Hiển thị thông tin thanh toán</button>
+    </form>
+
+    <section id="details" hidden>
+      <div class="pay-grid">
+        <div class="qr-frame" id="qr-frame" aria-label="Mã QR nội dung đăng ký"></div>
+        <div>
+          <h3 id="pay-amount">49.000đ</h3>
+          <p>Ngân hàng <strong>ACB</strong></p>
+          <p>Số tài khoản <strong>970416 · 28776081</strong></p>
+          <p>Chủ tài khoản <strong>NGUYEN QUOC DAT</strong></p>
+          <p>Nội dung <strong class="memo" id="memo"></strong></p>
+          <button type="button" class="secondary" id="copy-info">Sao chép thông tin</button>
+          <p class="status" id="status" role="status"></p>
+        </div>
+      </div>
+      <footer class="sheet-foot">
+        <p class="thanks">Cảm ơn anh chị! Sự đóng góp của anh chị là động lực để tụi em duy trì, phát triển và có thêm kinh phí xây dựng những tính năng hữu ích hơn cho mọi người trong tương lai.</p>
+        <a class="zalo-link" id="zalo-link" href="https://zalo.me/0932155035" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H9l-6 3V6a2 2 0 0 1 2-2Z"/><path d="M8 8h8l-8 6h8"/></svg><span>Liên hệ Zalo · 0395995035 ↗</span></a>
+        <div class="sheet-actions">
+          <button type="button" class="secondary" id="copy-again">Sao chép nội dung</button>
+          <button type="button" class="secondary" id="sheet-done">Đóng</button>
+        </div>
+      </footer>
+    </section>
+  </div>
+</div>
+
 <script id="qr-lib">var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],f={},c=function(t,r){o=function(t){for(var r=new Array(t),e=0;e<t;e+=1){r[e]=new Array(t);for(var n=0;n<t;n+=1)r[e][n]=null}return r}(i=4*e+17),l(0,0),l(i-7,0),l(0,i-7),s(),h(),d(t,r),e>=7&&v(t),null==a&&(a=p(e,n,u)),w(a,r)},l=function(t,r){for(var e=-1;e<=7;e+=1)if(!(t+e<=-1||i<=t+e))for(var n=-1;n<=7;n+=1)r+n<=-1||i<=r+n||(o[t+e][r+n]=0<=e&&e<=6&&(0==n||6==n)||0<=n&&n<=6&&(0==e||6==e)||2<=e&&e<=4&&2<=n&&n<=4)},h=function(){for(var t=8;t<i-8;t+=1)null==o[t][6]&&(o[t][6]=t%2==0);for(var r=8;r<i-8;r+=1)null==o[6][r]&&(o[6][r]=r%2==0)},s=function(){for(var t=B.getPatternPosition(e),r=0;r<t.length;r+=1)for(var n=0;n<t.length;n+=1){var i=t[r],a=t[n];if(null==o[i][a])for(var u=-2;u<=2;u+=1)for(var f=-2;f<=2;f+=1)o[i+u][a+f]=-2==u||2==u||-2==f||2==f||0==u&&0==f}},v=function(t){for(var r=B.getBCHTypeNumber(e),n=0;n<18;n+=1){var a=!t&&1==(r>>n&1);o[Math.floor(n/3)][n%3+i-8-3]=a}for(n=0;n<18;n+=1){a=!t&&1==(r>>n&1);o[n%3+i-8-3][Math.floor(n/3)]=a}},d=function(t,r){for(var e=n<<3|r,a=B.getBCHTypeInfo(e),u=0;u<15;u+=1){var f=!t&&1==(a>>u&1);u<6?o[u][8]=f:u<8?o[u+1][8]=f:o[i-15+u][8]=f}for(u=0;u<15;u+=1){f=!t&&1==(a>>u&1);u<8?o[8][i-u-1]=f:u<9?o[8][15-u-1+1]=f:o[8][15-u-1]=f}o[i-8][8]=!t},w=function(t,r){for(var e=-1,n=i-1,a=7,u=0,f=B.getMaskFunction(r),c=i-1;c>0;c-=2)for(6==c&&(c-=1);;){for(var g=0;g<2;g+=1)if(null==o[n][c-g]){var l=!1;u<t.length&&(l=1==(t[u]>>>a&1)),f(n,c-g)&&(l=!l),o[n][c-g]=l,-1==(a-=1)&&(u+=1,a=7)}if((n+=e)<0||i<=n){n-=e,e=-e;break}}},p=function(t,r,e){for(var n=A.getRSBlocks(t,r),o=b(),i=0;i<e.length;i+=1){var a=e[i];o.put(a.getMode(),4),o.put(a.getLength(),B.getLengthInBits(a.getMode(),t)),a.write(o)}var u=0;for(i=0;i<n.length;i+=1)u+=n[i].dataCount;if(o.getLengthInBits()>8*u)throw"code length overflow. ("+o.getLengthInBits()+">"+8*u+")";for(o.getLengthInBits()+4<=8*u&&o.put(0,4);o.getLengthInBits()%8!=0;)o.putBit(!1);for(;!(o.getLengthInBits()>=8*u||(o.put(236,8),o.getLengthInBits()>=8*u));)o.put(17,8);return function(t,r){for(var e=0,n=0,o=0,i=new Array(r.length),a=new Array(r.length),u=0;u<r.length;u+=1){var f=r[u].dataCount,c=r[u].totalCount-f;n=Math.max(n,f),o=Math.max(o,c),i[u]=new Array(f);for(var g=0;g<i[u].length;g+=1)i[u][g]=255&t.getBuffer()[g+e];e+=f;var l=B.getErrorCorrectPolynomial(c),h=k(i[u],l.getLength()-1).mod(l);for(a[u]=new Array(l.getLength()-1),g=0;g<a[u].length;g+=1){var s=g+h.getLength()-a[u].length;a[u][g]=s>=0?h.getAt(s):0}}var v=0;for(g=0;g<r.length;g+=1)v+=r[g].totalCount;var d=new Array(v),w=0;for(g=0;g<n;g+=1)for(u=0;u<r.length;u+=1)g<i[u].length&&(d[w]=i[u][g],w+=1);for(g=0;g<o;g+=1)for(u=0;u<r.length;u+=1)g<a[u].length&&(d[w]=a[u][g],w+=1);return d}(o,n)};f.addData=function(t,r){var e=null;switch(r=r||"Byte"){case"Numeric":e=M(t);break;case"Alphanumeric":e=x(t);break;case"Byte":e=m(t);break;case"Kanji":e=L(t);break;default:throw"mode:"+r}u.push(e),a=null},f.isDark=function(t,r){if(t<0||i<=t||r<0||i<=r)throw t+","+r;return o[t][r]},f.getModuleCount=function(){return i},f.make=function(){if(e<1){for(var t=1;t<40;t++){for(var r=A.getRSBlocks(t,n),o=b(),i=0;i<u.length;i++){var a=u[i];o.put(a.getMode(),4),o.put(a.getLength(),B.getLengthInBits(a.getMode(),t)),a.write(o)}var g=0;for(i=0;i<r.length;i++)g+=r[i].dataCount;if(o.getLengthInBits()<=8*g)break}e=t}c(!1,function(){for(var t=0,r=0,e=0;e<8;e+=1){c(!0,e);var n=B.getLostPoint(f);(0==e||t>n)&&(t=n,r=e)}return r}())},f.createTableTag=function(t,r){t=t||2;var e="";e+='<table style="',e+=" border-width: 0px; border-style: none;",e+=" border-collapse: collapse;",e+=" padding: 0px; margin: "+(r=void 0===r?4*t:r)+"px;",e+='">',e+="<tbody>";for(var n=0;n<f.getModuleCount();n+=1){e+="<tr>";for(var o=0;o<f.getModuleCount();o+=1)e+='<td style="',e+=" border-width: 0px; border-style: none;",e+=" border-collapse: collapse;",e+=" padding: 0px; margin: 0px;",e+=" width: "+t+"px;",e+=" height: "+t+"px;",e+=" background-color: ",e+=f.isDark(n,o)?"#000000":"#ffffff",e+=";",e+='"/>';e+="</tr>"}return e+="</tbody>",e+="</table>"},f.createSvgTag=function(t,r,e,n){var o={};"object"==typeof arguments[0]&&(t=(o=arguments[0]).cellSize,r=o.margin,e=o.alt,n=o.title),t=t||2,r=void 0===r?4*t:r,(e="string"==typeof e?{text:e}:e||{}).text=e.text||null,e.id=e.text?e.id||"qrcode-description":null,(n="string"==typeof n?{text:n}:n||{}).text=n.text||null,n.id=n.text?n.id||"qrcode-title":null;var i,a,u,c,g=f.getModuleCount()*t+2*r,l="";for(c="l"+t+",0 0,"+t+" -"+t+",0 0,-"+t+"z ",l+='<svg version="1.1" xmlns="http://www.w3.org/2000/svg"',l+=o.scalable?"":' width="'+g+'px" height="'+g+'px"',l+=' viewBox="0 0 '+g+" "+g+'" ',l+=' preserveAspectRatio="xMinYMin meet"',l+=n.text||e.text?' role="img" aria-labelledby="'+y([n.id,e.id].join(" ").trim())+'"':"",l+=">",l+=n.text?'<title id="'+y(n.id)+'">'+y(n.text)+"</title>":"",l+=e.text?'<description id="'+y(e.id)+'">'+y(e.text)+"</description>":"",l+='<rect width="100%" height="100%" fill="white" cx="0" cy="0"/>',l+='<path d="',a=0;a<f.getModuleCount();a+=1)for(u=a*t+r,i=0;i<f.getModuleCount();i+=1)f.isDark(a,i)&&(l+="M"+(i*t+r)+","+u+c);return l+='" stroke="transparent" fill="black"/>',l+="</svg>"},f.createDataURL=function(t,r){t=t||2,r=void 0===r?4*t:r;var e=f.getModuleCount()*t+2*r,n=r,o=e-r;return I(e,e,(function(r,e){if(n<=r&&r<o&&n<=e&&e<o){var i=Math.floor((r-n)/t),a=Math.floor((e-n)/t);return f.isDark(a,i)?0:1}return 1}))},f.createImgTag=function(t,r,e){t=t||2,r=void 0===r?4*t:r;var n=f.getModuleCount()*t+2*r,o="";return o+="<img",o+=' src="',o+=f.createDataURL(t,r),o+='"',o+=' width="',o+=n,o+='"',o+=' height="',o+=n,o+='"',e&&(o+=' alt="',o+=y(e),o+='"'),o+="/>"};var y=function(t){for(var r="",e=0;e<t.length;e+=1){var n=t.charAt(e);switch(n){case"<":r+="&lt;";break;case">":r+="&gt;";break;case"&":r+="&amp;";break;case'"':r+="&quot;";break;default:r+=n}}return r};return f.createASCII=function(t,r){if((t=t||1)<2)return function(t){t=void 0===t?2:t;var r,e,n,o,i,a=1*f.getModuleCount()+2*t,u=t,c=a-t,g={"██":"█","█ ":"▀"," █":"▄","  ":" "},l={"██":"▀","█ ":"▀"," █":" ","  ":" "},h="";for(r=0;r<a;r+=2){for(n=Math.floor((r-u)/1),o=Math.floor((r+1-u)/1),e=0;e<a;e+=1)i="█",u<=e&&e<c&&u<=r&&r<c&&f.isDark(n,Math.floor((e-u)/1))&&(i=" "),u<=e&&e<c&&u<=r+1&&r+1<c&&f.isDark(o,Math.floor((e-u)/1))?i+=" ":i+="█",h+=t<1&&r+1>=c?l[i]:g[i];h+="\n"}return a%2&&t>0?h.substring(0,h.length-a-1)+Array(a+1).join("▀"):h.substring(0,h.length-1)}(r);t-=1,r=void 0===r?2*t:r;var e,n,o,i,a=f.getModuleCount()*t+2*r,u=r,c=a-r,g=Array(t+1).join("██"),l=Array(t+1).join("  "),h="",s="";for(e=0;e<a;e+=1){for(o=Math.floor((e-u)/t),s="",n=0;n<a;n+=1)i=1,u<=n&&n<c&&u<=e&&e<c&&f.isDark(o,Math.floor((n-u)/t))&&(i=0),s+=i?g:l;for(o=0;o<t;o+=1)h+=s+"\n"}return h.substring(0,h.length-1)},f.renderTo2dContext=function(t,r){r=r||2;for(var e=f.getModuleCount(),n=0;n<e;n++)for(var o=0;o<e;o++)t.fillStyle=f.isDark(n,o)?"black":"white",t.fillRect(n*r,o*r,r,r)},f};t.stringToBytes=(t.stringToBytesFuncs={default:function(t){for(var r=[],e=0;e<t.length;e+=1){var n=t.charCodeAt(e);r.push(255&n)}return r}}).default,t.createStringToBytes=function(t,r){var e=function(){for(var e=S(t),n=function(){var t=e.read();if(-1==t)throw"eof";return t},o=0,i={};;){var a=e.read();if(-1==a)break;var u=n(),f=n()<<8|n();i[String.fromCharCode(a<<8|u)]=f,o+=1}if(o!=r)throw o+" != "+r;return i}(),n="?".charCodeAt(0);return function(t){for(var r=[],o=0;o<t.length;o+=1){var i=t.charCodeAt(o);if(i<128)r.push(i);else{var a=e[t.charAt(o)];"number"==typeof a?(255&a)==a?r.push(a):(r.push(a>>>8),r.push(255&a)):r.push(n)}}return r}};var r,e,n,o,i,a=1,u=2,f=4,c=8,g={L:1,M:0,Q:3,H:2},l=0,h=1,s=2,v=3,d=4,w=5,p=6,y=7,B=(r=[[],[6,18],[6,22],[6,26],[6,30],[6,34],[6,22,38],[6,24,42],[6,26,46],[6,28,50],[6,30,54],[6,32,58],[6,34,62],[6,26,46,66],[6,26,48,70],[6,26,50,74],[6,30,54,78],[6,30,56,82],[6,30,58,86],[6,34,62,90],[6,28,50,72,94],[6,26,50,74,98],[6,30,54,78,102],[6,28,54,80,106],[6,32,58,84,110],[6,30,58,86,114],[6,34,62,90,118],[6,26,50,74,98,122],[6,30,54,78,102,126],[6,26,52,78,104,130],[6,30,56,82,108,134],[6,34,60,86,112,138],[6,30,58,86,114,142],[6,34,62,90,118,146],[6,30,54,78,102,126,150],[6,24,50,76,102,128,154],[6,28,54,80,106,132,158],[6,32,58,84,110,136,162],[6,26,54,82,110,138,166],[6,30,58,86,114,142,170]],e=1335,n=7973,i=function(t){for(var r=0;0!=t;)r+=1,t>>>=1;return r},(o={}).getBCHTypeInfo=function(t){for(var r=t<<10;i(r)-i(e)>=0;)r^=e<<i(r)-i(e);return 21522^(t<<10|r)},o.getBCHTypeNumber=function(t){for(var r=t<<12;i(r)-i(n)>=0;)r^=n<<i(r)-i(n);return t<<12|r},o.getPatternPosition=function(t){return r[t-1]},o.getMaskFunction=function(t){switch(t){case l:return function(t,r){return(t+r)%2==0};case h:return function(t,r){return t%2==0};case s:return function(t,r){return r%3==0};case v:return function(t,r){return(t+r)%3==0};case d:return function(t,r){return(Math.floor(t/2)+Math.floor(r/3))%2==0};case w:return function(t,r){return t*r%2+t*r%3==0};case p:return function(t,r){return(t*r%2+t*r%3)%2==0};case y:return function(t,r){return(t*r%3+(t+r)%2)%2==0};default:throw"bad maskPattern:"+t}},o.getErrorCorrectPolynomial=function(t){for(var r=k([1],0),e=0;e<t;e+=1)r=r.multiply(k([1,C.gexp(e)],0));return r},o.getLengthInBits=function(t,r){if(1<=r&&r<10)switch(t){case a:return 10;case u:return 9;case f:case c:return 8;default:throw"mode:"+t}else if(r<27)switch(t){case a:return 12;case u:return 11;case f:return 16;case c:return 10;default:throw"mode:"+t}else{if(!(r<41))throw"type:"+r;switch(t){case a:return 14;case u:return 13;case f:return 16;case c:return 12;default:throw"mode:"+t}}},o.getLostPoint=function(t){for(var r=t.getModuleCount(),e=0,n=0;n<r;n+=1)for(var o=0;o<r;o+=1){for(var i=0,a=t.isDark(n,o),u=-1;u<=1;u+=1)if(!(n+u<0||r<=n+u))for(var f=-1;f<=1;f+=1)o+f<0||r<=o+f||0==u&&0==f||a==t.isDark(n+u,o+f)&&(i+=1);i>5&&(e+=3+i-5)}for(n=0;n<r-1;n+=1)for(o=0;o<r-1;o+=1){var c=0;t.isDark(n,o)&&(c+=1),t.isDark(n+1,o)&&(c+=1),t.isDark(n,o+1)&&(c+=1),t.isDark(n+1,o+1)&&(c+=1),0!=c&&4!=c||(e+=3)}for(n=0;n<r;n+=1)for(o=0;o<r-6;o+=1)t.isDark(n,o)&&!t.isDark(n,o+1)&&t.isDark(n,o+2)&&t.isDark(n,o+3)&&t.isDark(n,o+4)&&!t.isDark(n,o+5)&&t.isDark(n,o+6)&&(e+=40);for(o=0;o<r;o+=1)for(n=0;n<r-6;n+=1)t.isDark(n,o)&&!t.isDark(n+1,o)&&t.isDark(n+2,o)&&t.isDark(n+3,o)&&t.isDark(n+4,o)&&!t.isDark(n+5,o)&&t.isDark(n+6,o)&&(e+=40);var g=0;for(o=0;o<r;o+=1)for(n=0;n<r;n+=1)t.isDark(n,o)&&(g+=1);return e+=Math.abs(100*g/r/r-50)/5*10},o),C=function(){for(var t=new Array(256),r=new Array(256),e=0;e<8;e+=1)t[e]=1<<e;for(e=8;e<256;e+=1)t[e]=t[e-4]^t[e-5]^t[e-6]^t[e-8];for(e=0;e<255;e+=1)r[t[e]]=e;var n={glog:function(t){if(t<1)throw"glog("+t+")";return r[t]},gexp:function(r){for(;r<0;)r+=255;for(;r>=256;)r-=255;return t[r]}};return n}();function k(t,r){if(void 0===t.length)throw t.length+"/"+r;var e=function(){for(var e=0;e<t.length&&0==t[e];)e+=1;for(var n=new Array(t.length-e+r),o=0;o<t.length-e;o+=1)n[o]=t[o+e];return n}(),n={getAt:function(t){return e[t]},getLength:function(){return e.length},multiply:function(t){for(var r=new Array(n.getLength()+t.getLength()-1),e=0;e<n.getLength();e+=1)for(var o=0;o<t.getLength();o+=1)r[e+o]^=C.gexp(C.glog(n.getAt(e))+C.glog(t.getAt(o)));return k(r,0)},mod:function(t){if(n.getLength()-t.getLength()<0)return n;for(var r=C.glog(n.getAt(0))-C.glog(t.getAt(0)),e=new Array(n.getLength()),o=0;o<n.getLength();o+=1)e[o]=n.getAt(o);for(o=0;o<t.getLength();o+=1)e[o]^=C.gexp(C.glog(t.getAt(o))+r);return k(e,0).mod(t)}};return n}var A=function(){var t=[[1,26,19],[1,26,16],[1,26,13],[1,26,9],[1,44,34],[1,44,28],[1,44,22],[1,44,16],[1,70,55],[1,70,44],[2,35,17],[2,35,13],[1,100,80],[2,50,32],[2,50,24],[4,25,9],[1,134,108],[2,67,43],[2,33,15,2,34,16],[2,33,11,2,34,12],[2,86,68],[4,43,27],[4,43,19],[4,43,15],[2,98,78],[4,49,31],[2,32,14,4,33,15],[4,39,13,1,40,14],[2,121,97],[2,60,38,2,61,39],[4,40,18,2,41,19],[4,40,14,2,41,15],[2,146,116],[3,58,36,2,59,37],[4,36,16,4,37,17],[4,36,12,4,37,13],[2,86,68,2,87,69],[4,69,43,1,70,44],[6,43,19,2,44,20],[6,43,15,2,44,16],[4,101,81],[1,80,50,4,81,51],[4,50,22,4,51,23],[3,36,12,8,37,13],[2,116,92,2,117,93],[6,58,36,2,59,37],[4,46,20,6,47,21],[7,42,14,4,43,15],[4,133,107],[8,59,37,1,60,38],[8,44,20,4,45,21],[12,33,11,4,34,12],[3,145,115,1,146,116],[4,64,40,5,65,41],[11,36,16,5,37,17],[11,36,12,5,37,13],[5,109,87,1,110,88],[5,65,41,5,66,42],[5,54,24,7,55,25],[11,36,12,7,37,13],[5,122,98,1,123,99],[7,73,45,3,74,46],[15,43,19,2,44,20],[3,45,15,13,46,16],[1,135,107,5,136,108],[10,74,46,1,75,47],[1,50,22,15,51,23],[2,42,14,17,43,15],[5,150,120,1,151,121],[9,69,43,4,70,44],[17,50,22,1,51,23],[2,42,14,19,43,15],[3,141,113,4,142,114],[3,70,44,11,71,45],[17,47,21,4,48,22],[9,39,13,16,40,14],[3,135,107,5,136,108],[3,67,41,13,68,42],[15,54,24,5,55,25],[15,43,15,10,44,16],[4,144,116,4,145,117],[17,68,42],[17,50,22,6,51,23],[19,46,16,6,47,17],[2,139,111,7,140,112],[17,74,46],[7,54,24,16,55,25],[34,37,13],[4,151,121,5,152,122],[4,75,47,14,76,48],[11,54,24,14,55,25],[16,45,15,14,46,16],[6,147,117,4,148,118],[6,73,45,14,74,46],[11,54,24,16,55,25],[30,46,16,2,47,17],[8,132,106,4,133,107],[8,75,47,13,76,48],[7,54,24,22,55,25],[22,45,15,13,46,16],[10,142,114,2,143,115],[19,74,46,4,75,47],[28,50,22,6,51,23],[33,46,16,4,47,17],[8,152,122,4,153,123],[22,73,45,3,74,46],[8,53,23,26,54,24],[12,45,15,28,46,16],[3,147,117,10,148,118],[3,73,45,23,74,46],[4,54,24,31,55,25],[11,45,15,31,46,16],[7,146,116,7,147,117],[21,73,45,7,74,46],[1,53,23,37,54,24],[19,45,15,26,46,16],[5,145,115,10,146,116],[19,75,47,10,76,48],[15,54,24,25,55,25],[23,45,15,25,46,16],[13,145,115,3,146,116],[2,74,46,29,75,47],[42,54,24,1,55,25],[23,45,15,28,46,16],[17,145,115],[10,74,46,23,75,47],[10,54,24,35,55,25],[19,45,15,35,46,16],[17,145,115,1,146,116],[14,74,46,21,75,47],[29,54,24,19,55,25],[11,45,15,46,46,16],[13,145,115,6,146,116],[14,74,46,23,75,47],[44,54,24,7,55,25],[59,46,16,1,47,17],[12,151,121,7,152,122],[12,75,47,26,76,48],[39,54,24,14,55,25],[22,45,15,41,46,16],[6,151,121,14,152,122],[6,75,47,34,76,48],[46,54,24,10,55,25],[2,45,15,64,46,16],[17,152,122,4,153,123],[29,74,46,14,75,47],[49,54,24,10,55,25],[24,45,15,46,46,16],[4,152,122,18,153,123],[13,74,46,32,75,47],[48,54,24,14,55,25],[42,45,15,32,46,16],[20,147,117,4,148,118],[40,75,47,7,76,48],[43,54,24,22,55,25],[10,45,15,67,46,16],[19,148,118,6,149,119],[18,75,47,31,76,48],[34,54,24,34,55,25],[20,45,15,61,46,16]],r=function(t,r){var e={};return e.totalCount=t,e.dataCount=r,e},e={};return e.getRSBlocks=function(e,n){var o=function(r,e){switch(e){case g.L:return t[4*(r-1)+0];case g.M:return t[4*(r-1)+1];case g.Q:return t[4*(r-1)+2];case g.H:return t[4*(r-1)+3];default:return}}(e,n);if(void 0===o)throw"bad rs block @ typeNumber:"+e+"/errorCorrectionLevel:"+n;for(var i=o.length/3,a=[],u=0;u<i;u+=1)for(var f=o[3*u+0],c=o[3*u+1],l=o[3*u+2],h=0;h<f;h+=1)a.push(r(c,l));return a},e}(),b=function(){var t=[],r=0,e={getBuffer:function(){return t},getAt:function(r){var e=Math.floor(r/8);return 1==(t[e]>>>7-r%8&1)},put:function(t,r){for(var n=0;n<r;n+=1)e.putBit(1==(t>>>r-n-1&1))},getLengthInBits:function(){return r},putBit:function(e){var n=Math.floor(r/8);t.length<=n&&t.push(0),e&&(t[n]|=128>>>r%8),r+=1}};return e},M=function(t){var r=a,e=t,n={getMode:function(){return r},getLength:function(t){return e.length},write:function(t){for(var r=e,n=0;n+2<r.length;)t.put(o(r.substring(n,n+3)),10),n+=3;n<r.length&&(r.length-n==1?t.put(o(r.substring(n,n+1)),4):r.length-n==2&&t.put(o(r.substring(n,n+2)),7))}},o=function(t){for(var r=0,e=0;e<t.length;e+=1)r=10*r+i(t.charAt(e));return r},i=function(t){if("0"<=t&&t<="9")return t.charCodeAt(0)-"0".charCodeAt(0);throw"illegal char :"+t};return n},x=function(t){var r=u,e=t,n={getMode:function(){return r},getLength:function(t){return e.length},write:function(t){for(var r=e,n=0;n+1<r.length;)t.put(45*o(r.charAt(n))+o(r.charAt(n+1)),11),n+=2;n<r.length&&t.put(o(r.charAt(n)),6)}},o=function(t){if("0"<=t&&t<="9")return t.charCodeAt(0)-"0".charCodeAt(0);if("A"<=t&&t<="Z")return t.charCodeAt(0)-"A".charCodeAt(0)+10;switch(t){case" ":return 36;case"$":return 37;case"%":return 38;case"*":return 39;case"+":return 40;case"-":return 41;case".":return 42;case"/":return 43;case":":return 44;default:throw"illegal char :"+t}};return n},m=function(r){var e=f,n=t.stringToBytes(r),o={getMode:function(){return e},getLength:function(t){return n.length},write:function(t){for(var r=0;r<n.length;r+=1)t.put(n[r],8)}};return o},L=function(r){var e=c,n=t.stringToBytesFuncs.SJIS;if(!n)throw"sjis not supported.";!function(){var t=n("友");if(2!=t.length||38726!=(t[0]<<8|t[1]))throw"sjis not supported."}();var o=n(r),i={getMode:function(){return e},getLength:function(t){return~~(o.length/2)},write:function(t){for(var r=o,e=0;e+1<r.length;){var n=(255&r[e])<<8|255&r[e+1];if(33088<=n&&n<=40956)n-=33088;else{if(!(57408<=n&&n<=60351))throw"illegal char at "+(e+1)+"/"+n;n-=49472}n=192*(n>>>8&255)+(255&n),t.put(n,13),e+=2}if(e<r.length)throw"illegal char at "+(e+1)}};return i},D=function(){var t=[],r={writeByte:function(r){t.push(255&r)},writeShort:function(t){r.writeByte(t),r.writeByte(t>>>8)},writeBytes:function(t,e,n){e=e||0,n=n||t.length;for(var o=0;o<n;o+=1)r.writeByte(t[o+e])},writeString:function(t){for(var e=0;e<t.length;e+=1)r.writeByte(t.charCodeAt(e))},toByteArray:function(){return t},toString:function(){var r="";r+="[";for(var e=0;e<t.length;e+=1)e>0&&(r+=","),r+=t[e];return r+="]"}};return r},S=function(t){var r=t,e=0,n=0,o=0,i={read:function(){for(;o<8;){if(e>=r.length){if(0==o)return-1;throw"unexpected end of file./"+o}var t=r.charAt(e);if(e+=1,"="==t)return o=0,-1;t.match(/^\s$/)||(n=n<<6|a(t.charCodeAt(0)),o+=6)}var i=n>>>o-8&255;return o-=8,i}},a=function(t){if(65<=t&&t<=90)return t-65;if(97<=t&&t<=122)return t-97+26;if(48<=t&&t<=57)return t-48+52;if(43==t)return 62;if(47==t)return 63;throw"c:"+t};return i},I=function(t,r,e){for(var n=function(t,r){var e=t,n=r,o=new Array(t*r),i={setPixel:function(t,r,n){o[r*e+t]=n},write:function(t){t.writeString("GIF87a"),t.writeShort(e),t.writeShort(n),t.writeByte(128),t.writeByte(0),t.writeByte(0),t.writeByte(0),t.writeByte(0),t.writeByte(0),t.writeByte(255),t.writeByte(255),t.writeByte(255),t.writeString(","),t.writeShort(0),t.writeShort(0),t.writeShort(e),t.writeShort(n),t.writeByte(0);var r=a(2);t.writeByte(2);for(var o=0;r.length-o>255;)t.writeByte(255),t.writeBytes(r,o,255),o+=255;t.writeByte(r.length-o),t.writeBytes(r,o,r.length-o),t.writeByte(0),t.writeString(";")}},a=function(t){for(var r=1<<t,e=1+(1<<t),n=t+1,i=u(),a=0;a<r;a+=1)i.add(String.fromCharCode(a));i.add(String.fromCharCode(r)),i.add(String.fromCharCode(e));var f,c,g,l=D(),h=(f=l,c=0,g=0,{write:function(t,r){if(t>>>r!=0)throw"length over";for(;c+r>=8;)f.writeByte(255&(t<<c|g)),r-=8-c,t>>>=8-c,g=0,c=0;g|=t<<c,c+=r},flush:function(){c>0&&f.writeByte(g)}});h.write(r,n);var s=0,v=String.fromCharCode(o[s]);for(s+=1;s<o.length;){var d=String.fromCharCode(o[s]);s+=1,i.contains(v+d)?v+=d:(h.write(i.indexOf(v),n),i.size()<4095&&(i.size()==1<<n&&(n+=1),i.add(v+d)),v=d)}return h.write(i.indexOf(v),n),h.write(e,n),h.flush(),l.toByteArray()},u=function(){var t={},r=0,e={add:function(n){if(e.contains(n))throw"dup key:"+n;t[n]=r,r+=1},size:function(){return r},indexOf:function(r){return t[r]},contains:function(r){return void 0!==t[r]}};return e};return i}(t,r),o=0;o<r;o+=1)for(var i=0;i<t;i+=1)n.setPixel(i,o,e(i,o));var a=D();n.write(a);for(var u=function(){var t=0,r=0,e=0,n="",o={},i=function(t){n+=String.fromCharCode(a(63&t))},a=function(t){if(t<0);else{if(t<26)return 65+t;if(t<52)return t-26+97;if(t<62)return t-52+48;if(62==t)return 43;if(63==t)return 47}throw"n:"+t};return o.writeByte=function(n){for(t=t<<8|255&n,r+=8,e+=1;r>=6;)i(t>>>r-6),r-=6},o.flush=function(){if(r>0&&(i(t<<6-r),t=0,r=0),e%3!=0)for(var o=3-e%3,a=0;a<o;a+=1)n+="="},o.toString=function(){return n},o}(),f=a.toByteArray(),c=0;c<f.length;c+=1)u.writeByte(f[c]);return u.flush(),"data:image/gif;base64,"+u};return t}();qrcode.stringToBytesFuncs["UTF-8"]=function(t){return function(t){for(var r=[],e=0;e<t.length;e++){var n=t.charCodeAt(e);n<128?r.push(n):n<2048?r.push(192|n>>6,128|63&n):n<55296||n>=57344?r.push(224|n>>12,128|n>>6&63,128|63&n):(e++,n=65536+((1023&n)<<10|1023&t.charCodeAt(e)),r.push(240|n>>18,128|n>>12&63,128|n>>6&63,128|63&n))}return r}(t)},function(t){"function"==typeof define&&define.amd?define([],t):"object"==typeof exports&&(module.exports=t())}((function(){return qrcode}));</script>
 <script>
 (function () {
   'use strict';
-  qrcode.stringToBytes = qrcode.stringToBytesFuncs['UTF-8'];
+  if (window.qrcode && qrcode.stringToBytesFuncs && qrcode.stringToBytesFuncs['UTF-8']) {
+    qrcode.stringToBytes = qrcode.stringToBytesFuncs['UTF-8'];
+  }
 
-  var term = 'month';
-  var plan = null;
-  var currentText = '';
-  var termName = { month: 'Tháng', year: 'Năm', lifetime: 'Vĩnh viễn' };
   var prices = {
-    plus: { month: '49.000', year: '499.000', lifetime: '1.499.000' },
-    pro: { month: '99.000', year: '999.000', lifetime: '1.999.000' }
+    FREE: { month: '0', year: '0', lifetime: '0' },
+    PLUS: { month: '49.000', year: '499.000', lifetime: '1.499.000' },
+    PRO: { month: '99.000', year: '999.000', lifetime: '1.999.000' }
   };
+  var limits = { FREE: '1 MST', PLUS: '2–15 MST', PRO: 'Không giới hạn MST' };
+  var termLabel = { month: 'Theo tháng', year: 'Theo năm', lifetime: 'Vĩnh viễn' };
+  var termAscii = { month: 'Theo thang', year: 'Theo nam', lifetime: 'Vinh vien' };
+  var term = 'month', plan = null, currentText = '';
 
-  var termBtns = document.querySelectorAll('.term');
-  var planBtns = document.querySelectorAll('.plan');
-  var formBlock = document.getElementById('formBlock');
-  var qrBlock = document.getElementById('qrBlock');
+  var termBtns = document.querySelectorAll('.term button');
+  var openBtns = document.querySelectorAll('[data-plan-open]');
+  var plans = document.getElementById('plans');
+  var cards = Array.prototype.slice.call(plans.querySelectorAll('.plan'));
+  var dots = Array.prototype.slice.call(document.querySelectorAll('.dot'));
+  var sheet = document.getElementById('sheet');
+  var form = document.getElementById('sheet-form');
+  var details = document.getElementById('details');
   var nameInput = document.getElementById('name');
   var phoneInput = document.getElementById('phone');
-  var err = document.getElementById('err');
-  var hint = document.getElementById('qrHint');
-  var frame = document.getElementById('qrFrame');
-  var payload = document.getElementById('payload');
-  var copyBtn = document.getElementById('copyBtn');
-  var zaloBtn = document.getElementById('zaloBtn');
+  var err = document.getElementById('sheet-err');
+  var quote = document.getElementById('quote');
+  var submit = document.getElementById('sheet-submit');
+  var amount = document.getElementById('pay-amount');
+  var memo = document.getElementById('memo');
+  var frame = document.getElementById('qr-frame');
   var status = document.getElementById('status');
 
-  function price() { return plan === 'free' ? '0' : prices[plan][term]; }
+  function money(value) { return value === '0' ? '0đ' : value + 'đ'; }
 
-  function renderPrices() {
-    document.querySelector('[data-price="free"]').textContent = '0đ';
-    document.querySelector('[data-price="plus"]').textContent = prices.plus[term] + 'đ';
-    document.querySelector('[data-price="pro"]').textContent = prices.pro[term] + 'đ';
+  function currentIndex() {
+    var center = plans.getBoundingClientRect().left + plans.clientWidth / 2;
+    var best = 0, min = Infinity;
+    for (var i = 0; i < cards.length; i++) {
+      var r = cards[i].getBoundingClientRect();
+      var d = Math.abs(r.left + r.width / 2 - center);
+      if (d < min) { min = d; best = i; }
+    }
+    return best;
+  }
+
+  function paintDots() {
+    var index = currentIndex();
+    for (var i = 0; i < dots.length; i++) dots[i].classList.toggle('active', i === index);
+  }
+
+  for (var d = 0; d < dots.length; d++) {
+    dots[d].addEventListener('click', function () {
+      var index = dots.indexOf(this);
+      if (cards[index]) cards[index].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    });
+  }
+  plans.addEventListener('scroll', paintDots, { passive: true });
+  window.addEventListener('resize', paintDots);
+
+  function render() {
+    for (var i = 0; i < termBtns.length; i++) {
+      termBtns[i].setAttribute('aria-pressed', String(termBtns[i].getAttribute('data-term') === term));
+    }
+    ['FREE', 'PLUS', 'PRO'].forEach(function (id) {
+      var node = document.querySelector('[data-price="' + id + '"]');
+      node.firstChild.textContent = money(prices[id][term]);
+      node.querySelector('small').textContent = id === 'FREE'
+        ? ' / không giới hạn thời gian'
+        : term === 'lifetime' ? ' / vĩnh viễn' : term === 'year' ? ' / năm' : ' / tháng';
+      var saving = document.querySelector('[data-savings="' + id + '"]');
+      if (saving) {
+        var saved = id === 'FREE' ? 0
+          : Number(prices[id].month.replace(/\./g, '')) * 12 - Number(prices[id].year.replace(/\./g, ''));
+        saving.textContent = id === 'FREE' ? 'Miễn phí không giới hạn thời gian'
+          : term === 'lifetime' ? 'Thanh toán một lần'
+          : term === 'year' ? 'Tiết kiệm ' + saved.toLocaleString('vi-VN') + 'đ so với 12 tháng lẻ'
+          : '';
+      }
+    });
+    if (plan) quote.textContent = plan + ' · ' + limits[plan] + ' · ' + termLabel[term] + ' · ' + money(prices[plan][term]);
+  }
+
+  function openSheet(id) {
+    plan = id;
+    currentText = '';
+    details.hidden = true;
+    frame.innerHTML = '';
+    status.textContent = '';
+    err.textContent = '';
+    submit.textContent = id === 'FREE' ? 'Tạo nội dung đăng ký Free' : 'Hiển thị thông tin thanh toán';
+    quote.textContent = id + ' · ' + limits[id] + ' · ' + termLabel[term] + ' · ' + money(prices[id][term]);
+    sheet.hidden = false;
+    document.body.style.overflow = 'hidden';
+    nameInput.focus();
+  }
+
+  function closeSheet() {
+    sheet.hidden = true;
+    document.body.style.overflow = '';
+    plan = null;
   }
 
   function buildText(name, phone) {
-    var planName = plan.charAt(0).toUpperCase() + plan.slice(1);
     var lines = [
       'CN TAX TOOLS - DANG KY BAN QUYEN',
-      'Goi: ' + planName + ' | Ky han: ' + termName[term],
+      'Goi: ' + plan + ' | Ky han: ' + termAscii[term],
       'Ten: ' + name,
       'So Zalo: ' + phone,
-      'So tien: ' + price() + ' VND',
-      'Noi dung CK: ' + planName + ' ' + termName[term] + ' ' + phone
+      'So tien: ' + prices[plan][term] + ' VND',
+      'Noi dung CK: ' + plan + ' ' + termAscii[term] + ' ' + phone
     ];
-    if (plan === 'free') lines.push('Khong can chuyen tien. Dung Free 1 MST trong ung dung.');
+    if (plan === 'FREE') lines.push('Khong can chuyen tien. Dung Free 1 MST trong ung dung.');
     lines.push('ACB 970416 - 28776081 - NGUYEN QUOC DAT');
     return lines.join('\n');
   }
 
-  function drawQR(text) {
-    var qr = qrcode(0, 'M');
-    qr.addData(text, 'Byte');
-    qr.make();
-    frame.innerHTML = qr.createSvgTag({ cellSize: 4, margin: 3, scalable: true });
-  }
-
-  function clearResult() {
-    frame.hidden = true;
-    frame.innerHTML = '';
-    payload.hidden = true;
-    copyBtn.hidden = true;
-    zaloBtn.hidden = true;
-    currentText = '';
-  }
-
-  function render() {
-    if (!plan) {
-      formBlock.hidden = true;
-      qrBlock.hidden = true;
-      clearResult();
-      return;
-    }
-    formBlock.hidden = false;
-    qrBlock.hidden = false;
-    var name = nameInput.value.trim();
-    var phone = phoneInput.value.trim();
-    if (!name || !/^0\d{9}$/.test(phone)) {
-      err.textContent = !name ? 'Nhập tên để tạo mã.' : 'Số Zalo phải có đúng 10 số, bắt đầu bằng 0.';
-      hint.textContent = !name ? 'Điền tên và số điện thoại để tạo mã.' : 'Nhập đúng số điện thoại để tạo mã.';
-      clearResult();
-      return;
-    }
-    err.textContent = '';
-    currentText = buildText(name, phone);
-    try {
-      drawQR(currentText);
-      frame.hidden = false;
-      hint.textContent = plan === 'free'
-        ? 'Free: giữ mã này để hỗ trợ, không cần chuyển tiền.'
-        : 'Quét mã để chuyển khoản.';
-    } catch (e) {
-      clearResult();
-      hint.textContent = 'Không tạo được mã QR. Vẫn có thể sao chép nội dung.';
-    }
-    payload.textContent = currentText;
-    payload.hidden = false;
-    copyBtn.hidden = false;
-    zaloBtn.hidden = false;
-    zaloBtn.textContent = plan === 'free' ? 'Nhắn Zalo để được hỗ trợ' : 'Nhắn Zalo nhận key';
-  }
-
-  function copyNow() {
-    if (!currentText) return false;
+  function legacyCopy(text) {
     var ta = document.createElement('textarea');
-    ta.value = currentText;
+    ta.value = text;
     ta.setAttribute('readonly', '');
     ta.style.position = 'fixed';
     ta.style.left = '-9999px';
     document.body.appendChild(ta);
     ta.select();
-    ta.setSelectionRange(0, currentText.length);
+    ta.setSelectionRange(0, text.length);
     var ok = false;
     try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
     document.body.removeChild(ta);
     return ok;
   }
 
-  var i;
-  for (i = 0; i < termBtns.length; i++) {
-    termBtns[i].addEventListener('click', function () {
-      term = this.getAttribute('data-term');
-      for (var j = 0; j < termBtns.length; j++) {
-        var on = termBtns[j] === this;
-        termBtns[j].classList.toggle('sel', on);
-        termBtns[j].setAttribute('aria-pressed', on ? 'true' : 'false');
-      }
-      renderPrices();
-      render();
-    });
+  function copyText(text) {
+    if (navigator.clipboard && window.isSecureContext) {
+      return navigator.clipboard.writeText(text).then(function () { return true; }, function () { return legacyCopy(text); });
+    }
+    return Promise.resolve(legacyCopy(text));
   }
-  for (i = 0; i < planBtns.length; i++) {
-    planBtns[i].addEventListener('click', function () {
-      plan = this.getAttribute('data-plan');
-      for (var j = 0; j < planBtns.length; j++) {
-        var on = planBtns[j] === this;
-        planBtns[j].classList.toggle('sel', on);
-        planBtns[j].setAttribute('aria-pressed', on ? 'true' : 'false');
-      }
-      status.textContent = '';
-      render();
-    });
+
+  function copyAndReport(text, okText, failText) {
+    copyText(text).then(function (ok) { status.textContent = ok ? okText : failText; });
   }
-  ['input', 'change'].forEach(function (evt) {
-    nameInput.addEventListener(evt, render);
-    phoneInput.addEventListener(evt, render);
+
+  for (var t = 0; t < termBtns.length; t++) {
+    termBtns[t].addEventListener('click', function () { term = this.getAttribute('data-term'); render(); });
+  }
+  for (var b = 0; b < openBtns.length; b++) {
+    openBtns[b].addEventListener('click', function () { openSheet(this.getAttribute('data-plan-open')); });
+  }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var name = nameInput.value.trim();
+    var phone = phoneInput.value.trim();
+    if (!name) { err.textContent = 'Vui lòng nhập họ tên.'; nameInput.focus(); return; }
+    if (!/^0\d{9}$/.test(phone)) { err.textContent = 'Số Zalo phải có đúng 10 số và bắt đầu bằng 0.'; phoneInput.focus(); return; }
+    err.textContent = '';
+    currentText = buildText(name, phone);
+    amount.textContent = money(prices[plan][term]);
+    memo.textContent = plan + ' ' + termLabel[term] + ' ' + phone;
+    details.hidden = false;
+    if (window.qrcode) {
+      try {
+        var qr = window.qrcode(0, 'M');
+        qr.addData(currentText, 'Byte');
+        qr.make();
+        frame.innerHTML = qr.createSvgTag({ cellSize: 4, margin: 3, scalable: true });
+      } catch (e) {
+        frame.innerHTML = '';
+        status.textContent = 'Không tạo được mã QR. Vẫn có thể sao chép nội dung.';
+      }
+    }
+    copyAndReport(currentText, 'Đã sao chép nội dung. Dán vào Zalo và gửi.', 'Chưa tự sao chép được. Bấm “Sao chép nội dung” bên dưới.');
   });
 
-  copyBtn.addEventListener('click', function () {
-    status.textContent = copyNow()
-      ? 'Đã sao chép nội dung.'
-      : 'Chưa sao chép được. Hãy chọn nội dung trong ô trên.';
+  document.getElementById('copy-info').addEventListener('click', function () {
+    copyAndReport(currentText, 'Đã sao chép thông tin thanh toán.', 'Chưa sao chép được. Hãy chọn nội dung trong ô trên.');
   });
-
-  zaloBtn.addEventListener('click', function (e) {
+  document.getElementById('copy-again').addEventListener('click', function () {
+    copyAndReport(currentText, 'Đã sao chép lại nội dung.', 'Chưa sao chép được. Hãy chọn nội dung trong ô trên.');
+  });
+  document.getElementById('sheet-close').addEventListener('click', closeSheet);
+  document.getElementById('sheet-done').addEventListener('click', closeSheet);
+  sheet.addEventListener('click', function (e) { if (e.target === sheet) closeSheet(); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !sheet.hidden) closeSheet(); });
+  document.getElementById('zalo-link').addEventListener('click', function (e) {
     if (!currentText) return;
     e.preventDefault();
-    var ok = copyNow();
-    status.textContent = ok
-      ? 'Đã sao chép nội dung. Dán vào Zalo và gửi.'
-      : 'Chưa sao chép được. Nhấn “Sao chép nội dung” trước.';
+    copyAndReport(currentText, 'Đã sao chép nội dung. Dán vào Zalo và gửi.', 'Chưa sao chép được. Bấm “Sao chép nội dung” trước.');
     window.open('https://zalo.me/0932155035', '_blank', 'noopener');
   });
 
-  renderPrices();
   render();
+  paintDots();
 })();
 </script>
+<a class="fab" href="https://zalo.me/0932155035" target="_blank" rel="noopener noreferrer" aria-label="Liên hệ Admin qua Zalo để nhận key"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H9l-6 3V6a2 2 0 0 1 2-2Z"/><path d="M8 8h8l-8 6h8"/></svg><span>Liên hệ Admin</span></a>
 </body>
 </html>
